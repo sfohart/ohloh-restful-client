@@ -1,4 +1,4 @@
-package br.ufba.dcc.mestrado.computacao;
+package br.ufba.dcc.mestrado.computacao.ohloh.client;
 
 import org.junit.Test;
 
