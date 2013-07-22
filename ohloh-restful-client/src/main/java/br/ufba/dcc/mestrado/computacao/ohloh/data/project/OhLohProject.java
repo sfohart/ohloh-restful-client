@@ -55,6 +55,9 @@ public class OhLohProject {
 	@XStreamAlias("rating_count")
 	private Integer ratingCount;
 	
+	@XStreamAlias("review_count")
+	private Integer reviewCount;
+	
 	@XStreamAlias("analysis_id")
 	private Integer analysisId;
 	
@@ -62,6 +65,9 @@ public class OhLohProject {
 	
 	@XStreamAlias("licenses")
 	private List<OhLohLicense> ohLohLicenses;
+	
+	@XStreamAlias("tags")
+	private List<OhLohTag> ohLohTags;
 	
 	public String getId() {
 		return id;
@@ -205,6 +211,22 @@ public class OhLohProject {
 
 	public void setOhLohLicenses(List<OhLohLicense> ohLohLicenses) {
 		this.ohLohLicenses = ohLohLicenses;
+	}
+
+	public Integer getReviewCount() {
+		return reviewCount;
+	}
+
+	public void setReviewCount(Integer reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
+	public List<OhLohTag> getOhLohTags() {
+		return ohLohTags;
+	}
+
+	public void setOhLohTags(List<OhLohTag> ohLohTags) {
+		this.ohLohTags = ohLohTags;
 	}
 	
 	

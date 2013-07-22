@@ -2,6 +2,8 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.stack;
 
 import java.sql.Timestamp;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProject;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
@@ -20,6 +22,9 @@ public class OhLohStackEntry {
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("created_at")
 	private Timestamp createdAt;
+	
+	@XStreamAlias("project")
+	private OhLohProject project;
 
 	public String getId() {
 		return id;
@@ -51,6 +56,14 @@ public class OhLohStackEntry {
 
 	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public OhLohProject getProject() {
+		return project;
+	}
+
+	public void setProject(OhLohProject project) {
+		this.project = project;
 	}
 	
 	

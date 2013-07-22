@@ -16,7 +16,7 @@ public class MetaOhLohApiAnalysisTest extends AbstractOhLohApiTest {
 	
 	@Test
 	public void testGetAnalysisById() {
-		OhLohAnalysis resource = getOhLohRestfulClient().getAnalysisById("maven2", "11371710", new OhLohBaseRequest());
+		OhLohAnalysis resource = getOhLohRestfulClient().getAnalysisById("maven2", "14696526", new OhLohBaseRequest());
 		org.junit.Assert.assertNotNull(resource);
 	}
 	

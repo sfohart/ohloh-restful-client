@@ -9,7 +9,7 @@ public class MetaOhLohApiActivityFactTest extends AbstractOhLohApiTest {
 
 	@Test
 	public void testGetProjectActivityFactsByAnalysisId() {
-		OhLohActivityFactResponse response = getOhLohRestfulClient().getProjectActivityFactByAnalysisId("maven2", "11371710");
+		OhLohActivityFactResponse response = getOhLohRestfulClient().getProjectActivityFactByAnalysisId("maven2", "14696526");
 		org.junit.Assert.assertEquals(OhLohBaseResponse.SUCCESS, response.getStatus());
 	}
 	

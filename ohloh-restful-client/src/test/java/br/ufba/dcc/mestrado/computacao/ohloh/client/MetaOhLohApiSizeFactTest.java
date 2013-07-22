@@ -16,7 +16,7 @@ public class MetaOhLohApiSizeFactTest extends AbstractOhLohApiTest {
 	
 	@Test
 	public void testSuccessGetLatestSizeFact() {
-		OhLohSizeFactResponse resource = getOhLohRestfulClient().getAnalysizSizeFactByProject("maven2", "11260404", new OhLohBaseRequest());
+		OhLohSizeFactResponse resource = getOhLohRestfulClient().getAnalysizSizeFactByProject("maven2", "14696526", new OhLohBaseRequest());
 		org.junit.Assert.assertEquals("success", resource.getStatus());
 	}
 	

@@ -16,7 +16,7 @@ public class MetaOhLohApiFactoidTest extends AbstractOhLohApiTest {
 	
 	@Test
 	public void testSuccessGetProjectFactoid() {
-		OhLohFactoidResponse resource = getOhLohRestfulClient().getSingleFactoidByProject("maven2", "34999042", new OhLohBaseRequest());
+		OhLohFactoidResponse resource = getOhLohRestfulClient().getSingleFactoidByProject("maven2", "53351233", new OhLohBaseRequest());
 		org.junit.Assert.assertEquals("success", resource.getStatus());
 	}
 	
