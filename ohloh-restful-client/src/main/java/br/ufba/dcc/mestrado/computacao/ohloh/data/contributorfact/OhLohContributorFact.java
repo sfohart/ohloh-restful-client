@@ -4,17 +4,23 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
 @XStreamAlias("contributor_fact")
+@Entity
+@Table(name="ohoh_contributor_fact")
 public class OhLohContributorFact {
 
 	@XStreamAlias("contributor_id")
+	@Id
 	private String id;
 	
 	@XStreamAlias("account_id")

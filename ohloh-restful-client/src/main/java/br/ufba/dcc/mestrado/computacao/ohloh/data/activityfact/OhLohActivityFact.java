@@ -2,11 +2,16 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.activityfact;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
 @XStreamAlias("activity_fact")
+@Entity
+@Table(name="ohoh_activity_fact")
 public class OhLohActivityFact {
 
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)

@@ -3,6 +3,10 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.stack;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccount;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -10,9 +14,13 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
 @XStreamAlias("stack")
+@Entity
+@Table(name="ohoh_stack")
 public class OhLohStack {
 
+	@Id
 	private String id;
+	
 	private String title;
 	private String description;
 	

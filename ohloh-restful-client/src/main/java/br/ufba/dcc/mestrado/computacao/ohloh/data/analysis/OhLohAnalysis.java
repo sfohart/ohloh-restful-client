@@ -3,6 +3,10 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.analysis;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import br.ufba.dcc.mestrado.computacao.ohloh.data.factoid.OhLohFactoid;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -10,11 +14,15 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
 @XStreamAlias(OhLohAnalysis.NODE_NAME)
+@Entity
+@Table(name="ohoh_analysis")
 public class OhLohAnalysis  {
 
 	public final static String NODE_NAME = "analysis";
 	
+	@Id
 	private String id;
+	
 	private String url;
 	
 	@XStreamAlias("project_id")

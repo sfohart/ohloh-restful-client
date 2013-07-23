@@ -2,6 +2,9 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.sizefact;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -9,6 +12,8 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
 @XStreamAlias("size_fact")
+@Entity
+@Table(name="ohoh_size_fact")
 public class OhLohSizeFact {
 
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)

@@ -1,10 +1,17 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("enlistment")
+@Entity
+@Table(name="ohoh_enlistment")
 public class OhLohEnlistment {
 
+	@Id
 	private String id;
 	
 	@XStreamAlias("project_id")

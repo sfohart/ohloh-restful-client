@@ -2,11 +2,16 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.kudoskore;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
 @XStreamAlias("kudo_score")
+@Entity
+@Table(name="ohoh_kudo_score")
 public class OhLohKudoScore {
 
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)

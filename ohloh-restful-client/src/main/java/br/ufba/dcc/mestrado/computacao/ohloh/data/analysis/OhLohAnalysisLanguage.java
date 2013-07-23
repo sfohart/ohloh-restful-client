@@ -1,5 +1,9 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.analysis;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
@@ -8,6 +12,8 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 
 @XStreamAlias("language")
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"content"})
+@Entity
+@Table(name="ohoh_language")
 public class OhLohAnalysisLanguage {
 
 	@XStreamAsAttribute
@@ -17,6 +23,7 @@ public class OhLohAnalysisLanguage {
 	private String color;
 	
 	@XStreamAsAttribute
+	@Id
 	private String id;
 
 	

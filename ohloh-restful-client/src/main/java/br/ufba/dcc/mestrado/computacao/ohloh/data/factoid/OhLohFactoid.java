@@ -1,5 +1,9 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.factoid;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
@@ -7,6 +11,8 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 
 @XStreamAlias("factoid")
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"description"})
+@Entity
+@Table(name="ohoh_factoid")
 public class OhLohFactoid {
 
 	@XStreamAsAttribute
@@ -15,6 +21,7 @@ public class OhLohFactoid {
 	@XStreamAlias("analysis_id")
 	private String analysisId;
 	
+	@Id
 	private Integer id;
 	
 	private Integer severity;

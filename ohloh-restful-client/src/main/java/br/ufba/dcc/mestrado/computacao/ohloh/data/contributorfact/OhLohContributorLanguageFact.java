@@ -1,11 +1,16 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 @XStreamAlias("contributor_language_fact")
+@Entity
+@Table(name="ohoh_contributor_language_fact")
 public class OhLohContributorLanguageFact {
 
 	@XStreamAlias("analysis_id")
