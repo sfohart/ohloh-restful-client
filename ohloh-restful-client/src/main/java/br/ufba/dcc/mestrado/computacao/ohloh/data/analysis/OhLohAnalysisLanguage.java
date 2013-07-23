@@ -10,11 +10,13 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 
 
-@XStreamAlias("language")
+@XStreamAlias(OhLohAnalysisLanguage.NODE_NAME)
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"content"})
 @Entity
-@Table(name="ohoh_language")
+@Table(name="ohoh_" + OhLohAnalysisLanguage.NODE_NAME)
 public class OhLohAnalysisLanguage {
+	
+	public final static String NODE_NAME = "language";
 
 	@XStreamAsAttribute
 	private Integer percentage;

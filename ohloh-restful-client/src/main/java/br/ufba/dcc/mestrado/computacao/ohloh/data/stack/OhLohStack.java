@@ -13,10 +13,12 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
-@XStreamAlias("stack")
+@XStreamAlias(OhLohStack.NODE_NAME)
 @Entity
-@Table(name="ohoh_stack")
+@Table(name="ohoh_" + OhLohStack.NODE_NAME)
 public class OhLohStack {
+	
+	public final static String NODE_NAME = "stack";
 
 	@Id
 	private String id;

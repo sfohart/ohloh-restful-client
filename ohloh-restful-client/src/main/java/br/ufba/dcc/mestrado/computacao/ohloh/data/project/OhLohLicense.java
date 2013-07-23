@@ -2,14 +2,22 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.project;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-@XStreamAlias("license")
+@XStreamAlias(OhLohLicense.NODE_NAME)
 @Entity
-@Table(name="ohloh_license")
+@Table(name="ohloh_" + OhLohLicense.NODE_NAME)
 public class OhLohLicense {
+	
+	public final static String NODE_NAME = "license";
+	
+	@Id
+	@GeneratedValue
+	private Long id;
 
 	@Column(unique=true)
 	private String name;
@@ -31,6 +39,14 @@ public class OhLohLicense {
 
 	public void setNiceName(String niceName) {
 		this.niceName = niceName;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

@@ -9,11 +9,13 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 
-@XStreamAlias("factoid")
+@XStreamAlias(OhLohFactoid.NODE_NAME)
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"description"})
 @Entity
-@Table(name="ohoh_factoid")
+@Table(name="ohoh_" + OhLohFactoid.NODE_NAME)
 public class OhLohFactoid {
+	
+	public final static String NODE_NAME = "factoid";
 
 	@XStreamAsAttribute
 	private String type;

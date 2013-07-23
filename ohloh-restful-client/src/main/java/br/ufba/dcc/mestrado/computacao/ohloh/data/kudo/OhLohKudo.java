@@ -3,16 +3,24 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.kudo;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
-@XStreamAlias("kudo")
+@XStreamAlias(OhLohKudo.NODE_NAME)
 @Entity
-@Table(name="ohoh_kudo")
+@Table(name="ohoh_" + OhLohKudo.NODE_NAME)
 public class OhLohKudo {
+	
+	public final static String NODE_NAME = "kudo";
+	
+	@Id
+	@GeneratedValue
+	private Long id;
 
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("created_at")
@@ -112,6 +120,14 @@ public class OhLohKudo {
 
 	public void setContributorName(String contributorName) {
 		this.contributorName = contributorName;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

@@ -6,7 +6,6 @@ import java.io.FileFilter;
 
 public class PropertyFileFilter implements FileFilter {
 
-    @Override
     public boolean accept(File pathname) {
 
         if (pathname == null) {

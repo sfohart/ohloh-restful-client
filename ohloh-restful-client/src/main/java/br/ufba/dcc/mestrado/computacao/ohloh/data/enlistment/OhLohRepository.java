@@ -10,9 +10,9 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
-@XStreamAlias("repository")
+@XStreamAlias(OhLohRepository.NODE_NAME)
 @Entity
-@Table(name="ohoh_repository")
+@Table(name="ohoh_" + OhLohRepository.NODE_NAME)
 public class OhLohRepository {
 
 	public enum OhLohRepositoryTypeEnum {
@@ -23,6 +23,8 @@ public class OhLohRepository {
 		BzrRepository,
 		SvnSyncRepository
 	}
+	
+	public final static String NODE_NAME = "repository";
 	
 	@Id
 	private String id;

@@ -6,10 +6,12 @@ import javax.persistence.Table;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-@XStreamAlias("enlistment")
+@XStreamAlias(OhLohEnlistment.NODE_NAME)
 @Entity
-@Table(name="ohoh_enlistment")
+@Table(name="ohoh_" + OhLohEnlistment.NODE_NAME)
 public class OhLohEnlistment {
+	
+	public final static String NODE_NAME = "enlistment";
 
 	@Id
 	private String id;

@@ -3,6 +3,8 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.sizefact;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
@@ -11,10 +13,16 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
-@XStreamAlias("size_fact")
+@XStreamAlias(OhLohSizeFact.NODE_NAME)
 @Entity
-@Table(name="ohoh_size_fact")
+@Table(name="ohoh_" + OhLohSizeFact.NODE_NAME)
 public class OhLohSizeFact {
+	
+	public final static String NODE_NAME = "size_fact";
+	
+	@Id
+	@GeneratedValue
+	private Long id;
 
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	private Timestamp month;
@@ -88,6 +96,14 @@ public class OhLohSizeFact {
 
 	public void setManMonths(Integer manMonths) {
 		this.manMonths = manMonths;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

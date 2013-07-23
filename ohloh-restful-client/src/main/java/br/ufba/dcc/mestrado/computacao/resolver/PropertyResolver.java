@@ -22,7 +22,7 @@ import javax.inject.Singleton;
 @Singleton
 public class PropertyResolver {
 
-	private Map<String, Object> properties = new HashMap<>();
+	private Map<String, Object> properties = new HashMap<String, Object>();
 	
 	
 	public String getValue(String key) {
@@ -32,7 +32,7 @@ public class PropertyResolver {
     }
 	
 	private List<File> getPropertyFiles(ClassLoader classLoader) throws IOException {
-        List<File> result = new ArrayList<>();
+        List<File> result = new ArrayList<File>();
 
         InputStream inputStream = classLoader.getResourceAsStream("./");
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));

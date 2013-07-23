@@ -15,7 +15,7 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohProject.NODE_NAME)
 @Entity
-@Table(name="ohoh_project")
+@Table(name="ohoh_" + OhLohProject.NODE_NAME)
 public class OhLohProject {
 
 	public final static String NODE_NAME = "project";

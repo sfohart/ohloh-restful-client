@@ -1,6 +1,8 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
@@ -8,10 +10,16 @@ import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverte
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
-@XStreamAlias("contributor_language_fact")
+@XStreamAlias(OhLohContributorLanguageFact.NODE_NAME)
 @Entity
-@Table(name="ohoh_contributor_language_fact")
+@Table(name="ohoh_" + OhLohContributorLanguageFact.NODE_NAME)
 public class OhLohContributorLanguageFact {
+	
+	public final static String NODE_NAME = "contributor_language_fact";
+	
+	@Id
+	@GeneratedValue
+	private Long id;
 
 	@XStreamAlias("analysis_id")
 	private String analysisId;
@@ -111,6 +119,14 @@ public class OhLohContributorLanguageFact {
 
 	public void setMedianCommits(Double medianCommits) {
 		this.medianCommits = medianCommits;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

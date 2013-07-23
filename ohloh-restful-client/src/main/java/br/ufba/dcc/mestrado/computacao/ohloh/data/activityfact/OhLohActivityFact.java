@@ -3,16 +3,24 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.activityfact;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
-@XStreamAlias("activity_fact")
+@XStreamAlias(OhLohActivityFact.NODE_NAME)
 @Entity
-@Table(name="ohoh_activity_fact")
+@Table(name="ohoh_" + OhLohActivityFact.NODE_NAME)
 public class OhLohActivityFact {
+	
+	public final static String NODE_NAME = "activity_fact";
+	
+	@Id
+	@GeneratedValue
+	private Long id;
 
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	private Timestamp month;
@@ -109,6 +117,14 @@ public class OhLohActivityFact {
 
 	public void setContributors(Long contributors) {
 		this.contributors = contributors;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

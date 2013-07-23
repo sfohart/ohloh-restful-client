@@ -13,11 +13,13 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
-@XStreamAlias("account")
+@XStreamAlias(OhLohAccount.NODE_NAME)
 @Entity
-@Table(name="ohoh_account")
+@Table(name="ohoh_" + OhLohAccount.NODE_NAME)
 public class OhLohAccount {
 
+	public final static String NODE_NAME = "account";
+	
 	/**
 	 * The unique ID for the Account.
 	 */
