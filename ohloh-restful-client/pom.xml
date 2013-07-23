@@ -5,6 +5,8 @@
 	<artifactId>ohloh-test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+
+
 	<dependencies>
 		<dependency>
 			<groupId>br.com.caelum</groupId>
@@ -35,6 +37,39 @@
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
 		</dependency>
+
+		<!-- Banco de dados -->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901.jdbc4</version>
+		</dependency>
+
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.1.10.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.1.10.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.0.Final</version>
+		</dependency>
+
+		<!-- Weld -->
+		<dependency>
+			<groupId>org.jboss.weld.se</groupId>
+			<artifactId>weld-se</artifactId>
+			<version>2.0.3.Final</version>
+		</dependency>
+
+
 	</dependencies>
 
 

@@ -2,6 +2,10 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.account;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import br.ufba.dcc.mestrado.computacao.ohloh.data.kudoskore.OhLohKudoScore;
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
 
@@ -10,11 +14,14 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
 @XStreamAlias("account")
+@Entity
+@Table(name="ohoh_account")
 public class OhLohAccount {
 
 	/**
 	 * The unique ID for the Account.
 	 */
+	@Id
 	private String id;
 	
 	/**

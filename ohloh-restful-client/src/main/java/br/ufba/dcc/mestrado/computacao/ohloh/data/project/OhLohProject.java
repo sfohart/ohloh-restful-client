@@ -3,6 +3,10 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.project;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysis;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -10,11 +14,15 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
 @XStreamAlias(OhLohProject.NODE_NAME)
+@Entity
+@Table(name="ohoh_project")
 public class OhLohProject {
 
 	public final static String NODE_NAME = "project";
 	
+	@Id
 	private String id;
+		
 	private String name;
 	private String url;
 	
@@ -59,7 +67,7 @@ public class OhLohProject {
 	private Integer reviewCount;
 	
 	@XStreamAlias("analysis_id")
-	private Integer analysisId;
+	private String analysisId;
 	
 	private OhLohAnalysis analysis;
 	
@@ -189,11 +197,11 @@ public class OhLohProject {
 		this.ratingCount = ratingCount;
 	}
 
-	public Integer getAnalysisId() {
+	public String getAnalysisId() {
 		return analysisId;
 	}
 
-	public void setAnalysisId(Integer analysisId) {
+	public void setAnalysisId(String analysisId) {
 		this.analysisId = analysisId;
 	}
 

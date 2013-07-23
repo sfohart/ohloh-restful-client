@@ -6,6 +6,8 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Properties;
 
+import javax.inject.Inject;
+
 import br.com.caelum.restfulie.Response;
 import br.com.caelum.restfulie.RestClient;
 import br.com.caelum.restfulie.Restfulie;
@@ -42,10 +44,14 @@ import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohKudoResponse
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohProjectResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohSizeFactResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohStackResponse;
+import br.ufba.dcc.mestrado.computacao.qualifier.ConfigurationValue;
 
 public class OhLohRestfulClient {
 	
+	@Inject
+	@ConfigurationValue("test.ohloh.api.key")
 	private String apiKey;
+
 	private static Properties properties;
 	
 	public OhLohRestfulClient() {
@@ -107,15 +113,15 @@ public class OhLohRestfulClient {
 		
 		if (request != null) {
 			if (request.getQuery() != null && ! "".equals(request.getQuery())) {
-				uri += "&query=" + request.getQuery();
+				newURI += "&query=" + request.getQuery();
 			}
 			
 			if (request.getSort() != null && ! "".equals(request.getSort())) {
-				uri += "&sort=" + request.getSort();
+				newURI += "&sort=" + request.getSort();
 			}
 			
 			if (request.getPage() != null) {
-				uri += "&page=" + request.getPage();
+				newURI += "&page=" + request.getPage();
 			}
 		}
 		
