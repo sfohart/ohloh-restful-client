@@ -14,7 +14,7 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 @XStreamAlias(OhLohFactoid.NODE_NAME)
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"description"})
 @Entity
-@Table(schema="ohloh", name="ohoh_" + OhLohFactoid.NODE_NAME)
+@Table(name="factoid")
 public class OhLohFactoid  implements Serializable {
 	
 	/**

@@ -20,7 +20,7 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohProject.NODE_NAME)
 @Entity
-@Table(schema="ohloh", name="ohoh_" + OhLohProject.NODE_NAME)
+@Table(name="project")
 public class OhLohProject implements Serializable{
 
 	/**
@@ -31,57 +31,74 @@ public class OhLohProject implements Serializable{
 	public final static String NODE_NAME = "project";
 	
 	@Id
+	@Column(name="id")
 	private Long id;
 		
+	@Column(name="name")
 	private String name;
+	
+	@Column(name="url")
 	private String url;
 	
 	@XStreamAlias("html_url")
+	@Column(name="html_url")
 	private String htmlURL;
 	
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("created_at")
+	@Column(name="created_at")
 	private Timestamp createdAt;
 	
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("updated_at")
+	@Column(name="updated_at")
 	private Timestamp updatedAt;
 	
+	@Column(name="description")
 	private String description;
 	
 	@XStreamAlias("homepage_url")
+	@Column(name="homepage_url")
 	private String homepageURL;
 	
 	@XStreamAlias("download_url")
+	@Column(name="download_url")
 	private String downloadURL;
 	
 	@XStreamAlias("url_name")
+	@Column(name="url_name")
 	private String urlName;
 	
 	@XStreamAlias("medium_logo_url")
+	@Column(name="medium_logo_url")
 	private String mediumLogoURL;
 	
 	@XStreamAlias("small_logo_url")
+	@Column(name="small_logo_url")
 	private String smallLogoURL;
 	
 	@XStreamAlias("user_count")
+	@Column(name="user_count")
 	private Integer userCount;
 	
 	@XStreamAlias("average_rating")
+	@Column(name="average_rating")
 	private Double averageRating;
 
 	@XStreamAlias("rating_count")
+	@Column(name="rating_count")
 	private Integer ratingCount;
 	
 	@XStreamAlias("review_count")
+	@Column(name="review_count")
 	private Integer reviewCount;
 	
 	@XStreamAlias("analysis_id")
 	@Column(name="analysis_id")
 	private String analysisId;
 	
-	@OneToOne
-	@JoinColumn(name="analysis_id", referencedColumnName="id")
+	@OneToOne	
+	@JoinColumn(name="analysis_id", referencedColumnName="id", insertable=false, updatable=false )
 	private OhLohAnalysis analysis;
 	
 	@XStreamAlias("licenses")

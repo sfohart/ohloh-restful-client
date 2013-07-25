@@ -10,7 +10,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias(OhLohEnlistment.NODE_NAME)
 @Entity
-@Table(schema="ohloh", name="ohoh_" + OhLohEnlistment.NODE_NAME)
+@Table(name="enlistment")
 public class OhLohEnlistment implements Serializable {
 	
 	/**

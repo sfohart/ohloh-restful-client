@@ -15,7 +15,7 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 @XStreamAlias(OhLohAnalysisLanguage.NODE_NAME)
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"content"})
 @Entity
-@Table(schema="ohloh", name="ohoh_" + OhLohAnalysisLanguage.NODE_NAME)
+@Table(name="language")
 public class OhLohAnalysisLanguage implements Serializable {
 	
 	/**

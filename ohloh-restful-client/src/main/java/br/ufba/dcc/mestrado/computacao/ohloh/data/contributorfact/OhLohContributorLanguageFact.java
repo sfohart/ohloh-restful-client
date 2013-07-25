@@ -14,7 +14,7 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 @XStreamAlias(OhLohContributorLanguageFact.NODE_NAME)
 @Entity
-@Table(schema="ohloh", name="ohoh_" + OhLohContributorLanguageFact.NODE_NAME)
+@Table(name="contributor_language_fact")
 public class OhLohContributorLanguageFact implements Serializable {
 	
 	/**

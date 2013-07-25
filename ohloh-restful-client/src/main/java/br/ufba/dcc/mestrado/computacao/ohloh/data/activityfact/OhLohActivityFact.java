@@ -14,7 +14,7 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohActivityFact.NODE_NAME)
 @Entity
-@Table(schema="ohloh", name="ohoh_" + OhLohActivityFact.NODE_NAME)
+@Table(name="activity_fact")
 public class OhLohActivityFact implements Serializable {
 	
 	/**

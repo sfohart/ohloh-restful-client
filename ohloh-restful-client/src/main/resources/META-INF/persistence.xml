@@ -34,7 +34,7 @@
 			<property name="javax.persistence.jdbc.password" value="postgres" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/pesquisaorientada" />
 			
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hbm2ddl.auto" value="update" />
 			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider" />
 			<property name="hibernate.jdbc.batch_size" value="0" />
 			
@@ -43,8 +43,8 @@
 			<property name="hibernate.format_sql" value="true" />
 			 -->
 			
-			<property name="hibernate.generateDdl" value="true"/>
-			<property name="hibernate.use_sql_comments" value="true"/>
+			<property name="generateDdl" value="true"/>
+			<property name="use_sql_comments" value="true"/>
 		</properties>
 
 	</persistence-unit>
