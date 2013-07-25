@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import br.com.caelum.restfulie.Response;
 import br.com.caelum.restfulie.RestClient;
@@ -46,6 +47,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohSizeFactResp
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohStackResponse;
 import br.ufba.dcc.mestrado.computacao.qualifier.ConfigurationValue;
 
+@Singleton
 public class OhLohRestfulClient {
 	
 	@Inject
@@ -130,7 +132,7 @@ public class OhLohRestfulClient {
 
 	/**
 	 * 
-	 * @param accountId Id da conta do usuário do OhLoh
+	 * @param accountId Id da conta do usuï¿½rio do OhLoh
 	 * @return
 	 */
 	public OhLohAccount getAccountById(String accountId, OhLohBaseRequest request) {

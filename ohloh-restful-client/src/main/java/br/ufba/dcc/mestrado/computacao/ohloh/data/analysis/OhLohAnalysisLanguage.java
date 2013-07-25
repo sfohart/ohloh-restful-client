@@ -1,5 +1,7 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.analysis;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,9 +15,14 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 @XStreamAlias(OhLohAnalysisLanguage.NODE_NAME)
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"content"})
 @Entity
-@Table(name="ohoh_" + OhLohAnalysisLanguage.NODE_NAME)
-public class OhLohAnalysisLanguage {
+@Table(schema="ohloh", name="ohoh_" + OhLohAnalysisLanguage.NODE_NAME)
+public class OhLohAnalysisLanguage implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1672599783346624942L;
+
 	public final static String NODE_NAME = "language";
 
 	@XStreamAsAttribute
@@ -26,7 +33,7 @@ public class OhLohAnalysisLanguage {
 	
 	@XStreamAsAttribute
 	@Id
-	private String id;
+	private Long id;
 
 	
 	private String content;
@@ -47,11 +54,11 @@ public class OhLohAnalysisLanguage {
 		this.color = color;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

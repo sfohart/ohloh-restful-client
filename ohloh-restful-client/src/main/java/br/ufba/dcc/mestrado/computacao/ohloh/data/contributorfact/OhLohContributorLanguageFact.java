@@ -1,5 +1,7 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,9 +14,14 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 @XStreamAlias(OhLohContributorLanguageFact.NODE_NAME)
 @Entity
-@Table(name="ohoh_" + OhLohContributorLanguageFact.NODE_NAME)
-public class OhLohContributorLanguageFact {
+@Table(schema="ohloh", name="ohoh_" + OhLohContributorLanguageFact.NODE_NAME)
+public class OhLohContributorLanguageFact implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7975310261186108199L;
+
 	public final static String NODE_NAME = "contributor_language_fact";
 	
 	@Id

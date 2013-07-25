@@ -1,5 +1,7 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.project;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,9 +12,14 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias(OhLohLicense.NODE_NAME)
 @Entity
-@Table(name="ohloh_" + OhLohLicense.NODE_NAME)
-public class OhLohLicense {
+@Table(schema="ohloh", name="ohloh_" + OhLohLicense.NODE_NAME)
+public class OhLohLicense implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1612821573723959553L;
+
 	public final static String NODE_NAME = "license";
 	
 	@Id

@@ -1,5 +1,7 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.factoid;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -12,9 +14,14 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 @XStreamAlias(OhLohFactoid.NODE_NAME)
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"description"})
 @Entity
-@Table(name="ohoh_" + OhLohFactoid.NODE_NAME)
-public class OhLohFactoid {
+@Table(schema="ohloh", name="ohoh_" + OhLohFactoid.NODE_NAME)
+public class OhLohFactoid  implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2218492589477862288L;
+
 	public final static String NODE_NAME = "factoid";
 
 	@XStreamAsAttribute

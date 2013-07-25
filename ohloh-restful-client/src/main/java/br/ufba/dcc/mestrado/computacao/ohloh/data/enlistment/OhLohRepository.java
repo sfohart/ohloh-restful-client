@@ -1,5 +1,6 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
@@ -12,8 +13,13 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohRepository.NODE_NAME)
 @Entity
-@Table(name="ohoh_" + OhLohRepository.NODE_NAME)
-public class OhLohRepository {
+@Table(schema="ohloh", name="ohoh_" + OhLohRepository.NODE_NAME)
+public class OhLohRepository implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3900364356015056852L;
 
 	public enum OhLohRepositoryTypeEnum {
 		SvnRepository,
@@ -27,7 +33,7 @@ public class OhLohRepository {
 	public final static String NODE_NAME = "repository";
 	
 	@Id
-	private String id;
+	private Long id;
 	
 	private OhLohRepositoryTypeEnum type;
 	
@@ -48,11 +54,11 @@ public class OhLohRepository {
 	@XStreamAlias("ohloh_job_status")
 	private String ohlohJobStatus;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

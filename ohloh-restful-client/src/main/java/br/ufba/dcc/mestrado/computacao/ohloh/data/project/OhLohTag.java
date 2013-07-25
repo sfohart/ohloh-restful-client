@@ -1,5 +1,7 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.project;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +12,13 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias(OhLohTag.NODE_NAME)
 @Entity
-@Table(name="ohoh_" + OhLohTag.NODE_NAME)
-public class OhLohTag {
+@Table(schema="ohloh", name="ohoh_" + OhLohTag.NODE_NAME)
+public class OhLohTag implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3111939284107189941L;
+
 	public final static String NODE_NAME = "tag";
 	
 	@Id

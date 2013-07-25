@@ -1,5 +1,6 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.stack;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -15,13 +16,18 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohStack.NODE_NAME)
 @Entity
-@Table(name="ohoh_" + OhLohStack.NODE_NAME)
-public class OhLohStack {
+@Table(schema="ohloh", name="ohoh_" + OhLohStack.NODE_NAME)
+public class OhLohStack implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1367617631361506867L;
+
 	public final static String NODE_NAME = "stack";
 
 	@Id
-	private String id;
+	private Long id;
 	
 	private String title;
 	private String description;
@@ -41,11 +47,11 @@ public class OhLohStack {
 	
 	private OhLohAccount account;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

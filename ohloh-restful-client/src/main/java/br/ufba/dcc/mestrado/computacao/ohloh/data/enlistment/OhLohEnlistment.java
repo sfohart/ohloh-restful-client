@@ -1,5 +1,7 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -8,13 +10,18 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias(OhLohEnlistment.NODE_NAME)
 @Entity
-@Table(name="ohoh_" + OhLohEnlistment.NODE_NAME)
-public class OhLohEnlistment {
+@Table(schema="ohloh", name="ohoh_" + OhLohEnlistment.NODE_NAME)
+public class OhLohEnlistment implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -72467167025120985L;
+
 	public final static String NODE_NAME = "enlistment";
 
 	@Id
-	private String id;
+	private Long id;
 	
 	@XStreamAlias("project_id")
 	private String projectId;
@@ -25,11 +32,11 @@ public class OhLohEnlistment {
 	@XStreamAlias("repository")
 	private OhLohRepository ohLohRepository;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

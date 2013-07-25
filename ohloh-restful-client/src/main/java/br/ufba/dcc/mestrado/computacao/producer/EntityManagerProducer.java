@@ -1,6 +1,6 @@
 package br.ufba.dcc.mestrado.computacao.producer;
 
-import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -19,7 +19,7 @@ public class EntityManagerProducer {
 	private EntityManagerFactory entityManagerFactory;
 	
 	@Produces
-	@ConversationScoped
+	@ApplicationScoped
 	public EntityManager create() {
 		return entityManagerFactory.createEntityManager();
 	}

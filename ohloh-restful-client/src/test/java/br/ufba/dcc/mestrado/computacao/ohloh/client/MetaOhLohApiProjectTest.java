@@ -14,7 +14,7 @@ public class MetaOhLohApiProjectTest extends AbstractOhLohApiTest {
 		org.junit.Assert.assertNotNull(resource);
 	}
 	
-	@Test
+	//@Test
 	public void testSuccessGetAllProject() {
 		OhLohProjectResponse resource = getOhLohRestfulClient().getAllProjects(new OhLohBaseRequest());
 		org.junit.Assert.assertEquals("success", resource.getStatus());

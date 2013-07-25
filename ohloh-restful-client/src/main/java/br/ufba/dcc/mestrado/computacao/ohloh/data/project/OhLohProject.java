@@ -1,10 +1,15 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.project;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysis;
@@ -15,13 +20,18 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohProject.NODE_NAME)
 @Entity
-@Table(name="ohoh_" + OhLohProject.NODE_NAME)
-public class OhLohProject {
+@Table(schema="ohloh", name="ohoh_" + OhLohProject.NODE_NAME)
+public class OhLohProject implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9128774489845120800L;
 
 	public final static String NODE_NAME = "project";
 	
 	@Id
-	private String id;
+	private Long id;
 		
 	private String name;
 	private String url;
@@ -67,21 +77,26 @@ public class OhLohProject {
 	private Integer reviewCount;
 	
 	@XStreamAlias("analysis_id")
+	@Column(name="analysis_id")
 	private String analysisId;
 	
+	@OneToOne
+	@JoinColumn(name="analysis_id", referencedColumnName="id")
 	private OhLohAnalysis analysis;
 	
 	@XStreamAlias("licenses")
+	@OneToMany
 	private List<OhLohLicense> ohLohLicenses;
 	
 	@XStreamAlias("tags")
+	@OneToMany
 	private List<OhLohTag> ohLohTags;
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

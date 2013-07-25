@@ -1,13 +1,16 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.analysis;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.factoid.OhLohFactoid;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProject;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
@@ -15,18 +18,26 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohAnalysis.NODE_NAME)
 @Entity
-@Table(name="ohoh_analysis")
-public class OhLohAnalysis  {
+@Table(schema="ohloh", name="ohoh_analysis")
+public class OhLohAnalysis implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5783114228038874115L;
 
 	public final static String NODE_NAME = "analysis";
 	
 	@Id
-	private String id;
+	private Long id;
 	
 	private String url;
 	
 	@XStreamAlias("project_id")
 	private String projectId;
+	
+	@ManyToOne(optional=false)
+	private OhLohProject ohlohProject;
 	
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("updated_at")
@@ -62,11 +73,11 @@ public class OhLohAnalysis  {
 	@XStreamAlias("main_language_name")
 	private String mainLanguageName;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

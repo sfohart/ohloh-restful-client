@@ -67,19 +67,23 @@ public class PropertyResolver {
 
 	
 	@PostConstruct
-	public void init() throws IOException {
+	public void init()  {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		//ClassLoader classLoader = getClass().getClassLoader();
 		
-		List<File> propertyFiles = getPropertyFiles(classLoader);
-		
-		for (File file : propertyFiles) {
-			Properties p = new Properties();
-			p.load(new FileInputStream(file));
+		try {
+			List<File> propertyFiles = getPropertyFiles(classLoader);
 			
-			// TODO: If required - notify if added key was already present in
-			// the map
-			properties.putAll(new HashMap<String, Object>((Map) p));
+			for (File file : propertyFiles) {
+				Properties p = new Properties();
+				p.load(new FileInputStream(file));
+				
+				// TODO: If required - notify if added key was already present in
+				// the map
+				properties.putAll(new HashMap<String, Object>((Map) p));
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 

@@ -1,5 +1,6 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.kudo;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
@@ -13,9 +14,14 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohKudo.NODE_NAME)
 @Entity
-@Table(name="ohoh_" + OhLohKudo.NODE_NAME)
-public class OhLohKudo {
+@Table(schema="ohloh", name="ohoh_" + OhLohKudo.NODE_NAME)
+public class OhLohKudo implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2721389293280846206L;
+
 	public final static String NODE_NAME = "kudo";
 	
 	@Id

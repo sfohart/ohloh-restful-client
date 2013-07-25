@@ -1,11 +1,10 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.crawler;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Properties;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
 
 import org.apache.log4j.Logger;
 import org.jboss.weld.environment.se.Weld;
@@ -15,8 +14,11 @@ import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProject;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.client.OhLohRestfulClient;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohProjectResponse;
-import br.ufba.dcc.mestrado.computacao.qualifier.ConfigurationValue;
+import br.ufba.dcc.mestrado.computacao.qualifier.OhLohProjectQualifier;
+import br.ufba.dcc.mestrado.computacao.repository.OhLohProjectRepository;
 
+@Singleton
+@Named
 public class OhLohCrawler {
 	
 	private static final String OHLOH_PROJECT_SORT_BY_ID = "id";
@@ -26,10 +28,26 @@ public class OhLohCrawler {
 	@Inject
 	private OhLohRestfulClient ohLohRestfulClient;
 	
-	protected OhLohRestfulClient getOhLohRestfulClient() {
+	@Inject
+	@OhLohProjectQualifier
+	private OhLohProjectRepository projectRepository;
+	
+	public OhLohRestfulClient getOhLohRestfulClient() {
 		return ohLohRestfulClient;
 	}
-	
+
+	public void setOhLohRestfulClient(OhLohRestfulClient ohLohRestfulClient) {
+		this.ohLohRestfulClient = ohLohRestfulClient;
+	}
+
+	public OhLohProjectRepository getProjectRepository() {
+		return projectRepository;
+	}
+
+	public void setProjectRepository(OhLohProjectRepository projectRepository) {
+		this.projectRepository = projectRepository;
+	}
+
 	public OhLohCrawler() {
 	}
 	
@@ -79,6 +97,9 @@ public class OhLohCrawler {
 		
 		if (crawler != null) {
 			System.out.println(crawler.getOhLohRestfulClient().getApiKey());
+			List<OhLohProject> projects = crawler.getProjectRepository().findAll();
+			
+			System.out.println(projects.size());
 		}
 		
 		/*OhLohCrawler crawler = new OhLohCrawler();

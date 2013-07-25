@@ -1,6 +1,7 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact;
 
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -16,14 +17,19 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohContributorFact.NODE_NAME)
 @Entity
-@Table(name="ohoh_" + OhLohContributorFact.NODE_NAME)
-public class OhLohContributorFact {
+@Table(schema="ohloh", name="ohoh_" + OhLohContributorFact.NODE_NAME)
+public class OhLohContributorFact implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6755139715374660722L;
+
 	public final static String NODE_NAME = "contributor_fact";
 
 	@XStreamAlias("contributor_id")
 	@Id
-	private String id;
+	private Long id;
 	
 	@XStreamAlias("account_id")
 	private String accountId;
@@ -67,11 +73,11 @@ public class OhLohContributorFact {
 	@XStreamAlias("contributor_language_facts")
 	private List<OhLohContributorLanguageFact> ohLohContributorLanguageFacts;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

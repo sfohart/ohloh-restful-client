@@ -1,5 +1,6 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.sizefact;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
@@ -15,9 +16,14 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohSizeFact.NODE_NAME)
 @Entity
-@Table(name="ohoh_" + OhLohSizeFact.NODE_NAME)
-public class OhLohSizeFact {
+@Table(schema="ohloh", name="ohoh_" + OhLohSizeFact.NODE_NAME)
+public class OhLohSizeFact implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5308357200941776405L;
+
 	public final static String NODE_NAME = "size_fact";
 	
 	@Id

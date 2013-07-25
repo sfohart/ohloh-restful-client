@@ -1,9 +1,13 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.account;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.kudoskore.OhLohKudoScore;
@@ -15,8 +19,13 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohAccount.NODE_NAME)
 @Entity
-@Table(name="ohoh_" + OhLohAccount.NODE_NAME)
-public class OhLohAccount {
+@Table(schema="ohloh", name="ohoh_" + OhLohAccount.NODE_NAME)
+public class OhLohAccount implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4161579546763839506L;
 
 	public final static String NODE_NAME = "account";
 	
@@ -35,27 +44,34 @@ public class OhLohAccount {
 	
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("created_at")
+	@Column(name="created_at")
 	private Timestamp createdAt;
 	
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("updated_at")
+	@Column(name="updated_at")
 	private Timestamp updatedAt;
 	
 	@XStreamAlias("homepage_url")
+	@Column(name="homepage_url")
 	private String homepageURL;
 	
 	@XStreamAlias("avatar_url")
+	@Column(name="avatar_url")
 	private String avatarURL;
 	
 	@XStreamAlias("email_sha1")
+	@Column(name="email_sha1")
 	private String emailSHA1;
 	
 	@XStreamAlias("posts_count")
+	@Column(name="posts_count")
 	private Long postsCount;
 	
 	private String location;
 	
 	@XStreamAlias("country_code")
+	@Column(name="country_code")
 	private String countryCode;
 	
 	@XStreamConverter(value=NullableDoubleConverter.class)
@@ -65,16 +81,20 @@ public class OhLohAccount {
 	private Double longitude;
 	
 	@XStreamAlias("kudo_score")
+	@OneToOne
+	@JoinColumn(name="kudo_score_id", referencedColumnName="id")
 	private OhLohKudoScore ohLohKudoScore;
 	
 	private String url;
 	
 	@XStreamAlias("html_url")
+	@Column(name="html_url")
 	private String htmlURL;
 	
 	private String login;
 	
 	@XStreamAlias("twitter_account")
+	@Column(name="twitter_account")
 	private String twitterAccount;
 
 	public String getId() {
