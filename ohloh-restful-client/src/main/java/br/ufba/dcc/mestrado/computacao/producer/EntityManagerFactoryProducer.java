@@ -20,7 +20,9 @@ public class EntityManagerFactoryProducer {
 	@Produces
 	@ApplicationScoped
 	public EntityManagerFactory create() {
-		return Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+		
+		return entityManagerFactory;
 	}
 	
 	public void destroy(@Disposes EntityManagerFactory factory) {

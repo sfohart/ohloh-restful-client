@@ -23,7 +23,7 @@ public class OhLohCrawler {
 	
 	private static final String OHLOH_PROJECT_SORT_BY_ID = "id";
 
-	Logger logger = Logger.getLogger(OhLohCrawler.class);
+	public static Logger logger = Logger.getLogger(OhLohCrawler.class);
 	
 	@Inject
 	private OhLohRestfulClient ohLohRestfulClient;
@@ -96,10 +96,9 @@ public class OhLohCrawler {
 		OhLohCrawler crawler = container.instance().select(OhLohCrawler.class).get();
 		
 		if (crawler != null) {
-			System.out.println(crawler.getOhLohRestfulClient().getApiKey());
-			List<OhLohProject> projects = crawler.getProjectRepository().findAll();
+			logger.info(String.format("OhLoh API KEY: %s", crawler.getOhLohRestfulClient().getApiKey()));
 			
-			System.out.println(projects.size());
+			List<OhLohProject> ohLohProjects = crawler.getProjectRepository().findAll();
 		}
 		
 		/*OhLohCrawler crawler = new OhLohCrawler();

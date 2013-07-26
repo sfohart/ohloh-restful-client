@@ -13,4 +13,10 @@ public class OhLohProjectRepositoryImpl extends BaseRepositoryImpl<Long, OhLohPr
 	 */
 	private static final long serialVersionUID = 7801826722021443632L;
 
+	public OhLohProjectRepositoryImpl() {
+		super(Long.class, OhLohProject.class);
+	}
+
+	
+	
 }
