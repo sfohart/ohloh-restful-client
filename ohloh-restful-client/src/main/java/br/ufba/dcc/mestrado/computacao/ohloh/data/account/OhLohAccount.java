@@ -33,13 +33,16 @@ public class OhLohAccount implements Serializable {
 	 * The unique ID for the Account.
 	 */
 	@Id
-	private String id;
+	@Column(name="id")
+	private Long id;
 	
 	/**
 	 * The public name for this Account.
 	 */
+	@Column(name="name")
 	private String name;
 	
+	@Column(name="about")
 	private String about;
 	
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
@@ -68,6 +71,7 @@ public class OhLohAccount implements Serializable {
 	@Column(name="posts_count")
 	private Long postsCount;
 	
+	@Column(name="location")
 	private String location;
 	
 	@XStreamAlias("country_code")
@@ -75,9 +79,11 @@ public class OhLohAccount implements Serializable {
 	private String countryCode;
 	
 	@XStreamConverter(value=NullableDoubleConverter.class)
+	@Column(name="latitude")
 	private Double latitude;
 	
 	@XStreamConverter(value=NullableDoubleConverter.class)
+	@Column(name="longitude")
 	private Double longitude;
 	
 	@XStreamAlias("kudo_score")
@@ -85,23 +91,25 @@ public class OhLohAccount implements Serializable {
 	@JoinColumn(name="kudo_score_id", referencedColumnName="id")
 	private OhLohKudoScore ohLohKudoScore;
 	
+	@Column(name="url")
 	private String url;
 	
 	@XStreamAlias("html_url")
 	@Column(name="html_url")
 	private String htmlURL;
 	
+	@Column(name="login")
 	private String login;
 	
 	@XStreamAlias("twitter_account")
 	@Column(name="twitter_account")
 	private String twitterAccount;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -111,6 +119,14 @@ public class OhLohAccount implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
 	}
 
 	public Timestamp getCreatedAt() {
@@ -232,16 +248,6 @@ public class OhLohAccount implements Serializable {
 	public void setTwitterAccount(String twitterAccount) {
 		this.twitterAccount = twitterAccount;
 	}
-
-	public String getAbout() {
-		return about;
-	}
-
-	public void setAbout(String about) {
-		this.about = about;
-	}
-	
-	
 	
 	
 }

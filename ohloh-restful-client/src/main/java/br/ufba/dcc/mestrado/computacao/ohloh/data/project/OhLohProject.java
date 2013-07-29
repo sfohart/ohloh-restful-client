@@ -95,7 +95,7 @@ public class OhLohProject implements Serializable{
 	
 	@XStreamAlias("analysis_id")
 	@Column(name="analysis_id")
-	private String analysisId;
+	private Long analysisId;
 	
 	@OneToOne	
 	@JoinColumn(name="analysis_id", referencedColumnName="id", insertable=false, updatable=false )
@@ -229,11 +229,11 @@ public class OhLohProject implements Serializable{
 		this.ratingCount = ratingCount;
 	}
 
-	public String getAnalysisId() {
+	public Long getAnalysisId() {
 		return analysisId;
 	}
 
-	public void setAnalysisId(String analysisId) {
+	public void setAnalysisId(Long analysisId) {
 		this.analysisId = analysisId;
 	}
 

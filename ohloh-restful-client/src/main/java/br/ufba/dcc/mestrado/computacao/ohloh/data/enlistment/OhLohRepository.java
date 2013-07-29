@@ -3,6 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -33,25 +34,35 @@ public class OhLohRepository implements Serializable {
 	public final static String NODE_NAME = "repository";
 	
 	@Id
+	@Column(name="id")
 	private Long id;
 	
+	@Column(name="type")
 	private OhLohRepositoryTypeEnum type;
 	
+	@Column(name="url")
 	private String url;
 	
 	@XStreamAlias("module_name")
+	@Column(name="module_name")
 	private String moduleName;
 	
+	@Column(name="username")
 	private String username;
+	
+	@Column(name="password")
 	private String password;
 	
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("logged_at")
+	@Column(name="logged_at")
 	private Timestamp loggedAt;
 	
+	@Column(name="commits")
 	private Long commits;
 	
 	@XStreamAlias("ohloh_job_status")
+	@Column(name="ohloh_job_status")
 	private String ohlohJobStatus;
 
 	public Long getId() {

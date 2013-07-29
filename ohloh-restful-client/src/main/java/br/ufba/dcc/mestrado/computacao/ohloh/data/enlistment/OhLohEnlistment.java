@@ -2,9 +2,14 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProject;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -21,30 +26,46 @@ public class OhLohEnlistment implements Serializable {
 	public final static String NODE_NAME = "enlistment";
 
 	@Id
+	@Column(name="id")
 	private Long id;
 	
 	@XStreamAlias("project_id")
-	private String projectId;
+	@Column(name="project_id")
+	private Long projectId;
+	
+	@ManyToOne
+	@JoinColumn(name="project_id", referencedColumnName="id", insertable=false, updatable=false)
+	private OhLohProject ohLohProject;
 	
 	@XStreamAlias("repository_id")
+	@Column(name="repository_id")
 	private String repositoryId;
 	
 	@XStreamAlias("repository")
+	@JoinColumn(name="repository_id", referencedColumnName="id", insertable=false, updatable=false)
 	private OhLohRepository ohLohRepository;
 
 	public Long getId() {
 		return id;
 	}
 
+	public OhLohProject getOhLohProject() {
+		return ohLohProject;
+	}
+
+	public void setOhLohProject(OhLohProject ohLohProject) {
+		this.ohLohProject = ohLohProject;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getProjectId() {
+	public Long getProjectId() {
 		return projectId;
 	}
 
-	public void setProjectId(String projectId) {
+	public void setProjectId(Long projectId) {
 		this.projectId = projectId;
 	}
 

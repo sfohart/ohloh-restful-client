@@ -3,6 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.kudoskore;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,21 +27,27 @@ public class OhLohKudoScore implements Serializable{
 	
 	@Id
 	@GeneratedValue
+	@Column(name="id")
 	private Long id;
 
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("created_at")
+	@Column(name="created_at")
 	private Timestamp createdAt;
 	
 	@XStreamAlias("kudo_rank")
+	@Column(name="kudo_rank")
 	private Integer kudoRank;
 	
+	@Column(name="position")
 	private Integer position;
 	
 	@XStreamAlias("max_position")
+	@Column(name="max_position")
 	private Integer maxPosition;
 	
 	@XStreamAlias("position_delta")
+	@Column(name="position_delta")
 	private Integer positionDelta;
 
 	public Timestamp getCreatedAt() {

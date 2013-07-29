@@ -5,8 +5,10 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
@@ -29,48 +31,62 @@ public class OhLohContributorFact implements Serializable {
 
 	@XStreamAlias("contributor_id")
 	@Id
+	@Column(name="id")
 	private Long id;
 	
 	@XStreamAlias("account_id")
-	private String accountId;
+	@Column(name="account_id")
+	private Long accountId;
 	
 	@XStreamAlias("account_name")
+	@Column(name="account_name")
 	private String accountName;
 	
 	@XStreamAlias("analysis_id")
-	private String analysisId;
+	@Column(name="analysis_id")
+	private Long analysisId;
 	
 	@XStreamAlias("contributor_name")
+	@Column(name="contributor_name")
 	private String contributorName;
 	
 	@XStreamAlias("primary_language_id")
-	private String primaryLanguageId;
+	@Column(name="primary_language_id")
+	private Long primaryLanguageId;
 	
 	@XStreamAlias("primary_language_nice_name")
+	@Column(name="primary_language_nice_name")
 	private String primaryLanguageNiceName;
 	
 	@XStreamAlias("comment_ratio")
+	@Column(name="comment_ratio")
 	@XStreamConverter(value=NullableDoubleConverter.class)
 	private Double commentRatio;
 	
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("first_commit_time")
+	@Column(name="first_commit_time")
 	private Timestamp firstCommitTime;
 	
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("last_commit_time")
+	@Column(name="last_commit_time")
 	private Timestamp lastCommitTime;
 	
 	@XStreamAlias("man_months")
+	@Column(name="man_months")
 	private Integer manMonths;
 	
+	@Column(name="commits")
 	private Integer commits;
 	
 	@XStreamConverter(value=NullableDoubleConverter.class)
 	@XStreamAlias("median_commits")
+	@Column(name="median_commits")
 	private Double medianCommits;
 	
 	@XStreamAlias("contributor_language_facts")
+	@OneToMany(mappedBy="ohLohContributorFact")
 	private List<OhLohContributorLanguageFact> ohLohContributorLanguageFacts;
 
 	public Long getId() {
@@ -81,11 +97,11 @@ public class OhLohContributorFact implements Serializable {
 		this.id = id;
 	}
 
-	public String getAccountId() {
+	public Long getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(String accountId) {
+	public void setAccountId(Long accountId) {
 		this.accountId = accountId;
 	}
 
@@ -97,11 +113,11 @@ public class OhLohContributorFact implements Serializable {
 		this.accountName = accountName;
 	}
 
-	public String getAnalysisId() {
+	public Long getAnalysisId() {
 		return analysisId;
 	}
 
-	public void setAnalysisId(String analysisId) {
+	public void setAnalysisId(Long analysisId) {
 		this.analysisId = analysisId;
 	}
 
@@ -113,11 +129,11 @@ public class OhLohContributorFact implements Serializable {
 		this.contributorName = contributorName;
 	}
 
-	public String getPrimaryLanguageId() {
+	public Long getPrimaryLanguageId() {
 		return primaryLanguageId;
 	}
 
-	public void setPrimaryLanguageId(String primaryLanguageId) {
+	public void setPrimaryLanguageId(Long primaryLanguageId) {
 		this.primaryLanguageId = primaryLanguageId;
 	}
 

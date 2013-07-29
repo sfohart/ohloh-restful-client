@@ -4,8 +4,12 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccount;
@@ -27,24 +31,34 @@ public class OhLohStack implements Serializable {
 	public final static String NODE_NAME = "stack";
 
 	@Id
+	@Column(name="id")
 	private Long id;
 	
+	@Column(name="title")
 	private String title;
+	
+	@Column(name="description")
 	private String description;
 	
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("updated_at")
+	@Column(name="updated_at")
 	private Timestamp updatedAt;
 	
 	@XStreamAlias("project_count")
+	@Column(name="project_count")
 	private Integer projectCount;
 	
 	@XStreamAlias("stack_entries")
+	@OneToMany(mappedBy="ohLohStack")
 	private List<OhLohStackEntry> ohLohStackEntries;
 	
 	@XStreamAlias("account_id")
-	private String acountId;
+	@Column(name="account_id")
+	private Long acountId;
 	
+	@ManyToOne
+	@JoinColumn(name="account_id", referencedColumnName="id", insertable=false, updatable=false)
 	private OhLohAccount account;
 
 	public Long getId() {
@@ -95,11 +109,11 @@ public class OhLohStack implements Serializable {
 		this.ohLohStackEntries = ohLohStackEntries;
 	}
 
-	public String getAcountId() {
+	public Long getAcountId() {
 		return acountId;
 	}
 
-	public void setAcountId(String acountId) {
+	public void setAcountId(Long acountId) {
 		this.acountId = acountId;
 	}
 

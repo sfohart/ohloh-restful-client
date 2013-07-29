@@ -3,6 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.sizefact;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -28,23 +29,31 @@ public class OhLohSizeFact implements Serializable {
 	
 	@Id
 	@GeneratedValue
+	@Column(name="id")
 	private Long id;
 
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
+	@Column(name="month")
 	private Timestamp month;
 	
+	@Column(name="code")
 	private Long code;
 	
+	@Column(name="comments")
 	private Long comments;
 	
+	@Column(name="blanks")
 	private Long blanks;
 	
 	@XStreamAlias("comment_ratio")
 	@XStreamConverter(value=NullableDoubleConverter.class)
+	@Column(name="comment_ratio")
 	private Double commentRatio;
 	
+	@Column(name="commits")
 	private String commits;
 	
+	@Column(name="man_months")
 	@XStreamAlias("man_months")
 	private Integer manMonths;
 

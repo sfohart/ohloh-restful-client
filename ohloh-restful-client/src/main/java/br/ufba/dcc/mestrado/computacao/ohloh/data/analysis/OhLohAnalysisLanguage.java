@@ -2,8 +2,11 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.analysis;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -26,16 +29,23 @@ public class OhLohAnalysisLanguage implements Serializable {
 	public final static String NODE_NAME = "language";
 
 	@XStreamAsAttribute
+	@Column(name="percentage")
 	private Integer percentage;
 	
 	@XStreamAsAttribute
+	@Column(name="color")
 	private String color;
 	
 	@XStreamAsAttribute
 	@Id
+	@Column(name="id")
 	private Long id;
-
 	
+	@ManyToOne
+	@JoinColumn(name="languages_id", referencedColumnName="id", insertable=false, updatable=false)
+	private OhLohAnalysisLanguages ohLohAnalysisLanguages;
+
+	@Column(name="content")
 	private String content;
 
 	public Integer getPercentage() {
@@ -68,6 +78,15 @@ public class OhLohAnalysisLanguage implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public OhLohAnalysisLanguages getOhLohAnalysisLanguages() {
+		return ohLohAnalysisLanguages;
+	}
+
+	public void setOhLohAnalysisLanguages(
+			OhLohAnalysisLanguages ohLohAnalysisLanguages) {
+		this.ohLohAnalysisLanguages = ohLohAnalysisLanguages;
 	}
 	
 	

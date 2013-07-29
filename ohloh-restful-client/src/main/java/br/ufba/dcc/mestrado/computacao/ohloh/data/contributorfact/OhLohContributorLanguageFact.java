@@ -2,9 +2,12 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
@@ -26,49 +29,63 @@ public class OhLohContributorLanguageFact implements Serializable {
 	
 	@Id
 	@GeneratedValue
+	@Column(name="id")
 	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name="contributor_fact_id", referencedColumnName="id")
+	private OhLohContributorFact ohLohContributorFact;
 
 	@XStreamAlias("analysis_id")
-	private String analysisId;
+	@Column(name="analysis_id")
+	private Long analysisId;
 
 	@XStreamAlias("contributor_id")
-	private String contributorId;
+	@Column(name="contributor_id")
+	private Long contributorId;
 
 	@XStreamAlias("contributor_name")
+	@Column(name="contributor_name")
 	private String contributorName;
 
 	@XStreamAlias("language_id")
-	private String languageId;
+	@Column(name="language_id")
+	private Long languageId;
 	
 	@XStreamAlias("language_nice_name")
+	@Column(name="language_nice_name")
 	private String languageNiceName;
 
 	@XStreamAlias("comment_ratio")
 	@XStreamConverter(value = NullableDoubleConverter.class)
+	@Column(name="comment_ratio")
 	private Double commentRatio;
 
 	@XStreamAlias("man_months")
+	@Column(name="man_months")
 	private Integer manMonths;
 
+	@Column(name="commits")
 	private Integer commits;
 
 	@XStreamConverter(value = NullableDoubleConverter.class)
 	@XStreamAlias("median_commits")
+	@Column(name="median_commits")
 	private Double medianCommits;
 
-	public String getAnalysisId() {
+	public Long getAnalysisId() {
 		return analysisId;
 	}
 
-	public void setAnalysisId(String analysisId) {
+	public void setAnalysisId(Long analysisId) {
 		this.analysisId = analysisId;
 	}
 
-	public String getContributorId() {
+	public Long getContributorId() {
 		return contributorId;
 	}
 
-	public void setContributorId(String contributorId) {
+	public void setContributorId(Long contributorId) {
 		this.contributorId = contributorId;
 	}
 
@@ -80,11 +97,11 @@ public class OhLohContributorLanguageFact implements Serializable {
 		this.contributorName = contributorName;
 	}
 
-	public String getLanguageId() {
+	public Long getLanguageId() {
 		return languageId;
 	}
 
-	public void setLanguageId(String languageId) {
+	public void setLanguageId(Long languageId) {
 		this.languageId = languageId;
 	}
 	
@@ -134,6 +151,14 @@ public class OhLohContributorLanguageFact implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public OhLohContributorFact getOhLohContributorFact() {
+		return ohLohContributorFact;
+	}
+
+	public void setOhLohContributorFact(OhLohContributorFact ohLohContributorFact) {
+		this.ohLohContributorFact = ohLohContributorFact;
 	}
 	
 	

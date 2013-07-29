@@ -3,6 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.activityfact;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,32 +27,50 @@ public class OhLohActivityFact implements Serializable {
 	
 	@Id
 	@GeneratedValue
+	@Column(name="id")
 	private Long id;
 
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
+	@Column(name="month")
 	private Timestamp month;
 	
 	@XStreamAlias("code_added")
+	@Column(name="code_added")
 	private Long codeAdded;
 	
 	@XStreamAlias("code_removed")
+	@Column(name="code_removed")
 	private Long codeRemoved;
 	
 	@XStreamAlias("comments_added")
+	@Column(name="comments_added")
 	private Long commentsAdded;
 	
 	@XStreamAlias("comments_removed")
+	@Column(name="comments_removed")
 	private Long commentsRemoved;
 	
 	@XStreamAlias("blanks_added")
+	@Column(name="blanks_added")
 	private Long blanksAdded;
 	
 	@XStreamAlias("blanks_removed")
+	@Column(name="blanks_removed")
 	private Long blanksRemoved;
 	
+	@Column(name="commits")
 	private Long commits;
 	
+	@Column(name="contributors")
 	private Long contributors;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Timestamp getMonth() {
 		return month;
@@ -76,7 +95,7 @@ public class OhLohActivityFact implements Serializable {
 	public void setCodeRemoved(Long codeRemoved) {
 		this.codeRemoved = codeRemoved;
 	}
-	
+
 	public Long getCommentsAdded() {
 		return commentsAdded;
 	}
@@ -125,13 +144,5 @@ public class OhLohActivityFact implements Serializable {
 		this.contributors = contributors;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	
+		
 }

@@ -2,9 +2,14 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.factoid;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysis;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -25,16 +30,25 @@ public class OhLohFactoid  implements Serializable {
 	public final static String NODE_NAME = "factoid";
 
 	@XStreamAsAttribute
+	@Column(name="type")
 	private String type;
 	
 	@XStreamAlias("analysis_id")
-	private String analysisId;
+	@Column(name="analysis_id")
+	private Long analysisId;
+	
+	@ManyToOne
+	@JoinColumn(name="analysis_id", referencedColumnName="id", updatable=false, insertable=false)
+	private OhLohAnalysis ohLohAnalysis;
 	
 	@Id
+	@Column(name="id")
 	private Integer id;
 	
+	@Column(name="severity")
 	private Integer severity;
 	
+	@Column(name="description")
 	private String description;
 
 	public String getType() {
@@ -61,11 +75,11 @@ public class OhLohFactoid  implements Serializable {
 		this.severity = severity;
 	}
 
-	public String getAnalysisId() {
+	public Long getAnalysisId() {
 		return analysisId;
 	}
 
-	public void setAnalysisId(String analysisId) {
+	public void setAnalysisId(Long analysisId) {
 		this.analysisId = analysisId;
 	}
 	
@@ -75,6 +89,14 @@ public class OhLohFactoid  implements Serializable {
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public OhLohAnalysis getOhLohAnalysis() {
+		return ohLohAnalysis;
+	}
+
+	public void setOhLohAnalysis(OhLohAnalysis ohLohAnalysis) {
+		this.ohLohAnalysis = ohLohAnalysis;
 	}
 	
 }

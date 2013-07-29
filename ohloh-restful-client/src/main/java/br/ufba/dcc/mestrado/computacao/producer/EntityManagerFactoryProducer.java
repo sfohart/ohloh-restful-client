@@ -1,5 +1,8 @@
 package br.ufba.dcc.mestrado.computacao.producer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
@@ -20,8 +23,11 @@ public class EntityManagerFactoryProducer {
 	@Produces
 	@ApplicationScoped
 	public EntityManagerFactory create() {
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
 		
+		Map<String, Object> configOverrides = new HashMap<String, Object>();
+		configOverrides.put("hibernate.hbm2ddl.auto", "create-drop");
+		
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT, configOverrides);
 		return entityManagerFactory;
 	}
 	

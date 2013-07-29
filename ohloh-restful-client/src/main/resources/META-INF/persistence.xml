@@ -5,11 +5,13 @@
 
 	<persistence-unit name="ohloh" transaction-type="RESOURCE_LOCAL">
 	    
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 	    
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccount</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.activityfact.OhLohActivityFact</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysis</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisLanguage</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisLanguages</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact.OhLohContributorFact</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact.OhLohContributorLanguageFact</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment.OhLohEnlistment</class>
@@ -34,17 +36,11 @@
 			<property name="javax.persistence.jdbc.password" value="postgres" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/pesquisaorientada" />
 			
-			<property name="hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider" />
 			<property name="hibernate.jdbc.batch_size" value="0" />
 			
-			<!-- 
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.format_sql" value="true" />
-			 -->
 			
-			<property name="generateDdl" value="true"/>
-			<property name="use_sql_comments" value="true"/>
 		</properties>
 
 	</persistence-unit>
