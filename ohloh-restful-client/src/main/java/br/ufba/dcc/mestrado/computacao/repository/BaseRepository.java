@@ -3,15 +3,19 @@ package br.ufba.dcc.mestrado.computacao.repository;
 import java.io.Serializable;
 import java.util.List;
 
-public interface BaseRepository<ID extends Serializable, E extends Serializable> extends Serializable {
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
+
+public interface BaseRepository<E extends OhLohBaseEntity> extends Serializable {
 
 	public Long countAll();
 	public List<E> findAll();	
 	public List<E> findAll(String orderBy);
 	public List<E> findAll(Integer startAt, Integer offset, String orderBy);
 	
-	public E findById(ID id);
+	public E findById(Long id);
 	public void save(E entity) throws Exception;
+	public void add(E entity) throws Exception;
+	public void update(E entity) throws Exception;
 	public void delete(E entity)  throws Exception;
 	
 }

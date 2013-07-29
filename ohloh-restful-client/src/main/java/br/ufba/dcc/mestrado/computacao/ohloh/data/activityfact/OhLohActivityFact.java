@@ -1,13 +1,12 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.activityfact;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
+
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
@@ -16,7 +15,7 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 @XStreamAlias(OhLohActivityFact.NODE_NAME)
 @Entity
 @Table(name="activity_fact")
-public class OhLohActivityFact implements Serializable {
+public class OhLohActivityFact extends OhLohBaseEntity {
 	
 	/**
 	 * 
@@ -25,10 +24,7 @@ public class OhLohActivityFact implements Serializable {
 
 	public final static String NODE_NAME = "activity_fact";
 	
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private Long id;
+
 
 	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
 	@Column(name="month")
@@ -63,14 +59,6 @@ public class OhLohActivityFact implements Serializable {
 	
 	@Column(name="contributors")
 	private Long contributors;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Timestamp getMonth() {
 		return month;

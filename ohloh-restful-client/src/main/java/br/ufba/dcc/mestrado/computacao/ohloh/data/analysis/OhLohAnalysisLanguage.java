@@ -1,15 +1,12 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.analysis;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -21,7 +18,7 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"content"})
 @Entity
 @Table(name="language")
-public class OhLohAnalysisLanguage implements Serializable {
+public class OhLohAnalysisLanguage extends OhLohBaseEntity {
 	
 	/**
 	 * 
@@ -37,13 +34,7 @@ public class OhLohAnalysisLanguage implements Serializable {
 	@XStreamAsAttribute
 	@Column(name="color")
 	private String color;
-	
-	@XStreamAsAttribute
-	@Id
-	@Column(name="id")
-	@XStreamConverter(value=NullableLongConverter.class)
-	private Long id;
-	
+
 	@ManyToOne
 	@JoinColumn(name="languages_id", referencedColumnName="id", insertable=false, updatable=false)
 	private OhLohAnalysisLanguages ohLohAnalysisLanguages;
@@ -65,14 +56,6 @@ public class OhLohAnalysisLanguage implements Serializable {
 
 	public void setColor(String color) {
 		this.color = color;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getContent() {

@@ -1,19 +1,17 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.project;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
+
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias(OhLohLicense.NODE_NAME)
 @Entity
 @Table(name="license")
-public class OhLohLicense implements Serializable {
+public class OhLohLicense extends OhLohBaseEntity {
 	
 	/**
 	 * 
@@ -22,9 +20,7 @@ public class OhLohLicense implements Serializable {
 
 	public final static String NODE_NAME = "license";
 	
-	@Id
-	@GeneratedValue
-	private Long id;
+
 
 	@Column(unique=true)
 	private String name;
@@ -48,14 +44,6 @@ public class OhLohLicense implements Serializable {
 		this.niceName = niceName;
 	}
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	
 	
 }

@@ -5,7 +5,7 @@ import br.ufba.dcc.mestrado.computacao.qualifier.OhLohProjectQualifier;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohProjectRepository;
 
 @OhLohProjectQualifier
-public class OhLohProjectRepositoryImpl extends BaseRepositoryImpl<Long, OhLohProject>
+public class OhLohProjectRepositoryImpl extends BaseRepositoryImpl<OhLohProject>
 	implements OhLohProjectRepository {
 
 	/**
@@ -14,9 +14,7 @@ public class OhLohProjectRepositoryImpl extends BaseRepositoryImpl<Long, OhLohPr
 	private static final long serialVersionUID = 7801826722021443632L;
 
 	public OhLohProjectRepositoryImpl() {
-		super(Long.class, OhLohProject.class);
+		super(OhLohProject.class);
 	}
 
-	
-	
 }

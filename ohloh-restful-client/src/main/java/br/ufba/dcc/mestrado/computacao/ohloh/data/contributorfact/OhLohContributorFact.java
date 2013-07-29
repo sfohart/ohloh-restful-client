@@ -1,16 +1,15 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact;
 
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -20,7 +19,7 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 @XStreamAlias(OhLohContributorFact.NODE_NAME)
 @Entity
 @Table(name="contributor_fact")
-public class OhLohContributorFact implements Serializable {
+public class OhLohContributorFact extends OhLohBaseEntity {
 	
 	/**
 	 * 
@@ -29,10 +28,9 @@ public class OhLohContributorFact implements Serializable {
 
 	public final static String NODE_NAME = "contributor_fact";
 
+	
 	@XStreamAlias("contributor_id")
-	@Id
-	@Column(name="id")
-	private Long id;
+	private Long contributorId;
 	
 	@XStreamAlias("account_id")
 	@Column(name="account_id")
@@ -88,14 +86,6 @@ public class OhLohContributorFact implements Serializable {
 	@XStreamAlias("contributor_language_facts")
 	@OneToMany(mappedBy="ohLohContributorFact")
 	private List<OhLohContributorLanguageFact> ohLohContributorLanguageFacts;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Long getAccountId() {
 		return accountId;

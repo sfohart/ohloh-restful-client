@@ -1,15 +1,12 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -18,7 +15,7 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 @XStreamAlias(OhLohContributorLanguageFact.NODE_NAME)
 @Entity
 @Table(name="contributor_language_fact")
-public class OhLohContributorLanguageFact implements Serializable {
+public class OhLohContributorLanguageFact extends OhLohBaseEntity {
 	
 	/**
 	 * 
@@ -26,11 +23,7 @@ public class OhLohContributorLanguageFact implements Serializable {
 	private static final long serialVersionUID = -7975310261186108199L;
 
 	public final static String NODE_NAME = "contributor_language_fact";
-	
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private Long id;
+
 	
 	@ManyToOne
 	@JoinColumn(name="contributor_fact_id", referencedColumnName="id")
@@ -145,13 +138,6 @@ public class OhLohContributorLanguageFact implements Serializable {
 		this.medianCommits = medianCommits;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public OhLohContributorFact getOhLohContributorFact() {
 		return ohLohContributorFact;

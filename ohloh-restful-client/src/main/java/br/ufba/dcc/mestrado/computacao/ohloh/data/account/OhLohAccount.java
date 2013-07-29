@@ -1,15 +1,14 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.account;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.kudoskore.OhLohKudoScore;
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
 
@@ -20,7 +19,7 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 @XStreamAlias(OhLohAccount.NODE_NAME)
 @Entity
 @Table(name="account")
-public class OhLohAccount implements Serializable {
+public class OhLohAccount extends OhLohBaseEntity {
 
 	/**
 	 * 
@@ -29,13 +28,7 @@ public class OhLohAccount implements Serializable {
 
 	public final static String NODE_NAME = "account";
 	
-	/**
-	 * The unique ID for the Account.
-	 */
-	@Id
-	@Column(name="id")
-	private Long id;
-	
+		
 	/**
 	 * The public name for this Account.
 	 */
@@ -104,14 +97,6 @@ public class OhLohAccount implements Serializable {
 	@XStreamAlias("twitter_account")
 	@Column(name="twitter_account")
 	private String twitterAccount;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

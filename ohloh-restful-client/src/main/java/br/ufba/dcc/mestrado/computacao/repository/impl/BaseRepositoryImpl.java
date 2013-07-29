@@ -11,12 +11,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.repository.BaseRepository;
 import br.ufba.dcc.mestrado.computacao.transactions.Transactional;
 
 @Stateless
-public class BaseRepositoryImpl<ID extends Serializable, E extends Serializable>
-	implements BaseRepository<ID,E> {
+public class BaseRepositoryImpl<E extends OhLohBaseEntity>
+	implements BaseRepository<E> {
 
 	/**
 	 * 
@@ -26,11 +27,9 @@ public class BaseRepositoryImpl<ID extends Serializable, E extends Serializable>
 	@Inject
 	private EntityManager entityManager;
 	
-	private Class<ID> idClass;
 	private Class<E> entityClass;
 	
-	public BaseRepositoryImpl(Class<ID> idClass, Class<E> entityClass) {
-		this.idClass = idClass;
+	public BaseRepositoryImpl(Class<E> entityClass) {
 		this.entityClass = entityClass;
 	}
 	
@@ -109,13 +108,33 @@ public class BaseRepositoryImpl<ID extends Serializable, E extends Serializable>
 	}
 	
 	@Transactional
-	public E findById(ID id) {
+	public E findById(Long id) {
 		return entityManager.find(entityClass, id);
 	}
 	
 	@Transactional
 	public void save(E entity) {
+		if (entity != null) {
+			if (entity.getId() != null) {
+				if (findById(entity.getId()) != null) {
+					update(entity);
+				} else {
+					add(entity);
+				}
+			} else {
+				add(entity);
+			}
+		}		
+	}
+	
+	@Transactional
+	public void add(E entity) {
 		entityManager.persist(entity);
+	}
+	
+	@Transactional
+	public void update(E entity) {
+		entityManager.merge(entity);
 	}
 	
 	@Transactional

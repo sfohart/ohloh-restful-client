@@ -1,16 +1,14 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.kudo;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProject;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -19,59 +17,55 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohKudo.NODE_NAME)
 @Entity
-@Table(name="kudo")
-public class OhLohKudo implements Serializable {
-	
+@Table(name = "kudo")
+public class OhLohKudo extends OhLohBaseEntity {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2721389293280846206L;
 
 	public final static String NODE_NAME = "kudo";
-	
-	@Id
-	@GeneratedValue
-	private Long id;
 
-	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
+	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("created_at")
-	@Column(name="created_at")
+	@Column(name = "created_at")
 	private Timestamp createdAt;
-	
+
 	@XStreamAlias("sender_account_id")
-	@Column(name="sender_account_id")
+	@Column(name = "sender_account_id")
 	private String senderAccountId;
-	
+
 	@XStreamAlias("sender_account_name")
-	@Column(name="sender_account_name")
+	@Column(name = "sender_account_name")
 	private String senderAccountName;
-	
+
 	@XStreamAlias("receiver_account_id")
-	@Column(name="receiver_account_id")
+	@Column(name = "receiver_account_id")
 	private String receiverAccountId;
-	
+
 	@XStreamAlias("receiver_account_name")
-	@Column(name="receiver_account_name")
+	@Column(name = "receiver_account_name")
 	private String receiverAccountName;
-	
+
 	@XStreamAlias("project_id")
-	@Column(name="project_id")
+	@Column(name = "project_id")
 	private Long projectId;
-	
+
 	@ManyToOne
-	@JoinColumn(name="project_id", referencedColumnName="id", insertable=false, updatable=false)
+	@JoinColumn(name = "project_id", referencedColumnName = "id", insertable = false, updatable = false)
 	private OhLohProject ohLohProject;
-	
+
 	@XStreamAlias("project_name")
-	@Column(name="project_name")
+	@Column(name = "project_name")
 	private String projectName;
-	
+
 	@XStreamAlias("contributor_id")
-	@Column(name="contributor_id")
+	@Column(name = "contributor_id")
 	private String contributorId;
-	
+
 	@XStreamAlias("contributor_name")
-	@Column(name="contributor_name")
+	@Column(name = "contributor_name")
 	private String contributorName;
 
 	public Timestamp getCreatedAt() {
@@ -146,14 +140,6 @@ public class OhLohKudo implements Serializable {
 		this.contributorName = contributorName;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public OhLohProject getOhLohProject() {
 		return ohLohProject;
 	}
@@ -161,7 +147,5 @@ public class OhLohKudo implements Serializable {
 	public void setOhLohProject(OhLohProject ohLohProject) {
 		this.ohLohProject = ohLohProject;
 	}
-	
-	
-	
+
 }

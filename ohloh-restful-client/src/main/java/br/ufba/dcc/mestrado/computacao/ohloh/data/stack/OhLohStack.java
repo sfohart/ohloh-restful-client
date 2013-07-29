@@ -1,17 +1,16 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.stack;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccount;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -20,9 +19,9 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohStack.NODE_NAME)
 @Entity
-@Table(name="stack")
-public class OhLohStack implements Serializable {
-	
+@Table(name = "stack")
+public class OhLohStack extends OhLohBaseEntity {
+
 	/**
 	 * 
 	 */
@@ -30,44 +29,32 @@ public class OhLohStack implements Serializable {
 
 	public final static String NODE_NAME = "stack";
 
-	@Id
-	@Column(name="id")
-	private Long id;
-	
-	@Column(name="title")
+	@Column(name = "title")
 	private String title;
-	
-	@Column(name="description")
+
+	@Column(name = "description")
 	private String description;
-	
-	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
+
+	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
 	@XStreamAlias("updated_at")
-	@Column(name="updated_at")
+	@Column(name = "updated_at")
 	private Timestamp updatedAt;
-	
+
 	@XStreamAlias("project_count")
-	@Column(name="project_count")
+	@Column(name = "project_count")
 	private Integer projectCount;
-	
+
 	@XStreamAlias("stack_entries")
-	@OneToMany(mappedBy="ohLohStack")
+	@OneToMany(mappedBy = "ohLohStack")
 	private List<OhLohStackEntry> ohLohStackEntries;
-	
+
 	@XStreamAlias("account_id")
-	@Column(name="account_id")
+	@Column(name = "account_id")
 	private Long acountId;
-	
+
 	@ManyToOne
-	@JoinColumn(name="account_id", referencedColumnName="id", insertable=false, updatable=false)
+	@JoinColumn(name = "account_id", referencedColumnName = "id", insertable = false, updatable = false)
 	private OhLohAccount account;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getTitle() {
 		return title;
@@ -124,7 +111,5 @@ public class OhLohStack implements Serializable {
 	public void setAccount(OhLohAccount account) {
 		this.account = account;
 	}
-	
-	
-	
+
 }

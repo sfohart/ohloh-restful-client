@@ -1,17 +1,16 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.analysis;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.factoid.OhLohFactoid;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProject;
 
@@ -22,7 +21,7 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 @XStreamAlias(OhLohAnalysis.NODE_NAME)
 @Entity
 @Table(name="analysis")
-public class OhLohAnalysis implements Serializable {
+public class OhLohAnalysis extends OhLohBaseEntity {
 
 	/**
 	 * 
@@ -31,10 +30,7 @@ public class OhLohAnalysis implements Serializable {
 
 	public final static String NODE_NAME = "analysis";
 	
-	@Id
-	@Column(name="id")
-	private Long id;
-	
+
 	@Column(name="url")
 	private String url;
 	
@@ -91,13 +87,6 @@ public class OhLohAnalysis implements Serializable {
 	@Column(name="main_language_name")
 	private String mainLanguageName;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getUrl() {
 		return url;

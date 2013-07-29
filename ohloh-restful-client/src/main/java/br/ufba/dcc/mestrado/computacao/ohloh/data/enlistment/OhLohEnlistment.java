@@ -1,23 +1,21 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProject;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias(OhLohEnlistment.NODE_NAME)
 @Entity
-@Table(name="enlistment")
-public class OhLohEnlistment implements Serializable {
-	
+@Table(name = "enlistment")
+public class OhLohEnlistment extends OhLohBaseEntity {
+
 	/**
 	 * 
 	 */
@@ -25,29 +23,21 @@ public class OhLohEnlistment implements Serializable {
 
 	public final static String NODE_NAME = "enlistment";
 
-	@Id
-	@Column(name="id")
-	private Long id;
-	
 	@XStreamAlias("project_id")
-	@Column(name="project_id")
+	@Column(name = "project_id")
 	private Long projectId;
-	
-	@ManyToOne
-	@JoinColumn(name="project_id", referencedColumnName="id", insertable=false, updatable=false)
-	private OhLohProject ohLohProject;
-	
-	@XStreamAlias("repository_id")
-	@Column(name="repository_id")
-	private String repositoryId;
-	
-	@XStreamAlias("repository")
-	@JoinColumn(name="repository_id", referencedColumnName="id", insertable=false, updatable=false)
-	private OhLohRepository ohLohRepository;
 
-	public Long getId() {
-		return id;
-	}
+	@ManyToOne
+	@JoinColumn(name = "project_id", referencedColumnName = "id", insertable = false, updatable = false)
+	private OhLohProject ohLohProject;
+
+	@XStreamAlias("repository_id")
+	@Column(name = "repository_id")
+	private String repositoryId;
+
+	@XStreamAlias("repository")
+	@JoinColumn(name = "repository_id", referencedColumnName = "id", insertable = false, updatable = false)
+	private OhLohRepository ohLohRepository;
 
 	public OhLohProject getOhLohProject() {
 		return ohLohProject;
@@ -55,10 +45,6 @@ public class OhLohEnlistment implements Serializable {
 
 	public void setOhLohProject(OhLohProject ohLohProject) {
 		this.ohLohProject = ohLohProject;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Long getProjectId() {
@@ -84,7 +70,5 @@ public class OhLohEnlistment implements Serializable {
 	public void setOhLohRepository(OhLohRepository ohLohRepository) {
 		this.ohLohRepository = ohLohRepository;
 	}
-	
-	
-	
+
 }

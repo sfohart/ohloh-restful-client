@@ -1,14 +1,12 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.sizefact;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -17,43 +15,38 @@ import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter
 
 @XStreamAlias(OhLohSizeFact.NODE_NAME)
 @Entity
-@Table(name="size_fact")
-public class OhLohSizeFact implements Serializable {
-	
+@Table(name = "size_fact")
+public class OhLohSizeFact extends OhLohBaseEntity {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5308357200941776405L;
 
 	public final static String NODE_NAME = "size_fact";
-	
-	@Id
-	@GeneratedValue
-	@Column(name="id")
-	private Long id;
 
-	@XStreamConverter(value=ISO8601SqlTimestampConverter.class)
-	@Column(name="month")
+	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
+	@Column(name = "month")
 	private Timestamp month;
-	
-	@Column(name="code")
+
+	@Column(name = "code")
 	private Long code;
-	
-	@Column(name="comments")
+
+	@Column(name = "comments")
 	private Long comments;
-	
-	@Column(name="blanks")
+
+	@Column(name = "blanks")
 	private Long blanks;
-	
+
 	@XStreamAlias("comment_ratio")
-	@XStreamConverter(value=NullableDoubleConverter.class)
-	@Column(name="comment_ratio")
+	@XStreamConverter(value = NullableDoubleConverter.class)
+	@Column(name = "comment_ratio")
 	private Double commentRatio;
-	
-	@Column(name="commits")
+
+	@Column(name = "commits")
 	private String commits;
-	
-	@Column(name="man_months")
+
+	@Column(name = "man_months")
 	@XStreamAlias("man_months")
 	private Integer manMonths;
 
@@ -113,14 +106,4 @@ public class OhLohSizeFact implements Serializable {
 		this.manMonths = manMonths;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	
-	
 }

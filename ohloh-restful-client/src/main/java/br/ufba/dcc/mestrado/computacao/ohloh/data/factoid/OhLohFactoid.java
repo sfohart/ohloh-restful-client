@@ -1,14 +1,12 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.factoid;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysis;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -20,7 +18,7 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 @XStreamConverter(value=ToAttributedValueConverter.class, strings={"description"})
 @Entity
 @Table(name="factoid")
-public class OhLohFactoid  implements Serializable {
+public class OhLohFactoid  extends OhLohBaseEntity {
 	
 	/**
 	 * 
@@ -40,10 +38,7 @@ public class OhLohFactoid  implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="analysis_id", referencedColumnName="id", updatable=false, insertable=false)
 	private OhLohAnalysis ohLohAnalysis;
-	
-	@Id
-	@Column(name="id")
-	private Integer id;
+
 	
 	@Column(name="severity")
 	private Integer severity;
@@ -57,14 +52,6 @@ public class OhLohFactoid  implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public Integer getSeverity() {
