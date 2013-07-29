@@ -10,8 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 @XStreamAlias("languages")
@@ -26,6 +29,7 @@ public class OhLohAnalysisLanguages implements Serializable {
 	
 	@Id
 	@GeneratedValue
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long id;
 
 	@XStreamAlias("graph_url")

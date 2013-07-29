@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
@@ -39,6 +41,7 @@ public class OhLohAnalysisLanguage implements Serializable {
 	@XStreamAsAttribute
 	@Id
 	@Column(name="id")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long id;
 	
 	@ManyToOne
