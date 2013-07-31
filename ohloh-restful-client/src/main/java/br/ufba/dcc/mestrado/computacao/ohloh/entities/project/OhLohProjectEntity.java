@@ -3,6 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities.project;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -69,17 +70,17 @@ public class OhLohProjectEntity extends OhLohBaseEntity {
 	@Column(name = "review_count")
 	private Long reviewCount;
 
-	@Column(name = "analysis_id")
+	@Column(name = "analysis_id", insertable = false, updatable = false)
 	private Long analysisId;
 
 	@OneToOne
-	@JoinColumn(name = "analysis_id", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "analysis_id", referencedColumnName = "id")
 	private OhLohAnalysisEntity ohLohAnalysis;
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.PERSIST)
 	private List<OhLohLicenseEntity> ohLohLicenses;
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.PERSIST)
 	private List<OhLohTagEntity> ohLohTags;
 
 	public String getName() {

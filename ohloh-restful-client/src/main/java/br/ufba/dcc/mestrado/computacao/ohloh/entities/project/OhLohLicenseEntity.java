@@ -2,6 +2,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities.project;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
@@ -22,7 +23,7 @@ public class OhLohLicenseEntity extends OhLohBaseEntity {
 
 	@Column(name = "nice_name")
 	private String niceName;
-
+	
 	public String getName() {
 		return name;
 	}
