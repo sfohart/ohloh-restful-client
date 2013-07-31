@@ -51,7 +51,7 @@ public class OhLohCrawler {
 	public OhLohCrawler() {
 	}
 	
-	public void run() {
+	public void run() throws Exception {
 		OhLohBaseRequest request = new OhLohBaseRequest();
 		Integer totalPages = 0;
 		Integer page = 1;
@@ -78,6 +78,8 @@ public class OhLohCrawler {
 						buffer.append(String.format("Project URL: %s \n\n", project.getUrl()));
 						
 						System.out.println(buffer.toString());
+						
+						projectRepository.add(project);
 					}
 				}
 				
@@ -91,7 +93,7 @@ public class OhLohCrawler {
 		} while (page < totalPages);
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		WeldContainer container = new Weld().initialize();
 		OhLohCrawler crawler = container.instance().select(OhLohCrawler.class).get();
 		
@@ -99,6 +101,7 @@ public class OhLohCrawler {
 			logger.info(String.format("OhLoh API KEY: %s", crawler.getOhLohRestfulClient().getApiKey()));
 			
 			List<OhLohProject> ohLohProjects = crawler.getProjectRepository().findAll();
+			crawler.run();
 		}
 		
 		/*OhLohCrawler crawler = new OhLohCrawler();

@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysis;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
@@ -74,19 +75,20 @@ public class OhLohProject extends OhLohBaseEntity {
 
 	@XStreamAlias("user_count")
 	@Column(name = "user_count")
-	private Integer userCount;
+	private Long userCount;
 
 	@XStreamAlias("average_rating")
 	@Column(name = "average_rating")
+	@XStreamConverter(value = NullableDoubleConverter.class)
 	private Double averageRating;
 
 	@XStreamAlias("rating_count")
 	@Column(name = "rating_count")
-	private Integer ratingCount;
+	private Long ratingCount;
 
 	@XStreamAlias("review_count")
 	@Column(name = "review_count")
-	private Integer reviewCount;
+	private Long reviewCount;
 
 	@XStreamAlias("analysis_id")
 	@Column(name = "analysis_id")
@@ -192,11 +194,11 @@ public class OhLohProject extends OhLohBaseEntity {
 		this.smallLogoURL = smallLogoURL;
 	}
 
-	public Integer getUserCount() {
+	public Long getUserCount() {
 		return userCount;
 	}
 
-	public void setUserCount(Integer userCount) {
+	public void setUserCount(Long userCount) {
 		this.userCount = userCount;
 	}
 
@@ -208,11 +210,11 @@ public class OhLohProject extends OhLohBaseEntity {
 		this.averageRating = averageRating;
 	}
 
-	public Integer getRatingCount() {
+	public Long getRatingCount() {
 		return ratingCount;
 	}
 
-	public void setRatingCount(Integer ratingCount) {
+	public void setRatingCount(Long ratingCount) {
 		this.ratingCount = ratingCount;
 	}
 
@@ -240,11 +242,11 @@ public class OhLohProject extends OhLohBaseEntity {
 		this.ohLohLicenses = ohLohLicenses;
 	}
 
-	public Integer getReviewCount() {
+	public Long getReviewCount() {
 		return reviewCount;
 	}
 
-	public void setReviewCount(Integer reviewCount) {
+	public void setReviewCount(Long reviewCount) {
 		this.reviewCount = reviewCount;
 	}
 

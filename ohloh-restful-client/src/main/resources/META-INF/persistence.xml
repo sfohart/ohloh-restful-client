@@ -6,7 +6,6 @@
 	<persistence-unit name="ohloh" transaction-type="RESOURCE_LOCAL">
 	    
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-	    
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccount</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.activityfact.OhLohActivityFact</class>
@@ -26,6 +25,7 @@
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.sizefact.OhLohSizeFact</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStack</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStackEntry</class>
+	    
 		
 		
 		<properties>
