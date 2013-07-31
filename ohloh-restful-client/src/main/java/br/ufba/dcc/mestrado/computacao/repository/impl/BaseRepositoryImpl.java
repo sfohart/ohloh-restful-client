@@ -11,7 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.repository.BaseRepository;
 import br.ufba.dcc.mestrado.computacao.transactions.Transactional;
 

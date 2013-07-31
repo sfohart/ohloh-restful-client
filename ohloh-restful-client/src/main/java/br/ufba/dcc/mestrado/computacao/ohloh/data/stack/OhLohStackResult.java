@@ -10,14 +10,14 @@ public class OhLohStackResult {
 
 	
 	@XStreamImplicit(itemFieldName="stack")
-	private List<OhLohStack> ohLohStacks;
+	private List<OhLohStackDTO> ohLohStackDTOs;
 	
-	public List<OhLohStack> getOhLohStacks() {
-		return ohLohStacks;
+	public List<OhLohStackDTO> getOhLohStacks() {
+		return ohLohStackDTOs;
 	}
 	
-	public void setOhLohStacks(List<OhLohStack> ohLohStacks) {
-		this.ohLohStacks = ohLohStacks;
+	public void setOhLohStacks(List<OhLohStackDTO> ohLohStackDTOs) {
+		this.ohLohStackDTOs = ohLohStackDTOs;
 	}
 	
 	

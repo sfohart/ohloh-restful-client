@@ -1,11 +1,11 @@
 package br.ufba.dcc.mestrado.computacao.repository.impl;
 
-import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProject;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohProjectQualifier;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity;
+import br.ufba.dcc.mestrado.computacao.qualifier.OhLohProjectRepositoryQualifier;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohProjectRepository;
 
-@OhLohProjectQualifier
-public class OhLohProjectRepositoryImpl extends BaseRepositoryImpl<OhLohProject>
+@OhLohProjectRepositoryQualifier
+public class OhLohProjectRepositoryImpl extends BaseRepositoryImpl<OhLohProjectEntity>
 	implements OhLohProjectRepository {
 
 	/**
@@ -14,7 +14,7 @@ public class OhLohProjectRepositoryImpl extends BaseRepositoryImpl<OhLohProject>
 	private static final long serialVersionUID = 7801826722021443632L;
 
 	public OhLohProjectRepositoryImpl() {
-		super(OhLohProject.class);
+		super(OhLohProjectEntity.class);
 	}
 
 }

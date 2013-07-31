@@ -10,12 +10,12 @@ import org.apache.log4j.Logger;
 import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 
-import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProject;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.client.OhLohRestfulClient;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohProjectResponse;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohProjectQualifier;
-import br.ufba.dcc.mestrado.computacao.repository.OhLohProjectRepository;
+import br.ufba.dcc.mestrado.computacao.qualifier.OhLohProjectServiceQualifier;
+import br.ufba.dcc.mestrado.computacao.service.OhLohProjectService;
 
 @Singleton
 @Named
@@ -29,8 +29,8 @@ public class OhLohCrawler {
 	private OhLohRestfulClient ohLohRestfulClient;
 	
 	@Inject
-	@OhLohProjectQualifier
-	private OhLohProjectRepository projectRepository;
+	@OhLohProjectServiceQualifier
+	private OhLohProjectService ohLohProjectService;
 	
 	public OhLohRestfulClient getOhLohRestfulClient() {
 		return ohLohRestfulClient;
@@ -40,12 +40,12 @@ public class OhLohCrawler {
 		this.ohLohRestfulClient = ohLohRestfulClient;
 	}
 
-	public OhLohProjectRepository getProjectRepository() {
-		return projectRepository;
+	public OhLohProjectService getOhLohProjectService() {
+		return ohLohProjectService;
 	}
-
-	public void setProjectRepository(OhLohProjectRepository projectRepository) {
-		this.projectRepository = projectRepository;
+	
+	public void setOhLohProjectService(OhLohProjectService ohLohProjectService) {
+		this.ohLohProjectService = ohLohProjectService;
 	}
 
 	public OhLohCrawler() {
@@ -70,16 +70,16 @@ public class OhLohCrawler {
 			if (OhLohProjectResponse.SUCCESS.equals(response.getStatus())) {
 				logger.info(String.format("Page: %d", page));
 				
-				List<OhLohProject> ohLohProjects = response.getResult().getOhLohProjects();
-				if (ohLohProjects != null && ! ohLohProjects.isEmpty()) {
-					for (OhLohProject project : ohLohProjects) {
+				List<OhLohProjectDTO> ohLohProjectDTOs = response.getResult().getOhLohProjects();
+				if (ohLohProjectDTOs != null && ! ohLohProjectDTOs.isEmpty()) {
+					for (OhLohProjectDTO project : ohLohProjectDTOs) {
 						StringBuffer buffer = new StringBuffer();
 						buffer.append(String.format("Project Name: %s \n", project.getName()));
 						buffer.append(String.format("Project URL: %s \n\n", project.getUrl()));
 						
 						System.out.println(buffer.toString());
 						
-						projectRepository.add(project);
+						ohLohProjectService.store(project);
 					}
 				}
 				
@@ -99,8 +99,6 @@ public class OhLohCrawler {
 		
 		if (crawler != null) {
 			logger.info(String.format("OhLoh API KEY: %s", crawler.getOhLohRestfulClient().getApiKey()));
-			
-			List<OhLohProject> ohLohProjects = crawler.getProjectRepository().findAll();
 			crawler.run();
 		}
 		

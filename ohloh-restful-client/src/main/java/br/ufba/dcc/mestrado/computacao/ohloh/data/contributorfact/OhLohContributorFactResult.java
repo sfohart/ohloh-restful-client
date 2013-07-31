@@ -10,15 +10,15 @@ public class OhLohContributorFactResult {
 
 	
 	@XStreamImplicit(itemFieldName="contributor_fact")
-	private List<OhLohContributorFact> ohLohContributorFacts;
+	private List<OhLohContributorFactDTO> ohLohContributorFactDTOs;
 	
-	public List<OhLohContributorFact> getOhLohContributorFacts() {
-		return ohLohContributorFacts;
+	public List<OhLohContributorFactDTO> getOhLohContributorFacts() {
+		return ohLohContributorFactDTOs;
 	}
 	
 	public void setOhLohContributorFacts(
-			List<OhLohContributorFact> ohLohContributorFacts) {
-		this.ohLohContributorFacts = ohLohContributorFacts;
+			List<OhLohContributorFactDTO> ohLohContributorFactDTOs) {
+		this.ohLohContributorFactDTOs = ohLohContributorFactDTOs;
 	}
 	
 }

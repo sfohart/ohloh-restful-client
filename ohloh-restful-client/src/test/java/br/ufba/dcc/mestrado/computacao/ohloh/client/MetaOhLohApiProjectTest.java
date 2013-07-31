@@ -2,7 +2,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.client;
 
 import org.junit.Test;
 
-import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProject;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohProjectResponse;
 
@@ -10,7 +10,7 @@ public class MetaOhLohApiProjectTest extends AbstractOhLohApiTest {
 
 	@Test
 	public void testSuccessGetProject() {
-		OhLohProject resource = getOhLohRestfulClient().getProject("maven2", new OhLohBaseRequest());
+		OhLohProjectDTO resource = getOhLohRestfulClient().getProject("maven2", new OhLohBaseRequest());
 		org.junit.Assert.assertNotNull(resource);
 	}
 	

@@ -13,25 +13,25 @@ import br.com.caelum.restfulie.Response;
 import br.com.caelum.restfulie.RestClient;
 import br.com.caelum.restfulie.Restfulie;
 import br.com.caelum.restfulie.mediatype.XmlMediaType;
-import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccount;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccountDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccountResult;
-import br.ufba.dcc.mestrado.computacao.ohloh.data.activityfact.OhLohActivityFact;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.activityfact.OhLohActivityFactDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.activityfact.OhLohActivityFactResult;
-import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysis;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisResult;
-import br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact.OhLohContributorFact;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact.OhLohContributorFactDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact.OhLohContributorFactResult;
-import br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment.OhLohEnlistment;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment.OhLohEnlistmentDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment.OhLohEnlistmentResult;
-import br.ufba.dcc.mestrado.computacao.ohloh.data.factoid.OhLohFactoid;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.factoid.OhLohFactoidDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.factoid.OhLohFactoidResult;
-import br.ufba.dcc.mestrado.computacao.ohloh.data.kudo.OhLohKudo;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.kudo.OhLohKudoDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.kudo.OhLohKudoResult;
-import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProject;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectResult;
-import br.ufba.dcc.mestrado.computacao.ohloh.data.sizefact.OhLohSizeFact;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.sizefact.OhLohSizeFactDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.sizefact.OhLohSizeFactResult;
-import br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStack;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStackDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStackResult;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohAccountResponse;
@@ -98,7 +98,7 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohAccountResponse.class,
 					OhLohAccountResult.class,
-					OhLohAccount.class));
+					OhLohAccountDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			
@@ -135,9 +135,9 @@ public class OhLohRestfulClient {
 	 * @param accountId Id da conta do usu�rio do OhLoh
 	 * @return
 	 */
-	public OhLohAccount getAccountById(String accountId, OhLohBaseRequest request) {
+	public OhLohAccountDTO getAccountById(String accountId, OhLohBaseRequest request) {
 		
-		OhLohAccount account = null;
+		OhLohAccountDTO account = null;
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.account");
@@ -150,15 +150,15 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohAccountResponse.class,
 					OhLohAccountResult.class,
-					OhLohAccount.class));
+					OhLohAccountDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			
 			OhLohAccountResponse resource = response.getResource();
 			if (OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
-				List<OhLohAccount> ohLohAccounts = resource.getResult().getOhLohAccounts();
-				if (ohLohAccounts != null && ! ohLohAccounts.isEmpty())
-					account =  ohLohAccounts.get(0);
+				List<OhLohAccountDTO> ohLohAccountDTOs = resource.getResult().getOhLohAccounts();
+				if (ohLohAccountDTOs != null && ! ohLohAccountDTOs.isEmpty())
+					account =  ohLohAccountDTOs.get(0);
 			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -185,7 +185,7 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohProjectResponse.class,
 					OhLohProjectResult.class,
-					OhLohProject.class));
+					OhLohProjectDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			
@@ -202,8 +202,8 @@ public class OhLohRestfulClient {
 	 * @param projectId ID de um projeto cadastrado no OhLoh
 	 * @return
 	 */
-	public OhLohProject getProject(String projectId, OhLohBaseRequest request) {
-		OhLohProject project = null;
+	public OhLohProjectDTO getProject(String projectId, OhLohBaseRequest request) {
+		OhLohProjectDTO project = null;
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.project");
@@ -215,15 +215,15 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohProjectResponse.class,
 					OhLohProjectResult.class,
-					OhLohProject.class));
+					OhLohProjectDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			
 			OhLohProjectResponse resource = response.getResource();
 			if (OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
-				List<OhLohProject> ohLohProjects = resource.getResult().getOhLohProjects();
-				if (ohLohProjects != null && ! ohLohProjects.isEmpty()) {
-					project = ohLohProjects.get(0);
+				List<OhLohProjectDTO> ohLohProjectDTOs = resource.getResult().getOhLohProjects();
+				if (ohLohProjectDTOs != null && ! ohLohProjectDTOs.isEmpty()) {
+					project = ohLohProjectDTOs.get(0);
 				}
 			}
 		} catch (IOException ex) {
@@ -239,9 +239,9 @@ public class OhLohRestfulClient {
 	 * @param stackId
 	 * @return
 	 */
-	public OhLohStack getSingleAccountStack(String accountId, String stackId, OhLohBaseRequest request) {
+	public OhLohStackDTO getSingleAccountStack(String accountId, String stackId, OhLohBaseRequest request) {
 		
-		OhLohStack stack = null;
+		OhLohStackDTO stack = null;
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.stack.account");
@@ -254,15 +254,15 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohStackResponse.class,
 					OhLohStackResult.class,
-					OhLohStack.class));
+					OhLohStackDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			
 			OhLohStackResponse resource = response.getResource();
 			if (OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
-				List<OhLohStack> ohLohStacks = resource.getResult().getOhLohStacks();
-				if (ohLohStacks != null && ! ohLohStacks.isEmpty()) {
-					stack = ohLohStacks.get(0);
+				List<OhLohStackDTO> ohLohStackDTOs = resource.getResult().getOhLohStacks();
+				if (ohLohStackDTOs != null && ! ohLohStackDTOs.isEmpty()) {
+					stack = ohLohStackDTOs.get(0);
 				}
 			}
 			
@@ -278,8 +278,8 @@ public class OhLohRestfulClient {
 	 * @param accountId
 	 * @return
 	 */
-	public OhLohStack getDefaultAccountStack(String accountId, OhLohBaseRequest request) {
-		OhLohStack stack = null;
+	public OhLohStackDTO getDefaultAccountStack(String accountId, OhLohBaseRequest request) {
+		OhLohStackDTO stack = null;
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.stack.account.default");
@@ -292,15 +292,15 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohStackResponse.class,
 					OhLohStackResult.class,
-					OhLohStack.class));
+					OhLohStackDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			
 			OhLohStackResponse resource = response.getResource();
 			if (OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
-				List<OhLohStack> ohLohStacks = resource.getResult().getOhLohStacks();
-				if (ohLohStacks != null && ! ohLohStacks.isEmpty()) {
-					stack = ohLohStacks.get(0);
+				List<OhLohStackDTO> ohLohStackDTOs = resource.getResult().getOhLohStacks();
+				if (ohLohStackDTOs != null && ! ohLohStackDTOs.isEmpty()) {
+					stack = ohLohStackDTOs.get(0);
 				}
 			}
 		} catch (IOException ex) {
@@ -329,7 +329,7 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohStackResponse.class,
 					OhLohStackResult.class,
-					OhLohStack.class));
+					OhLohStackDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			
@@ -361,7 +361,7 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohFactoidResponse.class,
 					OhLohFactoidResult.class,
-					OhLohFactoid.class));
+					OhLohFactoidDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			
@@ -395,7 +395,7 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohFactoidResponse.class,
 					OhLohFactoidResult.class,
-					OhLohFactoid.class));
+					OhLohFactoidDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			
@@ -421,7 +421,7 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohSizeFactResponse.class,
 					OhLohSizeFactResult.class,
-					OhLohSizeFact.class));
+					OhLohSizeFactDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			
@@ -453,7 +453,7 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohSizeFactResponse.class,
 					OhLohSizeFactResult.class,
-					OhLohSizeFact.class));
+					OhLohSizeFactDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			
@@ -471,9 +471,9 @@ public class OhLohRestfulClient {
 	 * @param request
 	 * @return
 	 */
-	public OhLohAnalysis getAnalysisById(String projectId, String analysisId, OhLohBaseRequest request) {
+	public OhLohAnalysisDTO getAnalysisById(String projectId, String analysisId, OhLohBaseRequest request) {
 		
-		OhLohAnalysis analysis = null;
+		OhLohAnalysisDTO analysis = null;
 		
 		try {
 			
@@ -487,7 +487,7 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohAnalysisResponse.class,
 					OhLohAnalysisResult.class,
-					OhLohAnalysis.class));
+					OhLohAnalysisDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			
@@ -509,7 +509,7 @@ public class OhLohRestfulClient {
 	 * @param request
 	 * @return
 	 */
-	public OhLohAnalysis getLatestAnalysis(String projectId, OhLohBaseRequest request) {
+	public OhLohAnalysisDTO getLatestAnalysis(String projectId, OhLohBaseRequest request) {
 		return getAnalysisById(projectId, "latest", request);
 	}
 	
@@ -517,8 +517,8 @@ public class OhLohRestfulClient {
 	 * 
 	 * @return
 	 */
-	public OhLohContributorFact getProjectContributorFactById(String projectId, String contributorId, OhLohBaseRequest request) {
-		OhLohContributorFact contributorFact = null;
+	public OhLohContributorFactDTO getProjectContributorFactById(String projectId, String contributorId, OhLohBaseRequest request) {
+		OhLohContributorFactDTO contributorFact = null;
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.contributor_facts");
@@ -531,16 +531,16 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohContributorFactResponse.class,
 					OhLohContributorFactResult.class,
-					OhLohContributorFact.class));
+					OhLohContributorFactDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			OhLohContributorFactResponse resource = response.getResource();
 			
 			if (resource != null && OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
-				List<OhLohContributorFact> ohLohContributorFacts = resource.getResult().getOhLohContributorFacts();
+				List<OhLohContributorFactDTO> ohLohContributorFactDTOs = resource.getResult().getOhLohContributorFacts();
 				
-				if (ohLohContributorFacts != null && ! ohLohContributorFacts.isEmpty()) {
-					contributorFact = ohLohContributorFacts.get(0);
+				if (ohLohContributorFactDTOs != null && ! ohLohContributorFactDTOs.isEmpty()) {
+					contributorFact = ohLohContributorFactDTOs.get(0);
 				}
 			}
 			
@@ -571,7 +571,7 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohContributorFactResponse.class,
 					OhLohContributorFactResult.class,
-					OhLohContributorFact.class));
+					OhLohContributorFactDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			resource = response.getResource();
@@ -600,7 +600,7 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohActivityFactResponse.class,
 					OhLohActivityFactResult.class,
-					OhLohActivityFact.class));
+					OhLohActivityFactDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			resource = response.getResource();
@@ -642,7 +642,7 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohEnlistmentResponse.class,
 					OhLohEnlistmentResult.class,
-					OhLohEnlistment.class));
+					OhLohEnlistmentDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			resource = response.getResource();
@@ -660,8 +660,8 @@ public class OhLohRestfulClient {
 	 * @param enlistmentId
 	 * @return
 	 */
-	public OhLohEnlistment getProjectEnlistmentById(String projectId, String enlistmentId) {
-		OhLohEnlistment enlistment = null;
+	public OhLohEnlistmentDTO getProjectEnlistmentById(String projectId, String enlistmentId) {
+		OhLohEnlistmentDTO enlistment = null;
 		
 		try {	
 			
@@ -674,16 +674,16 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohEnlistmentResponse.class,
 					OhLohEnlistmentResult.class,
-					OhLohEnlistment.class));
+					OhLohEnlistmentDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			OhLohEnlistmentResponse resource = response.getResource();
 			
 			if (resource != null && OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
-				List<OhLohEnlistment> ohLohEnlistments = resource.getResult().getOhLohEnlistments();
+				List<OhLohEnlistmentDTO> ohLohEnlistmentDTOs = resource.getResult().getOhLohEnlistments();
 				
-				if (ohLohEnlistments != null && ! ohLohEnlistments.isEmpty()) {
-					enlistment = ohLohEnlistments.get(0);
+				if (ohLohEnlistmentDTOs != null && ! ohLohEnlistmentDTOs.isEmpty()) {
+					enlistment = ohLohEnlistmentDTOs.get(0);
 				}
 			}
 			
@@ -712,7 +712,7 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohKudoResponse.class,
 					OhLohKudoResult.class,
-					OhLohKudo.class));
+					OhLohKudoDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			resource = response.getResource();
@@ -742,7 +742,7 @@ public class OhLohRestfulClient {
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohKudoResponse.class,
 					OhLohKudoResult.class,
-					OhLohKudo.class));
+					OhLohKudoDTO.class));
 			
 			Response response = restfulie.at(uri).get();
 			resource = response.getResource();

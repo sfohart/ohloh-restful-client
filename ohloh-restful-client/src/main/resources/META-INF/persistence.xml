@@ -6,28 +6,26 @@
 	<persistence-unit name="ohloh" transaction-type="RESOURCE_LOCAL">
 	    
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccount</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.activityfact.OhLohActivityFact</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysis</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisLanguage</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisLanguages</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact.OhLohContributorFact</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact.OhLohContributorLanguageFact</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment.OhLohEnlistment</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment.OhLohRepository</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.factoid.OhLohFactoid</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.kudo.OhLohKudo</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.kudoskore.OhLohKudoScore</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohLicense</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProject</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohTag</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.sizefact.OhLohSizeFact</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStack</class>
-		<class>br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStackEntry</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.account.OhLohAccountEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.activityfact.OhLohActivityFactEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis.OhLohAnalysisEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis.OhLohAnalysisLanguageEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis.OhLohAnalysisLanguagesEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.contributorfact.OhLohContributorFactEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.contributorfact.OhLohContributorLanguageFactEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.enlistment.OhLohEnlistmentEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.enlistment.OhLohRepositoryEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.factoid.OhLohFactoidEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.kudo.OhLohKudoEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.kudoskore.OhLohKudoScoreEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohLicenseEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohTagEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.sizefact.OhLohSizeFactEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.stack.OhLohStackEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.stack.OhLohStackEntryEntity</class>
 	    
-		
-		
 		<properties>
 			<!--  https://github.com/hibernate/hibernate-orm/pull/396  -->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />			
@@ -40,6 +38,9 @@
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider" />
 			<property name="hibernate.jdbc.batch_size" value="0" />
+			
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
 			
 			
 		</properties>

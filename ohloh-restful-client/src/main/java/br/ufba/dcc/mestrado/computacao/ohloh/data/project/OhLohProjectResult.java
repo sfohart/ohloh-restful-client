@@ -9,14 +9,14 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 public class OhLohProjectResult {
 
 	@XStreamImplicit(itemFieldName="project")
-	private List<OhLohProject> ohLohProjects;
+	private List<OhLohProjectDTO> ohLohProjectDTOs;
 	
-	public List<OhLohProject> getOhLohProjects() {
-		return ohLohProjects;
+	public List<OhLohProjectDTO> getOhLohProjects() {
+		return ohLohProjectDTOs;
 	}
 	
-	public void setOhLohProjects(List<OhLohProject> ohLohProjects) {
-		this.ohLohProjects = ohLohProjects;
+	public void setOhLohProjects(List<OhLohProjectDTO> ohLohProjectDTOs) {
+		this.ohLohProjectDTOs = ohLohProjectDTOs;
 	}
 	
 }

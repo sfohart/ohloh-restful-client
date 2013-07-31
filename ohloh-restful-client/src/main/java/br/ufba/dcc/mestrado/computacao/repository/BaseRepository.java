@@ -3,7 +3,7 @@ package br.ufba.dcc.mestrado.computacao.repository;
 import java.io.Serializable;
 import java.util.List;
 
-import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohBaseEntity;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 
 public interface BaseRepository<E extends OhLohBaseEntity> extends Serializable {
 

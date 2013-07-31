@@ -2,7 +2,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.client;
 
 import org.junit.Test;
 
-import br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStack;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStackDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohBaseResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohStackResponse;
@@ -17,13 +17,13 @@ public class MetaOhLohApiStackTest extends AbstractOhLohApiTest {
 	
 	@Test
 	public void testSuccessGetAccountStack() {
-		OhLohStack stack = getOhLohRestfulClient().getSingleAccountStack("sfohart", "105181", new OhLohBaseRequest());
+		OhLohStackDTO stack = getOhLohRestfulClient().getSingleAccountStack("sfohart", "105181", new OhLohBaseRequest());
 		org.junit.Assert.assertNotNull(stack);
 	}
 	
 	@Test
 	public void testSuccessGetAccountDefaultStack() {
-		OhLohStack stack = getOhLohRestfulClient().getDefaultAccountStack("sfohart", new OhLohBaseRequest());
+		OhLohStackDTO stack = getOhLohRestfulClient().getDefaultAccountStack("sfohart", new OhLohBaseRequest());
 		org.junit.Assert.assertNotNull(stack);
 	}
 	

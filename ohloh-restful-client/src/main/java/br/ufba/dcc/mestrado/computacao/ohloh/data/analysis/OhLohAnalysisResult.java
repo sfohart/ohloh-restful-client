@@ -5,13 +5,13 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @XStreamAlias("result")
 public class OhLohAnalysisResult {
 
-	private OhLohAnalysis analysis;
+	private OhLohAnalysisDTO analysis;
 	
-	public OhLohAnalysis getAnalysis() {
+	public OhLohAnalysisDTO getAnalysis() {
 		return analysis;
 	}
 	
-	public void setAnalysis(OhLohAnalysis analysis) {
+	public void setAnalysis(OhLohAnalysisDTO analysis) {
 		this.analysis = analysis;
 	}
 	

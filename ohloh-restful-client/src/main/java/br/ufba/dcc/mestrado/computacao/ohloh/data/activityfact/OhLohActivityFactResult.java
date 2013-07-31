@@ -10,14 +10,14 @@ public class OhLohActivityFactResult {
 
 	
 	@XStreamImplicit(itemFieldName="activity_fact")
-	private List<OhLohActivityFact> ohLohActivityFacts;
+	private List<OhLohActivityFactDTO> ohLohActivityFactDTOs;
 	
-	public List<OhLohActivityFact> getOhLohActivityFacts() {
-		return ohLohActivityFacts;
+	public List<OhLohActivityFactDTO> getOhLohActivityFacts() {
+		return ohLohActivityFactDTOs;
 	}
 	
-	public void setOhLohActivityFacts(List<OhLohActivityFact> ohLohActivityFacts) {
-		this.ohLohActivityFacts = ohLohActivityFacts;
+	public void setOhLohActivityFacts(List<OhLohActivityFactDTO> ohLohActivityFactDTOs) {
+		this.ohLohActivityFactDTOs = ohLohActivityFactDTOs;
 	}
 	
 	
