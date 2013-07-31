@@ -39,7 +39,7 @@ public class OhLohProjectEntity extends OhLohBaseEntity {
 	@Column(name = "updated_at")
 	private Timestamp updatedAt;
 
-	@Column(name = "description", length=2000)
+	@Column(name = "description", length = 2000)
 	private String description;
 
 	@Column(name = "homepage_url")
@@ -74,13 +74,13 @@ public class OhLohProjectEntity extends OhLohBaseEntity {
 
 	@OneToOne
 	@JoinColumn(name = "analysis_id", referencedColumnName = "id", insertable = false, updatable = false)
-	private OhLohAnalysisEntity analysis;
+	private OhLohAnalysisEntity ohLohAnalysis;
 
 	@OneToMany
-	private List<OhLohLicenseEntity> ohLohLicenseEntities;
+	private List<OhLohLicenseEntity> ohLohLicenses;
 
 	@OneToMany
-	private List<OhLohTagEntity> ohLohTagEntities;
+	private List<OhLohTagEntity> ohLohTags;
 
 	public String getName() {
 		return name;
@@ -202,20 +202,20 @@ public class OhLohProjectEntity extends OhLohBaseEntity {
 		this.analysisId = analysisId;
 	}
 
-	public OhLohAnalysisEntity getAnalysis() {
-		return analysis;
+	public OhLohAnalysisEntity getOhLohAnalysis() {
+		return ohLohAnalysis;
 	}
 
-	public void setAnalysis(OhLohAnalysisEntity analysis) {
-		this.analysis = analysis;
+	public void setOhLohAnalysis(OhLohAnalysisEntity ohLohAnalysis) {
+		this.ohLohAnalysis = ohLohAnalysis;
 	}
 
 	public List<OhLohLicenseEntity> getOhLohLicenses() {
-		return ohLohLicenseEntities;
+		return ohLohLicenses;
 	}
 
-	public void setOhLohLicenses(List<OhLohLicenseEntity> ohLohLicenseEntities) {
-		this.ohLohLicenseEntities = ohLohLicenseEntities;
+	public void setOhLohLicenses(List<OhLohLicenseEntity> ohLohLicenses) {
+		this.ohLohLicenses = ohLohLicenses;
 	}
 
 	public Long getReviewCount() {
@@ -227,11 +227,11 @@ public class OhLohProjectEntity extends OhLohBaseEntity {
 	}
 
 	public List<OhLohTagEntity> getOhLohTags() {
-		return ohLohTagEntities;
+		return ohLohTags;
 	}
 
-	public void setOhLohTags(List<OhLohTagEntity> ohLohTagEntities) {
-		this.ohLohTagEntities = ohLohTagEntities;
+	public void setOhLohTags(List<OhLohTagEntity> ohLohTags) {
+		this.ohLohTags = ohLohTags;
 	}
 
 }

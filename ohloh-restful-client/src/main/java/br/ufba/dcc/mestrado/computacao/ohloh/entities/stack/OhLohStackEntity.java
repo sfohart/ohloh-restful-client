@@ -41,7 +41,7 @@ public class OhLohStackEntity extends OhLohBaseEntity {
 	private Integer projectCount;
 
 	@OneToMany(mappedBy = "ohLohStack")
-	private List<OhLohStackEntryEntity> ohLohStackEntryEntities;
+	private List<OhLohStackEntryEntity> ohLohStackEntries;
 
 	@Column(name = "account_id")
 	private Long acountId;
@@ -83,11 +83,11 @@ public class OhLohStackEntity extends OhLohBaseEntity {
 	}
 
 	public List<OhLohStackEntryEntity> getOhLohStackEntries() {
-		return ohLohStackEntryEntities;
+		return ohLohStackEntries;
 	}
 
-	public void setOhLohStackEntries(List<OhLohStackEntryEntity> ohLohStackEntryEntities) {
-		this.ohLohStackEntryEntities = ohLohStackEntryEntities;
+	public void setOhLohStackEntries(List<OhLohStackEntryEntity> ohLohStackEntries) {
+		this.ohLohStackEntries = ohLohStackEntries;
 	}
 
 	public Long getAcountId() {

@@ -37,7 +37,7 @@ public class OhLohStackDTO implements Serializable {
 	private Integer projectCount;
 
 	@XStreamAlias("stack_entries")
-	private List<OhLohStackEntryDTO> ohLohStackEntryDTOs;
+	private List<OhLohStackEntryDTO> ohLohStackEntrys;
 
 	@XStreamAlias("account_id")
 	private Long acountId;
@@ -75,11 +75,11 @@ public class OhLohStackDTO implements Serializable {
 	}
 
 	public List<OhLohStackEntryDTO> getOhLohStackEntries() {
-		return ohLohStackEntryDTOs;
+		return ohLohStackEntrys;
 	}
 
-	public void setOhLohStackEntries(List<OhLohStackEntryDTO> ohLohStackEntryDTOs) {
-		this.ohLohStackEntryDTOs = ohLohStackEntryDTOs;
+	public void setOhLohStackEntries(List<OhLohStackEntryDTO> ohLohStackEntrys) {
+		this.ohLohStackEntrys = ohLohStackEntrys;
 	}
 
 	public Long getAcountId() {

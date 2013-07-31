@@ -54,11 +54,11 @@ public class OhLohAnalysisEntity extends OhLohBaseEntity {
 	private Integer totalCodeLines;
 
 	@OneToMany(mappedBy = "ohLohAnalysis")
-	private List<OhLohFactoidEntity> ohLohFactoidEntities;
+	private List<OhLohFactoidEntity> ohLohFactoids;
 
 	@ManyToOne
 	@JoinColumn(name = "languages_id", referencedColumnName = "id")
-	private OhLohAnalysisLanguagesEntity ohLohAnalysisLanguagesEntity;
+	private OhLohAnalysisLanguagesEntity ohLohAnalysisLanguages;
 
 	@Column(name = "main_language_id")
 	private Integer mainLanguageId;
@@ -140,20 +140,20 @@ public class OhLohAnalysisEntity extends OhLohBaseEntity {
 	}
 
 	public List<OhLohFactoidEntity> getOhLohFactoids() {
-		return ohLohFactoidEntities;
+		return ohLohFactoids;
 	}
 
-	public void setOhLohFactoids(List<OhLohFactoidEntity> ohLohFactoidEntities) {
-		this.ohLohFactoidEntities = ohLohFactoidEntities;
+	public void setOhLohFactoids(List<OhLohFactoidEntity> ohLohFactoids) {
+		this.ohLohFactoids = ohLohFactoids;
 	}
 
 	public OhLohAnalysisLanguagesEntity getOhLohAnalysisLanguages() {
-		return ohLohAnalysisLanguagesEntity;
+		return ohLohAnalysisLanguages;
 	}
 
 	public void setOhLohAnalysisLanguages(
 			OhLohAnalysisLanguagesEntity ohLohAnalysisLanguagesEntity) {
-		this.ohLohAnalysisLanguagesEntity = ohLohAnalysisLanguagesEntity;
+		this.ohLohAnalysisLanguages = ohLohAnalysisLanguagesEntity;
 	}
 
 	public Integer getMainLanguageId() {

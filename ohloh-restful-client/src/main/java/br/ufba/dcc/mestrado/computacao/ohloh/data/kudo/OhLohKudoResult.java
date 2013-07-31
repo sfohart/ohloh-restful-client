@@ -10,14 +10,14 @@ public class OhLohKudoResult {
 
 	
 	@XStreamImplicit(itemFieldName="kudo")
-	private List<OhLohKudoDTO> ohLohKudoDTOs;
+	private List<OhLohKudoDTO> ohLohKudos;
 	
 	public List<OhLohKudoDTO> getOhLohKudos() {
-		return ohLohKudoDTOs;
+		return ohLohKudos;
 	}
 	
-	public void setOhLohKudos(List<OhLohKudoDTO> ohLohKudoDTOs) {
-		this.ohLohKudoDTOs = ohLohKudoDTOs;
+	public void setOhLohKudos(List<OhLohKudoDTO> ohLohKudos) {
+		this.ohLohKudos = ohLohKudos;
 	}
 	
 	

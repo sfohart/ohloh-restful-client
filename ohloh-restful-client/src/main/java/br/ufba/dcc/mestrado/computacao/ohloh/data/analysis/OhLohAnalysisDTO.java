@@ -57,7 +57,7 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 	private List<OhLohFactoidDTO> ohLohFactoidEntities;
 
 	@XStreamAlias("languages")
-	private OhLohAnalysisLanguagesDTO ohLohAnalysisLanguagesDTO;
+	private OhLohAnalysisLanguagesDTO ohLohAnalysisLanguages;
 
 	@XStreamAlias("main_language_id")
 	private Integer mainLanguageId;
@@ -139,12 +139,12 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 	}
 
 	public OhLohAnalysisLanguagesDTO getOhLohAnalysisLanguages() {
-		return ohLohAnalysisLanguagesDTO;
+		return ohLohAnalysisLanguages;
 	}
 
 	public void setOhLohAnalysisLanguages(
 			OhLohAnalysisLanguagesDTO ohLohAnalysisLanguagesDTO) {
-		this.ohLohAnalysisLanguagesDTO = ohLohAnalysisLanguagesDTO;
+		this.ohLohAnalysisLanguages = ohLohAnalysisLanguagesDTO;
 	}
 
 	public Integer getMainLanguageId() {

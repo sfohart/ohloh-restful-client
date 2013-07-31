@@ -116,11 +116,7 @@ public class BaseRepositoryImpl<E extends OhLohBaseEntity>
 	public void save(E entity) {
 		if (entity != null) {
 			if (entity.getId() != null) {
-				if (findById(entity.getId()) != null) {
-					update(entity);
-				} else {
-					add(entity);
-				}
+				update(entity);
 			} else {
 				add(entity);
 			}

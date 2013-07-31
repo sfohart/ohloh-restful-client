@@ -2,8 +2,6 @@ package br.ufba.dcc.mestrado.computacao.service.impl;
 
 import javax.inject.Inject;
 
-import org.apache.commons.beanutils.BeanUtils;
-
 import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity;
 import br.ufba.dcc.mestrado.computacao.qualifier.OhLohProjectRepositoryQualifier;
@@ -12,7 +10,12 @@ import br.ufba.dcc.mestrado.computacao.repository.OhLohProjectRepository;
 import br.ufba.dcc.mestrado.computacao.service.OhLohProjectService;
 
 @OhLohProjectServiceQualifier
-public class OhLohProjectServiceImpl implements OhLohProjectService {
+public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDTO, OhLohProjectEntity>
+		implements OhLohProjectService {
+
+	public OhLohProjectServiceImpl() {
+		super(OhLohProjectDTO.class, OhLohProjectEntity.class);
+	}
 
 	@Inject
 	@OhLohProjectRepositoryQualifier
@@ -20,11 +23,8 @@ public class OhLohProjectServiceImpl implements OhLohProjectService {
 	
 	@Override
 	public OhLohProjectEntity store(OhLohProjectDTO dto) throws Exception{
-		OhLohProjectEntity entity = new OhLohProjectEntity();		
-		BeanUtils.copyProperties(entity, dto);
-		
-		projectRepository.add(entity);
-		
+		OhLohProjectEntity entity = buildEntity(dto);
+		projectRepository.save(entity);
 		return entity;
 	}
 

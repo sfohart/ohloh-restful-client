@@ -63,7 +63,7 @@ public class OhLohContributorFactEntity extends OhLohBaseEntity {
 	private Double medianCommits;
 	
 	@OneToMany(mappedBy="ohLohContributorFact")
-	private List<OhLohContributorLanguageFactEntity> ohLohContributorLanguageFactEntities;
+	private List<OhLohContributorLanguageFactEntity> ohLohContributorLanguageFacts;
 
 	public Long getAccountId() {
 		return accountId;
@@ -162,11 +162,11 @@ public class OhLohContributorFactEntity extends OhLohBaseEntity {
 	}
 	
 	public List<OhLohContributorLanguageFactEntity> getOhLohContributorLanguageFacts() {
-		return ohLohContributorLanguageFactEntities;
+		return ohLohContributorLanguageFacts;
 	}
 	
 	public void setOhLohContributorLanguageFacts(
-			List<OhLohContributorLanguageFactEntity> ohLohContributorLanguageFactEntities) {
-		this.ohLohContributorLanguageFactEntities = ohLohContributorLanguageFactEntities;
+			List<OhLohContributorLanguageFactEntity> ohLohContributorLanguageFacts) {
+		this.ohLohContributorLanguageFacts = ohLohContributorLanguageFacts;
 	}
 }

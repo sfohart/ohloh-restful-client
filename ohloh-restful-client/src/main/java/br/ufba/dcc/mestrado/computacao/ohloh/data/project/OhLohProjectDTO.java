@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisDTO;
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
 
@@ -74,11 +75,14 @@ public class OhLohProjectDTO implements OhLohResultDTO {
 	@XStreamAlias("analysis_id")
 	private Long analysisId;
 
+	@XStreamAlias("analysis")
+	private OhLohAnalysisDTO ohLohAnalysis;
+
 	@XStreamAlias("licenses")
-	private List<OhLohLicenseDTO> ohLohLicenseDTOs;
+	private List<OhLohLicenseDTO> ohLohLicenses;
 
 	@XStreamAlias("tags")
-	private List<OhLohTagDTO> ohLohTagDTOs;
+	private List<OhLohTagDTO> ohLohTags;
 
 	public String getName() {
 		return name;
@@ -201,11 +205,11 @@ public class OhLohProjectDTO implements OhLohResultDTO {
 	}
 
 	public List<OhLohLicenseDTO> getOhLohLicenses() {
-		return ohLohLicenseDTOs;
+		return ohLohLicenses;
 	}
 
-	public void setOhLohLicenses(List<OhLohLicenseDTO> ohLohLicenseDTOs) {
-		this.ohLohLicenseDTOs = ohLohLicenseDTOs;
+	public void setOhLohLicenses(List<OhLohLicenseDTO> ohLohLicenses) {
+		this.ohLohLicenses = ohLohLicenses;
 	}
 
 	public Long getReviewCount() {
@@ -217,11 +221,27 @@ public class OhLohProjectDTO implements OhLohResultDTO {
 	}
 
 	public List<OhLohTagDTO> getOhLohTags() {
-		return ohLohTagDTOs;
+		return ohLohTags;
 	}
 
-	public void setOhLohTags(List<OhLohTagDTO> ohLohTagDTOs) {
-		this.ohLohTagDTOs = ohLohTagDTOs;
+	public void setOhLohTags(List<OhLohTagDTO> ohLohTags) {
+		this.ohLohTags = ohLohTags;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public OhLohAnalysisDTO getOhLohAnalysis() {
+		return ohLohAnalysis;
+	}
+
+	public void setOhLohAnalysis(OhLohAnalysisDTO ohLohAnalysis) {
+		this.ohLohAnalysis = ohLohAnalysis;
 	}
 
 }

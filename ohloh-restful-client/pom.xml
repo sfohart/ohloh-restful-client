@@ -133,17 +133,23 @@
 			<artifactId>commons-beanutils</artifactId>
 			<version>${beanutils-version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils-bean-collections</artifactId>
 			<version>${beanutils-version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<properties>
-	    <beanutils-version>1.8.3</beanutils-version>
+		<beanutils-version>1.8.3</beanutils-version>
 		<hibernate.version>4.2.3.Final</hibernate.version>
 		<hibernate-jpa-2.0-api.version>1.0.1.Final</hibernate-jpa-2.0-api.version>
 		<weld.version>2.0.3.Final</weld.version>
