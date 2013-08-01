@@ -16,7 +16,7 @@ public class OhLohTagEntity extends OhLohBaseEntity {
 
 	public final static String NODE_NAME = "tag";
 
-	@Column(unique = true)
+	@Column(name = "name", unique = true, nullable = false)
 	private String name;
 
 	public String getName() {

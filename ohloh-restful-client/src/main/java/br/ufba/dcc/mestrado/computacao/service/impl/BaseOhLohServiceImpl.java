@@ -19,6 +19,15 @@ public abstract class BaseOhLohServiceImpl<DTO extends OhLohResultDTO, E extends
 	private Class<DTO> dtoClass;
 	private Class<E> entityClass;
 
+	@Override
+	public E store(DTO dto) throws Exception {
+		E entity = buildEntity(dto);
+		
+		validateEntity(entity);
+		
+		return entity;
+	}
+	
 	public BaseOhLohServiceImpl(Class<DTO> dtoClass, Class<E> entityClass) {
 		this.dtoClass = dtoClass;
 		this.entityClass = entityClass;
@@ -70,20 +79,9 @@ public abstract class BaseOhLohServiceImpl<DTO extends OhLohResultDTO, E extends
 		return destValue;
 	}
 	
-	/*protected Collection deepCopyCollectionValue(Collection origCollection, Class<?> originClass, Class<?> destClass) throws Exception {
-		if (origCollection == null) {
-			return null;
-		}
+	protected void validateEntity(E entity) throws Exception {
 		
-		Collection destCollection = new ArrayList();
-		for (Object itemOrigValue : origCollection) {
-			Object itemDestValue = deepCopySingleValue(itemOrigValue, originClass, destClass);
-			destCollection.add(itemDestValue);
-		}
-	
-		return destCollection;
-		
-	}*/
+	}
 	
 	protected E buildEntity(DTO dto) throws Exception {
 		E entity = entityClass.newInstance();

@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -77,10 +78,10 @@ public class OhLohProjectEntity extends OhLohBaseEntity {
 	@JoinColumn(name = "analysis_id", referencedColumnName = "id")
 	private OhLohAnalysisEntity ohLohAnalysis;
 
-	@OneToMany(cascade=CascadeType.PERSIST)
+	@ManyToMany(cascade=CascadeType.ALL)
 	private List<OhLohLicenseEntity> ohLohLicenses;
 
-	@OneToMany(cascade=CascadeType.PERSIST)
+	@ManyToMany(cascade=CascadeType.ALL)
 	private List<OhLohTagEntity> ohLohTags;
 
 	public String getName() {

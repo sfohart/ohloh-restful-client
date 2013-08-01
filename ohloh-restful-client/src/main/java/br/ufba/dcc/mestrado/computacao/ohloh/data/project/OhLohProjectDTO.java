@@ -60,6 +60,7 @@ public class OhLohProjectDTO implements OhLohResultDTO {
 	private String smallLogoURL;
 
 	@XStreamAlias("user_count")
+	@XStreamConverter(value = NullableLongConverter.class)
 	private Long userCount;
 
 	@XStreamAlias("average_rating")
@@ -67,12 +68,15 @@ public class OhLohProjectDTO implements OhLohResultDTO {
 	private Double averageRating;
 
 	@XStreamAlias("rating_count")
+	@XStreamConverter(value = NullableLongConverter.class)
 	private Long ratingCount;
 
 	@XStreamAlias("review_count")
+	@XStreamConverter(value = NullableLongConverter.class)
 	private Long reviewCount;
 
 	@XStreamAlias("analysis_id")
+	@XStreamConverter(value = NullableLongConverter.class)
 	private Long analysisId;
 
 	@XStreamAlias("analysis")
@@ -81,7 +85,7 @@ public class OhLohProjectDTO implements OhLohResultDTO {
 	@XStreamAlias("licenses")
 	private List<OhLohLicenseDTO> ohLohLicenses;
 
-	@XStreamAlias("tags")
+	@XStreamAlias("tags")	
 	private List<OhLohTagDTO> ohLohTags;
 
 	public String getName() {

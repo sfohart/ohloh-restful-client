@@ -27,6 +27,7 @@ public class OhLohFactoidDTO implements OhLohResultDTO {
 	private String type;
 
 	@XStreamAlias("analysis_id")
+	@XStreamConverter(value = NullableLongConverter.class)
 	private Long analysisId;
 
 	private Integer severity;

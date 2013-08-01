@@ -1,6 +1,5 @@
 package br.ufba.dcc.mestrado.computacao.repository.impl;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -32,8 +31,10 @@ public class BaseRepositoryImpl<E extends OhLohBaseEntity>
 	public BaseRepositoryImpl(Class<E> entityClass) {
 		this.entityClass = entityClass;
 	}
-	
-	
+
+	public Class<E> getEntityClass() {
+		return entityClass;
+	}
 		
 	public EntityManager getEntityManager() {
 		return entityManager;

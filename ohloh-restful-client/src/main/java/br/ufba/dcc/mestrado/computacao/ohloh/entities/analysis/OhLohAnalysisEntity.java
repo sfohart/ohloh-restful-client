@@ -48,10 +48,10 @@ public class OhLohAnalysisEntity extends OhLohBaseEntity {
 	private Timestamp maxMonth;
 
 	@Column(name = "twelve_month_contributor_count")
-	private Integer twelveMonthContributorCount;
+	private Long twelveMonthContributorCount;
 
 	@Column(name = "total_code_lines")
-	private Integer totalCodeLines;
+	private Long totalCodeLines;
 
 	@OneToMany(mappedBy = "ohLohAnalysis")
 	private List<OhLohFactoidEntity> ohLohFactoids;
@@ -61,7 +61,7 @@ public class OhLohAnalysisEntity extends OhLohBaseEntity {
 	private OhLohAnalysisLanguagesEntity ohLohAnalysisLanguages;
 
 	@Column(name = "main_language_id")
-	private Integer mainLanguageId;
+	private Long mainLanguageId;
 
 	@Column(name = "main_language_name")
 	private String mainLanguageName;
@@ -122,20 +122,20 @@ public class OhLohAnalysisEntity extends OhLohBaseEntity {
 		this.maxMonth = maxMonth;
 	}
 
-	public Integer getTwelveMonthContributorCount() {
+	public Long getTwelveMonthContributorCount() {
 		return twelveMonthContributorCount;
 	}
 
 	public void setTwelveMonthContributorCount(
-			Integer twelveMonthContributorCount) {
+			Long twelveMonthContributorCount) {
 		this.twelveMonthContributorCount = twelveMonthContributorCount;
 	}
 
-	public Integer getTotalCodeLines() {
+	public Long getTotalCodeLines() {
 		return totalCodeLines;
 	}
 
-	public void setTotalCodeLines(Integer totalCodeLines) {
+	public void setTotalCodeLines(Long totalCodeLines) {
 		this.totalCodeLines = totalCodeLines;
 	}
 
@@ -156,11 +156,11 @@ public class OhLohAnalysisEntity extends OhLohBaseEntity {
 		this.ohLohAnalysisLanguages = ohLohAnalysisLanguagesEntity;
 	}
 
-	public Integer getMainLanguageId() {
+	public Long getMainLanguageId() {
 		return mainLanguageId;
 	}
 
-	public void setMainLanguageId(Integer mainLanguageId) {
+	public void setMainLanguageId(Long mainLanguageId) {
 		this.mainLanguageId = mainLanguageId;
 	}
 
