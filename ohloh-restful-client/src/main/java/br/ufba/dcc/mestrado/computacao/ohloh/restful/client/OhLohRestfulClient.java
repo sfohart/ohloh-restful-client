@@ -51,7 +51,7 @@ import br.ufba.dcc.mestrado.computacao.qualifier.ConfigurationValue;
 public class OhLohRestfulClient {
 	
 	@Inject
-	@ConfigurationValue("test.ohloh.api.key")
+	@ConfigurationValue("meta.ohloh.api.key")
 	private String apiKey;
 
 	private static Properties properties;
