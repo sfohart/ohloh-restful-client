@@ -26,8 +26,6 @@ public abstract class OhLohBaseEntity implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name="id")
-	@XStreamAsAttribute	
-	@XStreamConverter(value=NullableLongConverter.class)
 	private Long id;
 
 	public Long getId() {
@@ -37,6 +35,8 @@ public abstract class OhLohBaseEntity implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	
 	
 	
 	

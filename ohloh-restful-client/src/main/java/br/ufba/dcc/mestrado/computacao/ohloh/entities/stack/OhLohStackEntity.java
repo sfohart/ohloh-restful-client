@@ -38,7 +38,7 @@ public class OhLohStackEntity extends OhLohBaseEntity {
 	private Timestamp updatedAt;
 
 	@Column(name = "project_count")
-	private Integer projectCount;
+	private Long projectCount;
 
 	@OneToMany(mappedBy = "ohLohStack")
 	private List<OhLohStackEntryEntity> ohLohStackEntries;
@@ -74,11 +74,11 @@ public class OhLohStackEntity extends OhLohBaseEntity {
 		this.updatedAt = updatedAt;
 	}
 
-	public Integer getProjectCount() {
+	public Long getProjectCount() {
 		return projectCount;
 	}
 
-	public void setProjectCount(Integer projectCount) {
+	public void setProjectCount(Long projectCount) {
 		this.projectCount = projectCount;
 	}
 

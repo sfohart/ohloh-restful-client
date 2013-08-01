@@ -28,25 +28,32 @@ public class OhLohActivityFactDTO implements OhLohResultDTO {
 	private Timestamp month;
 
 	@XStreamAlias("code_added")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long codeAdded;
 
 	@XStreamAlias("code_removed")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long codeRemoved;
 
 	@XStreamAlias("comments_added")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long commentsAdded;
 
 	@XStreamAlias("comments_removed")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long commentsRemoved;
 
 	@XStreamAlias("blanks_added")
 	private Long blanksAdded;
 
 	@XStreamAlias("blanks_removed")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long blanksRemoved;
 
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long commits;
 
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long contributors;
 
 	public Timestamp getMonth() {

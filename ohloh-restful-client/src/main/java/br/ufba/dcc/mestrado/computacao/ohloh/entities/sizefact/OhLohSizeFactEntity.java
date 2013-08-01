@@ -38,7 +38,7 @@ public class OhLohSizeFactEntity extends OhLohBaseEntity {
 	private String commits;
 
 	@Column(name = "man_months")
-	private Integer manMonths;
+	private Long manMonths;
 
 	public Timestamp getMonth() {
 		return month;
@@ -88,11 +88,11 @@ public class OhLohSizeFactEntity extends OhLohBaseEntity {
 		this.commits = commits;
 	}
 
-	public Integer getManMonths() {
+	public Long getManMonths() {
 		return manMonths;
 	}
 
-	public void setManMonths(Integer manMonths) {
+	public void setManMonths(Long manMonths) {
 		this.manMonths = manMonths;
 	}
 

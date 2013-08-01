@@ -40,4 +40,40 @@ public class OhLohLicenseEntity extends OhLohBaseEntity {
 		this.niceName = niceName;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((niceName == null) ? 0 : niceName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OhLohLicenseEntity other = (OhLohLicenseEntity) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (niceName == null) {
+			if (other.niceName != null)
+				return false;
+		} else if (!niceName.equals(other.niceName))
+			return false;
+		return true;
+	}
+
+	
+	
+	
+
 }

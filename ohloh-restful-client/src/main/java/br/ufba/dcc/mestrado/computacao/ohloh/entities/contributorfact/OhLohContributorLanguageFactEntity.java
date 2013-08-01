@@ -43,10 +43,10 @@ public class OhLohContributorLanguageFactEntity extends OhLohBaseEntity {
 	private Double commentRatio;
 
 	@Column(name="man_months")
-	private Integer manMonths;
+	private Long manMonths;
 
 	@Column(name="commits")
-	private Integer commits;
+	private Long commits;
 
 	@Column(name="median_commits")
 	private Double medianCommits;
@@ -99,19 +99,19 @@ public class OhLohContributorLanguageFactEntity extends OhLohBaseEntity {
 		this.commentRatio = commentRatio;
 	}
 
-	public Integer getManMonths() {
+	public Long getManMonths() {
 		return manMonths;
 	}
 
-	public void setManMonths(Integer manMonths) {
+	public void setManMonths(Long manMonths) {
 		this.manMonths = manMonths;
 	}
 
-	public Integer getCommits() {
+	public Long getCommits() {
 		return commits;
 	}
 
-	public void setCommits(Integer commits) {
+	public void setCommits(Long commits) {
 		this.commits = commits;
 	}
 

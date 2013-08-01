@@ -26,10 +26,12 @@ public class OhLohStackEntryDTO implements Serializable {
 	private Long id;
 
 	@XStreamAlias("stack_id")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long stackId;
 
 
 	@XStreamAlias("project_id")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long projectId;
 
 	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)

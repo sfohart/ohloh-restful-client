@@ -27,21 +27,25 @@ public class OhLohContributorFactDTO implements OhLohResultDTO {
 	private Long id;
 
 	@XStreamAlias("contributor_id")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long contributorId;
 
 	@XStreamAlias("account_id")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long accountId;
 
 	@XStreamAlias("account_name")
 	private String accountName;
 
 	@XStreamAlias("analysis_id")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long analysisId;
 
 	@XStreamAlias("contributor_name")
 	private String contributorName;
 
 	@XStreamAlias("primary_language_id")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long primaryLanguageId;
 
 	@XStreamAlias("primary_language_nice_name")
@@ -60,9 +64,11 @@ public class OhLohContributorFactDTO implements OhLohResultDTO {
 	private Timestamp lastCommitTime;
 
 	@XStreamAlias("man_months")
-	private Integer manMonths;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long manMonths;
 
-	private Integer commits;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long commits;
 
 	@XStreamConverter(value = NullableDoubleConverter.class)
 	@XStreamAlias("median_commits")
@@ -143,19 +149,19 @@ public class OhLohContributorFactDTO implements OhLohResultDTO {
 		this.lastCommitTime = lastCommitTime;
 	}
 
-	public Integer getManMonths() {
+	public Long getManMonths() {
 		return manMonths;
 	}
 
-	public void setManMonths(Integer manMonths) {
+	public void setManMonths(Long manMonths) {
 		this.manMonths = manMonths;
 	}
 
-	public Integer getCommits() {
+	public Long getCommits() {
 		return commits;
 	}
 
-	public void setCommits(Integer commits) {
+	public void setCommits(Long commits) {
 		this.commits = commits;
 	}
 

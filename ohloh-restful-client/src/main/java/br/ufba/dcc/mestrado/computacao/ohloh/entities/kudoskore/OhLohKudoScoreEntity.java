@@ -24,16 +24,16 @@ public class OhLohKudoScoreEntity extends OhLohBaseEntity{
 	private Timestamp createdAt;
 	
 	@Column(name="kudo_rank")
-	private Integer kudoRank;
+	private Long kudoRank;
 	
 	@Column(name="position")
-	private Integer position;
+	private Long position;
 	
 	@Column(name="max_position")
-	private Integer maxPosition;
+	private Long maxPosition;
 	
 	@Column(name="position_delta")
-	private Integer positionDelta;
+	private Long positionDelta;
 
 	public Timestamp getCreatedAt() {
 		return createdAt;
@@ -43,35 +43,35 @@ public class OhLohKudoScoreEntity extends OhLohBaseEntity{
 		this.createdAt = createdAt;
 	}
 
-	public Integer getKudoRank() {
+	public Long getKudoRank() {
 		return kudoRank;
 	}
 
-	public void setKudoRank(Integer kudoRank) {
+	public void setKudoRank(Long kudoRank) {
 		this.kudoRank = kudoRank;
 	}
 
-	public Integer getPosition() {
+	public Long getPosition() {
 		return position;
 	}
 
-	public void setPosition(Integer position) {
+	public void setPosition(Long position) {
 		this.position = position;
 	}
 
-	public Integer getMaxPosition() {
+	public Long getMaxPosition() {
 		return maxPosition;
 	}
 
-	public void setMaxPosition(Integer maxPosition) {
+	public void setMaxPosition(Long maxPosition) {
 		this.maxPosition = maxPosition;
 	}
 
-	public Integer getPositionDelta() {
+	public Long getPositionDelta() {
 		return positionDelta;
 	}
 
-	public void setPositionDelta(Integer positionDelta) {
+	public void setPositionDelta(Long positionDelta) {
 		this.positionDelta = positionDelta;
 	}
 

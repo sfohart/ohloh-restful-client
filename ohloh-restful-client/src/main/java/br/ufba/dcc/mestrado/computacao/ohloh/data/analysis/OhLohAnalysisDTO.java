@@ -29,6 +29,7 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 	private Long id;
 
 	@XStreamAlias("project_id")
+	@XStreamConverter(value = NullableLongConverter.class)
 	private Long projectId;
 
 	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
@@ -48,10 +49,12 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 	private Timestamp maxMonth;
 
 	@XStreamAlias("twelve_month_contributor_count")
-	private Integer twelveMonthContributorCount;
+	@XStreamConverter(value = NullableLongConverter.class)
+	private Long twelveMonthContributorCount;
 
 	@XStreamAlias("total_code_lines")
-	private Integer totalCodeLines;
+	@XStreamConverter(value = NullableLongConverter.class)
+	private Long totalCodeLines;
 
 	@XStreamAlias("factoids")
 	private List<OhLohFactoidDTO> ohLohFactoidEntities;
@@ -60,7 +63,8 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 	private OhLohAnalysisLanguagesDTO ohLohAnalysisLanguages;
 
 	@XStreamAlias("main_language_id")
-	private Integer mainLanguageId;
+	@XStreamConverter(value = NullableLongConverter.class)
+	private Long mainLanguageId;
 
 	@XStreamAlias("main_language_name")
 	private String mainLanguageName;
@@ -113,20 +117,20 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 		this.maxMonth = maxMonth;
 	}
 
-	public Integer getTwelveMonthContributorCount() {
+	public Long getTwelveMonthContributorCount() {
 		return twelveMonthContributorCount;
 	}
 
 	public void setTwelveMonthContributorCount(
-			Integer twelveMonthContributorCount) {
+			Long twelveMonthContributorCount) {
 		this.twelveMonthContributorCount = twelveMonthContributorCount;
 	}
 
-	public Integer getTotalCodeLines() {
+	public Long getTotalCodeLines() {
 		return totalCodeLines;
 	}
 
-	public void setTotalCodeLines(Integer totalCodeLines) {
+	public void setTotalCodeLines(Long totalCodeLines) {
 		this.totalCodeLines = totalCodeLines;
 	}
 
@@ -147,11 +151,11 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 		this.ohLohAnalysisLanguages = ohLohAnalysisLanguagesDTO;
 	}
 
-	public Integer getMainLanguageId() {
+	public Long getMainLanguageId() {
 		return mainLanguageId;
 	}
 
-	public void setMainLanguageId(Integer mainLanguageId) {
+	public void setMainLanguageId(Long mainLanguageId) {
 		this.mainLanguageId = mainLanguageId;
 	}
 

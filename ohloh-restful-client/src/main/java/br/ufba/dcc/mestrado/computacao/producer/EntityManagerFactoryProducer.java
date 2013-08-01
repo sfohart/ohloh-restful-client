@@ -25,7 +25,7 @@ public class EntityManagerFactoryProducer {
 	public EntityManagerFactory create() {
 		
 		Map<String, Object> configOverrides = new HashMap<String, Object>();
-		configOverrides.put("hibernate.hbm2ddl.auto", "create-drop");
+		configOverrides.put("hibernate.hbm2ddl.auto", "update");
 		
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT, configOverrides);
 		return entityManagerFactory;

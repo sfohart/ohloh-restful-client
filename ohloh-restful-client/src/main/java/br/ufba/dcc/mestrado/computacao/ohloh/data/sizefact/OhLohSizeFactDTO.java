@@ -28,10 +28,13 @@ public class OhLohSizeFactDTO implements OhLohResultDTO {
 	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
 	private Timestamp month;
 
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long code;
 
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long comments;
 
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long blanks;
 
 	@XStreamAlias("comment_ratio")
@@ -41,7 +44,7 @@ public class OhLohSizeFactDTO implements OhLohResultDTO {
 	private String commits;
 
 	@XStreamAlias("man_months")
-	private Integer manMonths;
+	private Long manMonths;
 
 	public Timestamp getMonth() {
 		return month;
@@ -91,11 +94,11 @@ public class OhLohSizeFactDTO implements OhLohResultDTO {
 		this.commits = commits;
 	}
 
-	public Integer getManMonths() {
+	public Long getManMonths() {
 		return manMonths;
 	}
 
-	public void setManMonths(Integer manMonths) {
+	public void setManMonths(Long manMonths) {
 		this.manMonths = manMonths;
 	}
 

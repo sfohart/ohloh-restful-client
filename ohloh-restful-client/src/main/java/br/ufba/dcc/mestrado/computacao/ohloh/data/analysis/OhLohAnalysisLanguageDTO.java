@@ -24,18 +24,20 @@ public class OhLohAnalysisLanguageDTO implements OhLohResultDTO {
 	private Long id;
 
 	@XStreamAsAttribute
-	private Integer percentage;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long percentage;
 
 	@XStreamAsAttribute
 	private String color;
 
+	
 	private String content;
 
-	public Integer getPercentage() {
+	public Long getPercentage() {
 		return percentage;
 	}
 
-	public void setPercentage(Integer percentage) {
+	public void setPercentage(Long percentage) {
 		this.percentage = percentage;
 	}
 

@@ -25,6 +25,7 @@
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.sizefact.OhLohSizeFactEntity</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.stack.OhLohStackEntity</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.stack.OhLohStackEntryEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerConfigEntity</class>
 	    
 		<properties>
 			<!--  https://github.com/hibernate/hibernate-orm/pull/396  -->
@@ -41,7 +42,7 @@
 			
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-			
+			<property name="hibernate.use_sql_comments" value="true"/>
 			
 		</properties>
 

@@ -29,15 +29,19 @@ public class OhLohKudoScoreDTO implements OhLohResultDTO {
 	private Timestamp createdAt;
 
 	@XStreamAlias("kudo_rank")
-	private Integer kudoRank;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long kudoRank;
 
-	private Integer position;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long position;
 
 	@XStreamAlias("max_position")
-	private Integer maxPosition;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long maxPosition;
 
 	@XStreamAlias("position_delta")
-	private Integer positionDelta;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long positionDelta;
 
 	public Timestamp getCreatedAt() {
 		return createdAt;
@@ -47,35 +51,35 @@ public class OhLohKudoScoreDTO implements OhLohResultDTO {
 		this.createdAt = createdAt;
 	}
 
-	public Integer getKudoRank() {
+	public Long getKudoRank() {
 		return kudoRank;
 	}
 
-	public void setKudoRank(Integer kudoRank) {
+	public void setKudoRank(Long kudoRank) {
 		this.kudoRank = kudoRank;
 	}
 
-	public Integer getPosition() {
+	public Long getPosition() {
 		return position;
 	}
 
-	public void setPosition(Integer position) {
+	public void setPosition(Long position) {
 		this.position = position;
 	}
 
-	public Integer getMaxPosition() {
+	public Long getMaxPosition() {
 		return maxPosition;
 	}
 
-	public void setMaxPosition(Integer maxPosition) {
+	public void setMaxPosition(Long maxPosition) {
 		this.maxPosition = maxPosition;
 	}
 
-	public Integer getPositionDelta() {
+	public Long getPositionDelta() {
 		return positionDelta;
 	}
 
-	public void setPositionDelta(Integer positionDelta) {
+	public void setPositionDelta(Long positionDelta) {
 		this.positionDelta = positionDelta;
 	}
 

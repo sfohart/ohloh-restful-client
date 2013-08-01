@@ -28,7 +28,7 @@ public class OhLohEnlistmentEntity extends OhLohBaseEntity {
 	private OhLohProjectEntity ohLohProjectEntity;
 
 	@Column(name = "repository_id")
-	private String repositoryId;
+	private Long repositoryId;
 
 	@JoinColumn(name = "repository_id", referencedColumnName = "id", insertable = false, updatable = false)
 	private OhLohRepositoryEntity ohLohRepository;
@@ -49,11 +49,11 @@ public class OhLohEnlistmentEntity extends OhLohBaseEntity {
 		this.projectId = projectId;
 	}
 
-	public String getRepositoryId() {
+	public Long getRepositoryId() {
 		return repositoryId;
 	}
 
-	public void setRepositoryId(String repositoryId) {
+	public void setRepositoryId(Long repositoryId) {
 		this.repositoryId = repositoryId;
 	}
 

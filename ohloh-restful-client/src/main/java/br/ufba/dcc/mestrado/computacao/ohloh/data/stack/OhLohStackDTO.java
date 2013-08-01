@@ -34,12 +34,14 @@ public class OhLohStackDTO implements Serializable {
 	private Timestamp updatedAt;
 
 	@XStreamAlias("project_count")
-	private Integer projectCount;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long projectCount;
 
 	@XStreamAlias("stack_entries")
 	private List<OhLohStackEntryDTO> ohLohStackEntrys;
 
 	@XStreamAlias("account_id")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long acountId;
 
 	public String getTitle() {
@@ -66,11 +68,11 @@ public class OhLohStackDTO implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public Integer getProjectCount() {
+	public Long getProjectCount() {
 		return projectCount;
 	}
 
-	public void setProjectCount(Integer projectCount) {
+	public void setProjectCount(Long projectCount) {
 		this.projectCount = projectCount;
 	}
 

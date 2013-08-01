@@ -51,6 +51,7 @@ public class OhLohAccountDTO implements OhLohResultDTO {
 	private String emailSHA1;
 	
 	@XStreamAlias("posts_count")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long postsCount;
 	
 	private String location;
@@ -58,8 +59,7 @@ public class OhLohAccountDTO implements OhLohResultDTO {
 	@XStreamAlias("country_code")
 	private String countryCode;
 	
-	@XStreamConverter(value=NullableDoubleConverter.class)
-	
+	@XStreamConverter(value=NullableDoubleConverter.class)	
 	private Double latitude;
 	
 	@XStreamConverter(value=NullableDoubleConverter.class)

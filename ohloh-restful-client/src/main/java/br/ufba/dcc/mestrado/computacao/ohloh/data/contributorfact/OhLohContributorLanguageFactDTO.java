@@ -24,15 +24,18 @@ public class OhLohContributorLanguageFactDTO implements Serializable {
 	private Long id;
 
 	@XStreamAlias("analysis_id")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long analysisId;
 
 	@XStreamAlias("contributor_id")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long contributorId;
 
 	@XStreamAlias("contributor_name")
 	private String contributorName;
 
 	@XStreamAlias("language_id")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long languageId;
 
 	@XStreamAlias("language_nice_name")
@@ -43,9 +46,11 @@ public class OhLohContributorLanguageFactDTO implements Serializable {
 	private Double commentRatio;
 
 	@XStreamAlias("man_months")
-	private Integer manMonths;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long manMonths;
 
-	private Integer commits;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long commits;
 
 	@XStreamConverter(value = NullableDoubleConverter.class)
 	@XStreamAlias("median_commits")
@@ -99,19 +104,19 @@ public class OhLohContributorLanguageFactDTO implements Serializable {
 		this.commentRatio = commentRatio;
 	}
 
-	public Integer getManMonths() {
+	public Long getManMonths() {
 		return manMonths;
 	}
 
-	public void setManMonths(Integer manMonths) {
+	public void setManMonths(Long manMonths) {
 		this.manMonths = manMonths;
 	}
 
-	public Integer getCommits() {
+	public Long getCommits() {
 		return commits;
 	}
 
-	public void setCommits(Integer commits) {
+	public void setCommits(Long commits) {
 		this.commits = commits;
 	}
 

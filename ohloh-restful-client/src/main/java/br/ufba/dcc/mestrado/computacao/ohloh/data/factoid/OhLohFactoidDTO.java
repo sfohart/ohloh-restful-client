@@ -27,9 +27,11 @@ public class OhLohFactoidDTO implements OhLohResultDTO {
 	private String type;
 
 	@XStreamAlias("analysis_id")
+	@XStreamConverter(value = NullableLongConverter.class)
 	private Long analysisId;
 
-	private Integer severity;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long severity;
 
 	private String description;
 
@@ -41,11 +43,11 @@ public class OhLohFactoidDTO implements OhLohResultDTO {
 		this.type = type;
 	}
 
-	public Integer getSeverity() {
+	public Long getSeverity() {
 		return severity;
 	}
 
-	public void setSeverity(Integer severity) {
+	public void setSeverity(Long severity) {
 		this.severity = severity;
 	}
 

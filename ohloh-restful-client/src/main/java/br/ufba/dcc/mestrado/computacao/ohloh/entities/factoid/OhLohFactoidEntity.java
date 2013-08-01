@@ -31,7 +31,7 @@ public class OhLohFactoidEntity extends OhLohBaseEntity {
 	private OhLohAnalysisEntity ohLohAnalysis;
 
 	@Column(name = "severity")
-	private Integer severity;
+	private Long severity;
 
 	@Column(name = "description")
 	private String description;
@@ -44,11 +44,11 @@ public class OhLohFactoidEntity extends OhLohBaseEntity {
 		this.type = type;
 	}
 
-	public Integer getSeverity() {
+	public Long getSeverity() {
 		return severity;
 	}
 
-	public void setSeverity(Integer severity) {
+	public void setSeverity(Long severity) {
 		this.severity = severity;
 	}
 

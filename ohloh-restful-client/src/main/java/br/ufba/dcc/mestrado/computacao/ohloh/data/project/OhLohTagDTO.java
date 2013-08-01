@@ -1,6 +1,7 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.project;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.OhLohTagDTOConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;

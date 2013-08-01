@@ -29,25 +29,29 @@ public class OhLohKudoDTO implements OhLohResultDTO {
 	private Timestamp createdAt;
 
 	@XStreamAlias("sender_account_id")
-	private String senderAccountId;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long senderAccountId;
 
 	@XStreamAlias("sender_account_name")
 	private String senderAccountName;
 
 	@XStreamAlias("receiver_account_id")
-	private String receiverAccountId;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long receiverAccountId;
 
 	@XStreamAlias("receiver_account_name")
 	private String receiverAccountName;
 
 	@XStreamAlias("project_id")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long projectId;
 
 	@XStreamAlias("project_name")
 	private String projectName;
 
 	@XStreamAlias("contributor_id")
-	private String contributorId;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long contributorId;
 
 	@XStreamAlias("contributor_name")
 	private String contributorName;
@@ -60,11 +64,11 @@ public class OhLohKudoDTO implements OhLohResultDTO {
 		this.createdAt = createdAt;
 	}
 
-	public String getSenderAccountId() {
+	public Long getSenderAccountId() {
 		return senderAccountId;
 	}
 
-	public void setSenderAccountId(String senderAccountId) {
+	public void setSenderAccountId(Long senderAccountId) {
 		this.senderAccountId = senderAccountId;
 	}
 
@@ -76,11 +80,11 @@ public class OhLohKudoDTO implements OhLohResultDTO {
 		this.senderAccountName = senderAccountName;
 	}
 
-	public String getReceiverAccountId() {
+	public Long getReceiverAccountId() {
 		return receiverAccountId;
 	}
 
-	public void setReceiverAccountId(String receiverAccountId) {
+	public void setReceiverAccountId(Long receiverAccountId) {
 		this.receiverAccountId = receiverAccountId;
 	}
 
@@ -108,11 +112,11 @@ public class OhLohKudoDTO implements OhLohResultDTO {
 		this.projectName = projectName;
 	}
 
-	public String getContributorId() {
+	public Long getContributorId() {
 		return contributorId;
 	}
 
-	public void setContributorId(String contributorId) {
+	public void setContributorId(Long contributorId) {
 		this.contributorId = contributorId;
 	}
 

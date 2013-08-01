@@ -22,10 +22,12 @@ public class OhLohEnlistmentDTO implements OhLohResultDTO {
 	private Long id;
 	
 	@XStreamAlias("project_id")
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long projectId;
 
 	@XStreamAlias("repository_id")
-	private String repositoryId;
+	@XStreamConverter(value=NullableLongConverter.class)
+	private Long repositoryId;
 
 	@XStreamAlias("repository")
 	private OhLohRepositoryDTO ohLohRepositoryDTO;
@@ -38,11 +40,11 @@ public class OhLohEnlistmentDTO implements OhLohResultDTO {
 		this.projectId = projectId;
 	}
 
-	public String getRepositoryId() {
+	public Long getRepositoryId() {
 		return repositoryId;
 	}
 
-	public void setRepositoryId(String repositoryId) {
+	public void setRepositoryId(Long repositoryId) {
 		this.repositoryId = repositoryId;
 	}
 

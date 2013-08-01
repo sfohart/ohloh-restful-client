@@ -43,6 +43,7 @@ public class OhLohRepositoryDTO implements OhLohResultDTO {
 	@XStreamAlias("logged_at")
 	private Timestamp loggedAt;
 
+	@XStreamConverter(value=NullableLongConverter.class)
 	private Long commits;
 
 	@XStreamAlias("ohloh_job_status")

@@ -26,13 +26,13 @@ public class OhLohKudoEntity extends OhLohBaseEntity {
 	private Timestamp createdAt;
 
 	@Column(name = "sender_account_id")
-	private String senderAccountId;
+	private Long senderAccountId;
 
 	@Column(name = "sender_account_name")
 	private String senderAccountName;
 
 	@Column(name = "receiver_account_id")
-	private String receiverAccountId;
+	private Long receiverAccountId;
 
 	@Column(name = "receiver_account_name")
 	private String receiverAccountName;
@@ -48,7 +48,7 @@ public class OhLohKudoEntity extends OhLohBaseEntity {
 	private String projectName;
 
 	@Column(name = "contributor_id")
-	private String contributorId;
+	private Long contributorId;
 
 	@Column(name = "contributor_name")
 	private String contributorName;
@@ -61,11 +61,11 @@ public class OhLohKudoEntity extends OhLohBaseEntity {
 		this.createdAt = createdAt;
 	}
 
-	public String getSenderAccountId() {
+	public Long getSenderAccountId() {
 		return senderAccountId;
 	}
 
-	public void setSenderAccountId(String senderAccountId) {
+	public void setSenderAccountId(Long senderAccountId) {
 		this.senderAccountId = senderAccountId;
 	}
 
@@ -77,11 +77,11 @@ public class OhLohKudoEntity extends OhLohBaseEntity {
 		this.senderAccountName = senderAccountName;
 	}
 
-	public String getReceiverAccountId() {
+	public Long getReceiverAccountId() {
 		return receiverAccountId;
 	}
 
-	public void setReceiverAccountId(String receiverAccountId) {
+	public void setReceiverAccountId(Long receiverAccountId) {
 		this.receiverAccountId = receiverAccountId;
 	}
 
@@ -109,11 +109,11 @@ public class OhLohKudoEntity extends OhLohBaseEntity {
 		this.projectName = projectName;
 	}
 
-	public String getContributorId() {
+	public Long getContributorId() {
 		return contributorId;
 	}
 
-	public void setContributorId(String contributorId) {
+	public void setContributorId(Long contributorId) {
 		this.contributorId = contributorId;
 	}
 
