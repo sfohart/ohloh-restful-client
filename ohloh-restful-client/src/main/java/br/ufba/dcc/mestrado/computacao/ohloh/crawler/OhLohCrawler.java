@@ -126,7 +126,6 @@ public class OhLohCrawler {
 		OhLohCrawler crawler = container.instance().select(OhLohCrawler.class).get();
 		
 		if (crawler != null) {
-			logger.info(String.format("OhLoh API KEY: %s", crawler.getOhLohRestfulClient().getApiKey()));
 			crawler.run();
 		}
 		

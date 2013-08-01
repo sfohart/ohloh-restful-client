@@ -45,27 +45,41 @@ import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohKudoResponse
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohProjectResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohSizeFactResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohStackResponse;
+import br.ufba.dcc.mestrado.computacao.qualifier.ConfigurationArrayValue;
 import br.ufba.dcc.mestrado.computacao.qualifier.ConfigurationValue;
 
 @Singleton
 public class OhLohRestfulClient {
 	
 	@Inject
-	@ConfigurationValue("meta.ohloh.api.key")
-	private String apiKey;
+	@ConfigurationArrayValue(value = {
+			@ConfigurationValue(value="meta.ohloh.api.key.01", required=true),
+			@ConfigurationValue(value="meta.ohloh.api.key.02", required=true)
+	})
+	private String[] apiKey;
+	
+	private Integer currentApiKey;
 
 	private static Properties properties;
 	
 	public OhLohRestfulClient() {
-		
+		this.currentApiKey = 0;
 	}
 	
-	public String getApiKey() {
+	public String[] getApiKey() {
 		return apiKey;
 	}
 	
-	public void setApiKey(String apiKey) {
+	public void setApiKey(String[] apiKey) {
 		this.apiKey = apiKey;
+	}
+	
+	public Integer getCurrentApiKey() {
+		return currentApiKey;
+	}
+	
+	public void setCurrentApiKey(Integer currentApiKey) {
+		this.currentApiKey = currentApiKey;
 	}
 	
 	public static Properties getProperties() throws IOException {
@@ -89,9 +103,7 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.account.all");
-			String uri = MessageFormat.format(url, getApiKey());
 			
-			uri = processRequest(uri, request);
 			
 			RestClient restfulie = Restfulie.custom();
 			
@@ -100,12 +112,46 @@ public class OhLohRestfulClient {
 					OhLohAccountResult.class,
 					OhLohAccountDTO.class));
 			
-			Response response = restfulie.at(uri).get();
+			resource = this.<OhLohAccountResponse>processResponse(url, request, restfulie);
 			
-			resource = response.getResource();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+		
+		return resource;
+	}
+	
+	private <T extends OhLohBaseResponse> T processResponse(String url, OhLohBaseRequest request, RestClient restClient) {
+		T resource = null;
+		
+		boolean retry = true;
+		
+		while (retry) {
+			retry = false;
+			
+			if (getApiKey() != null) {				
+				if (getCurrentApiKey() < getApiKey().length) {				
+					String apiKey = getApiKey()[getCurrentApiKey()];
+					
+					String uri = MessageFormat.format(url, apiKey);
+					
+					uri = processRequest(uri, request);
+					
+					Response response = restClient.at(uri).get();
+					
+					resource = response.getResource();
+					
+					if (resource == null || ! resource.isStatusSuccess()) {
+						if (OhLohBaseResponse.ERROR_API_KEY_EXCEDED.equals(resource.getError())) {
+							setCurrentApiKey(getCurrentApiKey() + 1);
+							retry = true;
+						}						
+					}
+				}
+			}
+		};
+			
+		
 		
 		return resource;
 	}
@@ -141,10 +187,7 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.account");
-			String uri = MessageFormat.format(url, accountId, getApiKey());
-			
-			uri = processRequest(uri, request);
-			
+						
 			RestClient restfulie = Restfulie.custom();
 			
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
@@ -152,9 +195,7 @@ public class OhLohRestfulClient {
 					OhLohAccountResult.class,
 					OhLohAccountDTO.class));
 			
-			Response response = restfulie.at(uri).get();
-			
-			OhLohAccountResponse resource = response.getResource();
+			OhLohAccountResponse resource = this.<OhLohAccountResponse>processResponse(url, request, restfulie);
 			if (OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
 				List<OhLohAccountDTO> ohLohAccountDTOs = resource.getResult().getOhLohAccounts();
 				if (ohLohAccountDTOs != null && ! ohLohAccountDTOs.isEmpty())
@@ -177,9 +218,6 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.project.all");
-			String uri = MessageFormat.format(url, getApiKey());
-			
-			uri = processRequest(uri, request);
 			
 			RestClient restfulie = Restfulie.custom();
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
@@ -187,9 +225,8 @@ public class OhLohRestfulClient {
 					OhLohProjectResult.class,
 					OhLohProjectDTO.class));
 			
-			Response response = restfulie.at(uri).get();
+			resource = this.<OhLohProjectResponse>processResponse(url, request, restfulie);
 			
-			resource = response.getResource();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -207,9 +244,7 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.project");
-			String uri = MessageFormat.format(url, projectId,  getApiKey());
 			
-			uri = processRequest(uri, request);
 			
 			RestClient restfulie = Restfulie.custom();
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
@@ -217,9 +252,8 @@ public class OhLohRestfulClient {
 					OhLohProjectResult.class,
 					OhLohProjectDTO.class));
 			
-			Response response = restfulie.at(uri).get();
+			OhLohProjectResponse resource = this.<OhLohProjectResponse>processResponse(url, request, restfulie);
 			
-			OhLohProjectResponse resource = response.getResource();
 			if (OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
 				List<OhLohProjectDTO> ohLohProjectDTOs = resource.getResult().getOhLohProjects();
 				if (ohLohProjectDTOs != null && ! ohLohProjectDTOs.isEmpty()) {
@@ -245,9 +279,6 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.stack.account");
-			String uri = MessageFormat.format(url, accountId, stackId , getApiKey());
-			
-			uri = processRequest(uri, request);
 			
 			RestClient restfulie = Restfulie.custom();
 			
@@ -256,9 +287,8 @@ public class OhLohRestfulClient {
 					OhLohStackResult.class,
 					OhLohStackDTO.class));
 			
-			Response response = restfulie.at(uri).get();
 			
-			OhLohStackResponse resource = response.getResource();
+			OhLohStackResponse resource = this.<OhLohStackResponse>processResponse(url, request, restfulie);
 			if (OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
 				List<OhLohStackDTO> ohLohStackDTOs = resource.getResult().getOhLohStacks();
 				if (ohLohStackDTOs != null && ! ohLohStackDTOs.isEmpty()) {
@@ -283,9 +313,6 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.stack.account.default");
-			String uri = MessageFormat.format(url, accountId, getApiKey());
-			
-			uri = processRequest(uri, request);
 			
 			RestClient restfulie = Restfulie.custom();
 			
@@ -294,9 +321,7 @@ public class OhLohRestfulClient {
 					OhLohStackResult.class,
 					OhLohStackDTO.class));
 			
-			Response response = restfulie.at(uri).get();
-			
-			OhLohStackResponse resource = response.getResource();
+			OhLohStackResponse resource = this.<OhLohStackResponse>processResponse(url, request, restfulie);
 			if (OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
 				List<OhLohStackDTO> ohLohStackDTOs = resource.getResult().getOhLohStacks();
 				if (ohLohStackDTOs != null && ! ohLohStackDTOs.isEmpty()) {
@@ -320,9 +345,6 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.stack.project");
-			String uri = MessageFormat.format(url, projectId, getApiKey());
-			
-			uri = processRequest(uri, request);
 			
 			RestClient restfulie = Restfulie.custom();
 			
@@ -331,9 +353,7 @@ public class OhLohRestfulClient {
 					OhLohStackResult.class,
 					OhLohStackDTO.class));
 			
-			Response response = restfulie.at(uri).get();
-			
-			resource = response.getResource();
+			resource = this.<OhLohStackResponse>processResponse(url, request, restfulie);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -352,10 +372,7 @@ public class OhLohRestfulClient {
 		try {
 			
 			String url = getProperties().getProperty("meta.ohloh.api.factoid.project");
-			String uri = MessageFormat.format(url, projectId, getApiKey());
-			
-			uri = processRequest(uri, request);
-			
+						
 			RestClient restfulie = Restfulie.custom();
 			
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
@@ -363,9 +380,7 @@ public class OhLohRestfulClient {
 					OhLohFactoidResult.class,
 					OhLohFactoidDTO.class));
 			
-			Response response = restfulie.at(uri).get();
-			
-			resource = response.getResource();
+			resource = this.<OhLohFactoidResponse>processResponse(url, request, restfulie);
 			
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -386,10 +401,7 @@ public class OhLohRestfulClient {
 		try {
 			
 			String url = getProperties().getProperty("meta.ohloh.api.factoid");
-			String uri = MessageFormat.format(url, projectId, factoidId, getApiKey());
-			
-			uri = processRequest(uri, request);
-			
+						
 			RestClient restfulie = Restfulie.custom();
 			
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
@@ -397,9 +409,7 @@ public class OhLohRestfulClient {
 					OhLohFactoidResult.class,
 					OhLohFactoidDTO.class));
 			
-			Response response = restfulie.at(uri).get();
-			
-			resource = response.getResource();
+			resource = this.<OhLohFactoidResponse>processResponse(url, request, restfulie);
 			
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -413,9 +423,6 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.size_facts.latest");
-			String uri = MessageFormat.format(url, projectId, getApiKey());
-			
-			uri = processRequest(uri, request);
 			
 			RestClient restfulie = Restfulie.custom();
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
@@ -423,9 +430,7 @@ public class OhLohRestfulClient {
 					OhLohSizeFactResult.class,
 					OhLohSizeFactDTO.class));
 			
-			Response response = restfulie.at(uri).get();
-			
-			resource = response.getResource();
+			resource = this.<OhLohSizeFactResponse>processResponse(url, request, restfulie);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -445,9 +450,6 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.size_facts");
-			String uri = MessageFormat.format(url, projectId, analysisId, getApiKey());
-			
-			uri = processRequest(uri, request);
 			
 			RestClient restfulie = Restfulie.custom();
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
@@ -455,9 +457,7 @@ public class OhLohRestfulClient {
 					OhLohSizeFactResult.class,
 					OhLohSizeFactDTO.class));
 			
-			Response response = restfulie.at(uri).get();
-			
-			resource = response.getResource();
+			resource = this.<OhLohSizeFactResponse>processResponse(url, request, restfulie);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -478,10 +478,7 @@ public class OhLohRestfulClient {
 		try {
 			
 			String url = getProperties().getProperty("meta.ohloh.api.analysis");
-			String uri = MessageFormat.format(url, projectId, analysisId, getApiKey());
-			
-			uri = processRequest(uri, request);
-			
+
 			RestClient restfulie = Restfulie.custom();
 			
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
@@ -489,9 +486,7 @@ public class OhLohRestfulClient {
 					OhLohAnalysisResult.class,
 					OhLohAnalysisDTO.class));
 			
-			Response response = restfulie.at(uri).get();
-			
-			OhLohAnalysisResponse resource = response.getResource();
+			OhLohAnalysisResponse resource = this.<OhLohAnalysisResponse>processResponse(url, request, restfulie);
 			if (resource != null && OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
 				analysis = resource.getResult().getAnalysis();
 			}
@@ -522,19 +517,15 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.contributor_facts");
-			String uri = MessageFormat.format(url, projectId, contributorId, getApiKey());
-			
-			uri = processRequest(uri, request);
-			
+						
 			RestClient restfulie = Restfulie.custom();
 			
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
 					OhLohContributorFactResponse.class,
 					OhLohContributorFactResult.class,
 					OhLohContributorFactDTO.class));
-			
-			Response response = restfulie.at(uri).get();
-			OhLohContributorFactResponse resource = response.getResource();
+
+			OhLohContributorFactResponse resource = this.<OhLohContributorFactResponse>processResponse(url, request, restfulie);
 			
 			if (resource != null && OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
 				List<OhLohContributorFactDTO> ohLohContributorFactDTOs = resource.getResult().getOhLohContributorFacts();
@@ -562,9 +553,6 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.contributor_facts.all");
-			String uri = MessageFormat.format(url, projectId, getApiKey());
-			
-			uri = processRequest(uri, request);
 			
 			RestClient restfulie = Restfulie.custom();
 			
@@ -573,8 +561,8 @@ public class OhLohRestfulClient {
 					OhLohContributorFactResult.class,
 					OhLohContributorFactDTO.class));
 			
-			Response response = restfulie.at(uri).get();
-			resource = response.getResource();
+			
+			resource = this.<OhLohContributorFactResponse>processResponse(url, request, restfulie);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -593,8 +581,7 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.activity_facts");
-			String uri = MessageFormat.format(url, projectId, analysisId, getApiKey());
-			
+						
 			RestClient restfulie = Restfulie.custom();
 			
 			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
@@ -602,8 +589,8 @@ public class OhLohRestfulClient {
 					OhLohActivityFactResult.class,
 					OhLohActivityFactDTO.class));
 			
-			Response response = restfulie.at(uri).get();
-			resource = response.getResource();
+			
+			resource = this.<OhLohActivityFactResponse>processResponse(url, null, restfulie);
 			
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -633,9 +620,6 @@ public class OhLohRestfulClient {
 		try {	
 			
 			String url = getProperties().getProperty("meta.ohloh.api.enlistment.all");
-			String uri = MessageFormat.format(url, projectId, getApiKey());
-			
-			uri = processRequest(uri, request);
 			
 			RestClient restfulie = Restfulie.custom();
 			
@@ -644,8 +628,8 @@ public class OhLohRestfulClient {
 					OhLohEnlistmentResult.class,
 					OhLohEnlistmentDTO.class));
 			
-			Response response = restfulie.at(uri).get();
-			resource = response.getResource();
+			
+			resource = this.<OhLohEnlistmentResponse>processResponse(url, request, restfulie);
 			
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -666,8 +650,6 @@ public class OhLohRestfulClient {
 		try {	
 			
 			String url = getProperties().getProperty("meta.ohloh.api.enlistment.all");
-			String uri = MessageFormat.format(url, projectId, getApiKey());
-			
 			
 			RestClient restfulie = Restfulie.custom();
 			
@@ -675,9 +657,8 @@ public class OhLohRestfulClient {
 					OhLohEnlistmentResponse.class,
 					OhLohEnlistmentResult.class,
 					OhLohEnlistmentDTO.class));
-			
-			Response response = restfulie.at(uri).get();
-			OhLohEnlistmentResponse resource = response.getResource();
+
+			OhLohEnlistmentResponse resource = this.<OhLohEnlistmentResponse>processResponse(url, null, restfulie);
 			
 			if (resource != null && OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
 				List<OhLohEnlistmentDTO> ohLohEnlistmentDTOs = resource.getResult().getOhLohEnlistments();
@@ -704,8 +685,6 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.kudos.received");
-			String uri = MessageFormat.format(url, accountId, getApiKey());
-			
 			
 			RestClient restfulie = Restfulie.custom();
 			
@@ -714,8 +693,8 @@ public class OhLohRestfulClient {
 					OhLohKudoResult.class,
 					OhLohKudoDTO.class));
 			
-			Response response = restfulie.at(uri).get();
-			resource = response.getResource();
+
+			resource = this.<OhLohKudoResponse>processResponse(url, null, restfulie);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -734,8 +713,6 @@ public class OhLohRestfulClient {
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.kudos.sent");
-			String uri = MessageFormat.format(url, accountId, getApiKey());
-			
 			
 			RestClient restfulie = Restfulie.custom();
 			
@@ -744,8 +721,8 @@ public class OhLohRestfulClient {
 					OhLohKudoResult.class,
 					OhLohKudoDTO.class));
 			
-			Response response = restfulie.at(uri).get();
-			resource = response.getResource();
+
+			resource = this.<OhLohKudoResponse>processResponse(url, null, restfulie);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}

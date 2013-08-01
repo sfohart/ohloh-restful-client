@@ -4,6 +4,7 @@ import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
+import br.ufba.dcc.mestrado.computacao.qualifier.ConfigurationArrayValue;
 import br.ufba.dcc.mestrado.computacao.qualifier.ConfigurationValue;
 import br.ufba.dcc.mestrado.computacao.resolver.PropertyResolver;
 
@@ -44,15 +45,25 @@ public class ConfigurationValueProducer {
     @ConfigurationValue
     public String getStringConfigValue(InjectionPoint ip) {
 
-        String fqn = ip.getMember().getDeclaringClass().getName() + "." + ip.getMember().getName();
-
         // Trying with explicit key defined on the field
         String key = ip.getAnnotated().getAnnotation(ConfigurationValue.class).value();
         boolean isKeyDefined = !key.trim().isEmpty();
-
         boolean valueRequired = ip.getAnnotated().getAnnotation(ConfigurationValue.class).required();
+        
+        String value = processStringValue(ip, key, isKeyDefined, valueRequired);
 
-        if (isKeyDefined) {
+        return value;
+    }
+	
+	private String processStringValue(
+			InjectionPoint ip, 
+			String key, 
+			boolean isKeyDefined, 
+			boolean valueRequired) {
+		
+		String fqn = ip.getMember().getDeclaringClass().getName() + "." + ip.getMember().getName();
+		
+		if (isKeyDefined) {
             return propertyResolver.getValue(key);
         }
 
@@ -72,7 +83,29 @@ public class ConfigurationValueProducer {
         }
 
         return value;
-    }
+	}
+	
+	@Produces
+    @ConfigurationArrayValue
+	public String[] getStringConfigArrayValue(InjectionPoint ip) {
+		String[] value = null;
+		
+		
+		ConfigurationValue[] keys = ip.getAnnotated().getAnnotation(ConfigurationArrayValue.class).value();
+		
+		if (keys != null && keys.length > 0) {
+			value = new String[keys.length];
+			for (int i = 0; i < keys.length; i++) {
+				String key = keys[i].value();
+		        boolean isKeyDefined = !key.trim().isEmpty();
+		        boolean valueRequired =  keys[i].required();
+		        
+		        value[i] = processStringValue(ip, key, isKeyDefined, valueRequired);
+			}
+		}
+		
+		return value;
+	}
 	
 	@Produces
     @ConfigurationValue

@@ -11,7 +11,6 @@ import br.ufba.dcc.mestrado.computacao.ohloh.restful.client.OhLohRestfulClient;
 public abstract class AbstractOhLohApiTest {
 
 	private static Properties properties;
-	private static String apiKey;
 	private static OhLohRestfulClient ohLohRestfulClient;
 
 	public AbstractOhLohApiTest() {
@@ -22,9 +21,6 @@ public abstract class AbstractOhLohApiTest {
 		return properties;
 	}
 
-	public static String getApiKey() {
-		return apiKey;
-	}
 	
 	public static OhLohRestfulClient getOhLohRestfulClient() {
 		return ohLohRestfulClient;
@@ -37,10 +33,7 @@ public abstract class AbstractOhLohApiTest {
 		properties = new Properties();
 		properties.load(is);
 		
-		apiKey = properties.getProperty("test.ohloh.api.key");
-		
 		ohLohRestfulClient = new OhLohRestfulClient();
-		ohLohRestfulClient.setApiKey(apiKey);
 	}
 
 	

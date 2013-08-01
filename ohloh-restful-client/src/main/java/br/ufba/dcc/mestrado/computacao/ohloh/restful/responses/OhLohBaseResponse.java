@@ -6,6 +6,8 @@ public class OhLohBaseResponse {
 	public final static String SUCCESS = "success";
 	public final static String FAILED = "failed";
 	
+	public final static String ERROR_API_KEY_EXCEDED = "This api_key has exceeded its daily access limit.";
+	
 	public final static String NODE_NAME = "response";
 	
 	private String status;
@@ -59,6 +61,14 @@ public class OhLohBaseResponse {
 
 	public void setFirstItemPosition(Integer firstItemPosition) {
 		this.firstItemPosition = firstItemPosition;
+	}
+	
+	public boolean isStatusSuccess() {
+		if (SUCCESS.equals(getStatus())) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }
