@@ -93,7 +93,6 @@ public abstract class BaseOhLohServiceImpl<DTO extends OhLohResultDTO, E extends
 			String setMethodName = "set" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
 			
 			if (Collection.class.isAssignableFrom(field.getType())) {
-				System.out.println(field.getType().getName());
 				Method getOrigMethod = dtoClass.getDeclaredMethod(getMethodName);
 				
 				if (getOrigMethod.invoke(dto) != null) {

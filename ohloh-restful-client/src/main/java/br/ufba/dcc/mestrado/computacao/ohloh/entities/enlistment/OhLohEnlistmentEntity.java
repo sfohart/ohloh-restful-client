@@ -27,10 +27,11 @@ public class OhLohEnlistmentEntity extends OhLohBaseEntity {
 	@JoinColumn(name = "project_id", referencedColumnName = "id", insertable = false, updatable = false)
 	private OhLohProjectEntity ohLohProjectEntity;
 
-	@Column(name = "repository_id")
+	@Column(name = "repository_id", insertable = false, updatable = false)
 	private Long repositoryId;
 
-	@JoinColumn(name = "repository_id", referencedColumnName = "id", insertable = false, updatable = false)
+	@ManyToOne
+	@JoinColumn(name = "repository_id", referencedColumnName = "id")
 	private OhLohRepositoryEntity ohLohRepository;
 
 	public OhLohProjectEntity getOhLohProject() {

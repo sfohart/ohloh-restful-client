@@ -5,4 +5,6 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity
 
 public interface OhLohProjectService extends BaseOhLohService<OhLohProjectDTO, OhLohProjectEntity>{
 
+	public Long countAll();
+	
 }

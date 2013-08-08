@@ -80,25 +80,18 @@ public class OhLohCrawler {
 			do {
 				request.setPage(page);
 				OhLohProjectResponse response = ohLohRestfulClient.getAllProjects(request);
+				logger.info(String.format("Total Pages: %d | Total Projects: %d", totalPages, ohLohProjectService.countAll()));
 				
 				if (totalPages <= 0 && response.getItemsAvailable() != null && response.getItemsReturned() != null) {
 					totalPages = response.getItemsAvailable() / response.getItemsReturned();
-					logger.info(String.format("Total Pages: %d", totalPages));
 					config.setProjectTotalPage(totalPages);
 				}
 				
 				if (OhLohProjectResponse.SUCCESS.equals(response.getStatus())) {
-					logger.info(String.format("Page: %d", page));
-					
 					List<OhLohProjectDTO> ohLohProjectDTOs = response.getResult().getOhLohProjects();
 					if (ohLohProjectDTOs != null && ! ohLohProjectDTOs.isEmpty()) {
+						logger.info(String.format("Page: %d | Projects: %d", page, ohLohProjectDTOs.size()));
 						for (OhLohProjectDTO project : ohLohProjectDTOs) {
-							StringBuffer buffer = new StringBuffer();
-							buffer.append(String.format("Project Name: %s \n", project.getName()));
-							buffer.append(String.format("Project URL: %s \n\n", project.getUrl()));
-							
-							System.out.println(buffer.toString());
-							
 							ohLohProjectService.store(project);
 						}
 					}

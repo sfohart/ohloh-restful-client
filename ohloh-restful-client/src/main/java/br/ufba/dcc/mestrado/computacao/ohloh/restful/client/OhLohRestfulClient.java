@@ -54,7 +54,15 @@ public class OhLohRestfulClient {
 	@Inject
 	@ConfigurationArrayValue(value = {
 			@ConfigurationValue(value="meta.ohloh.api.key.01", required=true),
-			@ConfigurationValue(value="meta.ohloh.api.key.02", required=true)
+			@ConfigurationValue(value="meta.ohloh.api.key.02", required=true),
+			@ConfigurationValue(value="meta.ohloh.api.key.03", required=true),
+			@ConfigurationValue(value="meta.ohloh.api.key.04", required=true),
+			@ConfigurationValue(value="meta.ohloh.api.key.05", required=true),
+			@ConfigurationValue(value="meta.ohloh.api.key.06", required=true),
+			@ConfigurationValue(value="meta.ohloh.api.key.07", required=true),
+			@ConfigurationValue(value="meta.ohloh.api.key.08", required=true),
+			@ConfigurationValue(value="meta.ohloh.api.key.09", required=true),
+			@ConfigurationValue(value="meta.ohloh.api.key.10", required=true)
 	})
 	private String[] apiKey;
 	
@@ -141,7 +149,7 @@ public class OhLohRestfulClient {
 					
 					resource = response.getResource();
 					
-					if (resource == null || ! resource.isStatusSuccess()) {
+					if (resource != null && ! resource.isStatusSuccess()) {
 						if (OhLohBaseResponse.ERROR_API_KEY_EXCEDED.equals(resource.getError())) {
 							setCurrentApiKey(getCurrentApiKey() + 1);
 							retry = true;
