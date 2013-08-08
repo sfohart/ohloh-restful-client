@@ -92,7 +92,12 @@ public class OhLohCrawler {
 					if (ohLohProjectDTOs != null && ! ohLohProjectDTOs.isEmpty()) {
 						logger.info(String.format("Page: %d | Projects: %d", page, ohLohProjectDTOs.size()));
 						for (OhLohProjectDTO project : ohLohProjectDTOs) {
-							ohLohProjectService.store(project);
+							if (ohLohProjectService.findById(project.getId()) == null) {
+								ohLohProjectService.store(project);
+							} else {
+								logger.info(String.format("Projeto %s com id %d já se encontra na base", project.getName(), project.getId()));
+							}
+							
 						}
 					}
 					

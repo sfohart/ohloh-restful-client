@@ -7,4 +7,6 @@ public interface OhLohProjectService extends BaseOhLohService<OhLohProjectDTO, O
 
 	public Long countAll();
 	
+	public OhLohProjectEntity findById(Long id);
+	
 }
