@@ -6,7 +6,7 @@ import br.ufba.dcc.mestrado.computacao.repository.OhLohProjectRepository;
 
 @OhLohProjectRepositoryQualifier
 public class OhLohProjectRepositoryImpl extends BaseRepositoryImpl<OhLohProjectEntity>
-	implements OhLohProjectRepository {
+		implements OhLohProjectRepository {
 
 	/**
 	 * 

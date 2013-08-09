@@ -43,6 +43,7 @@ public class TransactionInterceptor implements Serializable {
         } finally {  
             if (transaction != null && transaction.isActive()) {  
                 transaction.commit();  
+                entityManager.clear();
             }  
         } 
 		

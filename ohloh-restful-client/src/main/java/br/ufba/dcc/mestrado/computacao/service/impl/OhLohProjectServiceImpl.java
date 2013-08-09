@@ -39,6 +39,14 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 	@OhLohLicenseRepositoryQualifier
 	private OhLohLicenseRepository licenseRepository;
 	
+	public Long countAll() {
+		return projectRepository.countAll();
+	}
+	
+	public OhLohProjectEntity findById(Long id) {
+		return projectRepository.findById(id);
+	}
+	
 	@Override
 	protected void validateEntity(OhLohProjectEntity entity) throws Exception {
 		super.validateEntity(entity);

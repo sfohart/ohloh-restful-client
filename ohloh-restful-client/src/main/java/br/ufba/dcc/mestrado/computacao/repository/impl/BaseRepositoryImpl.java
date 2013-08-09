@@ -63,7 +63,7 @@ public class BaseRepositoryImpl<E extends OhLohBaseEntity>
 		return result;
 	}
 
-	private TypedQuery<E> createSelectAllQuery() {
+	protected TypedQuery<E> createSelectAllQuery() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(entityClass);
 		
@@ -74,7 +74,7 @@ public class BaseRepositoryImpl<E extends OhLohBaseEntity>
 		return query;
 	}
 	
-	private TypedQuery<E> createSelectAllQuery(String orderBy) {
+	protected TypedQuery<E> createSelectAllQuery(String orderBy) {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(entityClass);
 		
