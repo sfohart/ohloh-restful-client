@@ -1,7 +1,7 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.project;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -18,7 +18,7 @@ public class OhLohLicenseDTO implements OhLohResultDTO {
 	public final static String NODE_NAME = "license";
 	
 	@XStreamAsAttribute	
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long id;
 
 	private String name;

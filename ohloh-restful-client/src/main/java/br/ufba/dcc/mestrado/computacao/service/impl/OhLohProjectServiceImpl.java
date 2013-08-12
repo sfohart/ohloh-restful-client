@@ -47,6 +47,10 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 		return projectRepository.findById(id);
 	}
 	
+	public List<OhLohProjectEntity> findAll(Integer startAt, Integer offset) {
+		return projectRepository.findAll(startAt, offset);
+	}
+	
 	@Override
 	protected void validateEntity(OhLohProjectEntity entity) throws Exception {
 		super.validateEntity(entity);

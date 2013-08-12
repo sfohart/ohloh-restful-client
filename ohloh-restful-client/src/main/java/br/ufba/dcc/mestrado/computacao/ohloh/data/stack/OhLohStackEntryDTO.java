@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -22,16 +22,16 @@ public class OhLohStackEntryDTO implements Serializable {
 	public final static String NODE_NAME = "stack_entry";
 	
 	@XStreamAsAttribute	
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long id;
 
 	@XStreamAlias("stack_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long stackId;
 
 
 	@XStreamAlias("project_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long projectId;
 
 	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)

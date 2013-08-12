@@ -11,22 +11,22 @@ import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectDTO;
-import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerConfigEntity;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerProjectEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.client.OhLohRestfulClient;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohProjectResponse;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohCrawlerConfigRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.OhLohCrawlerProjectRepositoryQualifier;
 import br.ufba.dcc.mestrado.computacao.qualifier.OhLohProjectServiceQualifier;
-import br.ufba.dcc.mestrado.computacao.repository.OhLohCrawlerConfigRepository;
+import br.ufba.dcc.mestrado.computacao.repository.OhLohCrawlerProjectRepository;
 import br.ufba.dcc.mestrado.computacao.service.OhLohProjectService;
 
 @Singleton
 @Named
-public class OhLohCrawler {
+public class OhLohProjectCrawler {
 	
 	private static final String OHLOH_PROJECT_SORT_BY_ID = "id";
 
-	public static Logger logger = Logger.getLogger(OhLohCrawler.class);
+	public static Logger logger = Logger.getLogger(OhLohProjectCrawler.class);
 	
 	@Inject
 	private OhLohRestfulClient ohLohRestfulClient;
@@ -36,8 +36,8 @@ public class OhLohCrawler {
 	private OhLohProjectService ohLohProjectService;
 	
 	@Inject
-	@OhLohCrawlerConfigRepositoryQualifier
-	private OhLohCrawlerConfigRepository crawlerConfigRepository;
+	@OhLohCrawlerProjectRepositoryQualifier
+	private OhLohCrawlerProjectRepository crawlerConfigRepository;
 	
 	public OhLohRestfulClient getOhLohRestfulClient() {
 		return ohLohRestfulClient;
@@ -55,7 +55,7 @@ public class OhLohCrawler {
 		this.ohLohProjectService = ohLohProjectService;
 	}
 
-	public OhLohCrawler() {
+	public OhLohProjectCrawler() {
 	}
 	
 	public void run() throws Exception {
@@ -65,9 +65,9 @@ public class OhLohCrawler {
 		
 		request.setSort(OHLOH_PROJECT_SORT_BY_ID);
 		
-		OhLohCrawlerConfigEntity config = new OhLohCrawlerConfigEntity();
+		OhLohCrawlerProjectEntity config = new OhLohCrawlerProjectEntity();
 		
-		List<OhLohCrawlerConfigEntity> configList = 
+		List<OhLohCrawlerProjectEntity> configList = 
 				crawlerConfigRepository.findAll();
 		
 		if (configList != null && ! configList.isEmpty()) {
@@ -95,7 +95,7 @@ public class OhLohCrawler {
 							if (ohLohProjectService.findById(project.getId()) == null) {
 								ohLohProjectService.store(project);
 							} else {
-								logger.info(String.format("Projeto %s com id %d já se encontra na base", project.getName(), project.getId()));
+								logger.info(String.format("Projeto \"%s\" com id %d já se encontra na base", project.getName(), project.getId()));
 							}
 							
 						}
@@ -121,13 +121,13 @@ public class OhLohCrawler {
 	
 	public static void main(String[] args) throws Exception {
 		WeldContainer container = new Weld().initialize();
-		OhLohCrawler crawler = container.instance().select(OhLohCrawler.class).get();
+		OhLohProjectCrawler crawler = container.instance().select(OhLohProjectCrawler.class).get();
 		
 		if (crawler != null) {
 			crawler.run();
 		}
 		
-		/*OhLohCrawler crawler = new OhLohCrawler();
+		/*OhLohProjectCrawler crawler = new OhLohProjectCrawler();
 		crawler.run();*/
 	}
 

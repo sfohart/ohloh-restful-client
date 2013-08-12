@@ -3,8 +3,8 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.sizefact;
 import java.sql.Timestamp;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleXStreamConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -22,23 +22,23 @@ public class OhLohSizeFactDTO implements OhLohResultDTO {
 	public final static String NODE_NAME = "size_fact";
 	
 	@XStreamAsAttribute	
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long id;
 
 	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
 	private Timestamp month;
 
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long code;
 
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long comments;
 
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long blanks;
 
 	@XStreamAlias("comment_ratio")
-	@XStreamConverter(value = NullableDoubleConverter.class)
+	@XStreamConverter(value = NullableDoubleXStreamConverter.class)
 	private Double commentRatio;
 
 	private String commits;

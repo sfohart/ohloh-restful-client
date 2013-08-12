@@ -1,9 +1,9 @@
 package br.ufba.dcc.mestrado.computacao.xstream.converters;
 
-import com.thoughtworks.xstream.converters.basic.LongConverter;
+import com.thoughtworks.xstream.converters.basic.DoubleConverter;
 
-public class NullableLongConverter extends LongConverter {
-	
+public class NullableDoubleXStreamConverter extends DoubleConverter {
+
 	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean canConvert(Class type) {
@@ -19,5 +19,6 @@ public class NullableLongConverter extends LongConverter {
 		return super.fromString(str);
 	}
 
-
+	
+	
 }

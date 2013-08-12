@@ -3,6 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.restful.client;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -129,7 +130,7 @@ public class OhLohRestfulClient {
 		return resource;
 	}
 	
-	private <T extends OhLohBaseResponse> T processResponse(String url, OhLohBaseRequest request, RestClient restClient) {
+	private <T extends OhLohBaseResponse> T processResponse(String url, OhLohBaseRequest request, RestClient restClient, String... params) {
 		T resource = null;
 		
 		boolean retry = true;
@@ -141,7 +142,16 @@ public class OhLohRestfulClient {
 				if (getCurrentApiKey() < getApiKey().length) {				
 					String apiKey = getApiKey()[getCurrentApiKey()];
 					
-					String uri = MessageFormat.format(url, apiKey);
+					String uri = "";
+					
+					
+					if (params != null && params.length > 0) {
+						String[] args = Arrays.copyOf(params, params.length + 1);
+						args[args.length -1] = apiKey;
+						uri = MessageFormat.format(url, args);
+					} else {
+						uri = MessageFormat.format(url, apiKey);
+					}
 					
 					uri = processRequest(uri, request);
 					
@@ -260,7 +270,7 @@ public class OhLohRestfulClient {
 					OhLohProjectResult.class,
 					OhLohProjectDTO.class));
 			
-			OhLohProjectResponse resource = this.<OhLohProjectResponse>processResponse(url, request, restfulie);
+			OhLohProjectResponse resource = this.<OhLohProjectResponse>processResponse(url, request, restfulie, projectId);
 			
 			if (OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
 				List<OhLohProjectDTO> ohLohProjectDTOs = resource.getResult().getOhLohProjects();
@@ -494,7 +504,7 @@ public class OhLohRestfulClient {
 					OhLohAnalysisResult.class,
 					OhLohAnalysisDTO.class));
 			
-			OhLohAnalysisResponse resource = this.<OhLohAnalysisResponse>processResponse(url, request, restfulie);
+			OhLohAnalysisResponse resource = this.<OhLohAnalysisResponse>processResponse(url, request, restfulie, projectId, analysisId);
 			if (resource != null && OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
 				analysis = resource.getResult().getAnalysis();
 			}

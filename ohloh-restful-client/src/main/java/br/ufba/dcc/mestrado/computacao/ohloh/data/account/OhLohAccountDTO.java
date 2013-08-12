@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.kudoskore.OhLohKudoScoreDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleXStreamConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -23,7 +23,7 @@ public class OhLohAccountDTO implements OhLohResultDTO {
 	public final static String NODE_NAME = "account";
 	
 	@XStreamAsAttribute	
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long id;
 		
 	/**
@@ -51,7 +51,7 @@ public class OhLohAccountDTO implements OhLohResultDTO {
 	private String emailSHA1;
 	
 	@XStreamAlias("posts_count")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long postsCount;
 	
 	private String location;
@@ -59,10 +59,10 @@ public class OhLohAccountDTO implements OhLohResultDTO {
 	@XStreamAlias("country_code")
 	private String countryCode;
 	
-	@XStreamConverter(value=NullableDoubleConverter.class)	
+	@XStreamConverter(value=NullableDoubleXStreamConverter.class)	
 	private Double latitude;
 	
-	@XStreamConverter(value=NullableDoubleConverter.class)
+	@XStreamConverter(value=NullableDoubleXStreamConverter.class)
 	private Double longitude;
 	
 	@XStreamAlias("kudo_score")

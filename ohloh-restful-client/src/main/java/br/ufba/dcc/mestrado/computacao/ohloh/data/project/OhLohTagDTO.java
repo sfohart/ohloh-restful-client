@@ -1,13 +1,13 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.project;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.OhLohTagDTOConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.OhLohTagDTOXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 @XStreamAlias(OhLohTagDTO.NODE_NAME)
-@XStreamConverter(value = OhLohTagDTOConverter.class)
+@XStreamConverter(value = OhLohTagDTOXStreamConverter.class)
 public class OhLohTagDTO implements OhLohResultDTO {
 	/**
 	 * 

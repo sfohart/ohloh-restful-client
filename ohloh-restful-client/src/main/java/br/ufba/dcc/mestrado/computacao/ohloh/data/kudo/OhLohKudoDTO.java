@@ -3,7 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.kudo;
 import java.sql.Timestamp;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -21,7 +21,7 @@ public class OhLohKudoDTO implements OhLohResultDTO {
 	public final static String NODE_NAME = "kudo";
 	
 	@XStreamAsAttribute	
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long id;
 
 	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
@@ -29,28 +29,28 @@ public class OhLohKudoDTO implements OhLohResultDTO {
 	private Timestamp createdAt;
 
 	@XStreamAlias("sender_account_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long senderAccountId;
 
 	@XStreamAlias("sender_account_name")
 	private String senderAccountName;
 
 	@XStreamAlias("receiver_account_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long receiverAccountId;
 
 	@XStreamAlias("receiver_account_name")
 	private String receiverAccountName;
 
 	@XStreamAlias("project_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long projectId;
 
 	@XStreamAlias("project_name")
 	private String projectName;
 
 	@XStreamAlias("contributor_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long contributorId;
 
 	@XStreamAlias("contributor_name")
