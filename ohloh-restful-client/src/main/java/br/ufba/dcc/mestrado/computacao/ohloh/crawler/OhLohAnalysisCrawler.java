@@ -11,11 +11,9 @@ import org.jboss.weld.environment.se.Weld;
 import org.jboss.weld.environment.se.WeldContainer;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisDTO;
-import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerAnalysisEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.client.OhLohRestfulClient;
-import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohProjectResponse;
 import br.ufba.dcc.mestrado.computacao.qualifier.OhLohAnalysisServiceQualifier;
 import br.ufba.dcc.mestrado.computacao.qualifier.OhLohCrawlerAnalysisRepositoryQualifier;
 import br.ufba.dcc.mestrado.computacao.qualifier.OhLohProjectServiceQualifier;
@@ -79,8 +77,14 @@ public class OhLohAnalysisCrawler {
 		
 		if (configList != null && ! configList.isEmpty()) {
 			config = configList.get(0);
-			startAt = config.getStartAt();
-			offset = config.getOffset();
+			
+			if (config.getStartAt() != null) {
+				startAt = config.getStartAt();
+			}
+			
+			if (config.getOffset() != null) {
+				offset = config.getOffset();
+			}
 			
 			totalProjects = ohLohProjectService.countAll();
 			config.setTotalProjects(totalProjects);
@@ -96,13 +100,15 @@ public class OhLohAnalysisCrawler {
 						
 						OhLohAnalysisDTO analysisDTO = ohLohRestfulClient.getLatestAnalysis(String.valueOf(project.getId()), null);
 						if ( (analysisDTO != null) && (ohLohAnalysisService.findById(analysisDTO.getId()) == null)) {
+							logger.info(String.format("Analysis com id %d para o projeto \"%s\" sendo gravado", analysisDTO.getId(), project.getName()));
 							ohLohAnalysisService.store(analysisDTO);
 						}
 						
 					}
 				}
 				
-				
+				config.setOffset(offset);
+				config.setStartAt(startAt);
 				crawlerConfigRepository.save(config);
 				
 				startAt += offset;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.factoid.OhLohFactoidDTO;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableISO8601SqlTimestampXStreamConverter;
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -32,19 +33,19 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long projectId;
 
-	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
+	@XStreamConverter(value = NullableISO8601SqlTimestampXStreamConverter.class)
 	@XStreamAlias("updated_at")
 	private Timestamp updatedAt;
 
-	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
+	@XStreamConverter(value = NullableISO8601SqlTimestampXStreamConverter.class)
 	@XStreamAlias("logged_at")
 	private Timestamp loggedAt;
 
-	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
+	@XStreamConverter(value = NullableISO8601SqlTimestampXStreamConverter.class)
 	@XStreamAlias("min_month")
 	private Timestamp minMonth;
 
-	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
+	@XStreamConverter(value = NullableISO8601SqlTimestampXStreamConverter.class)
 	@XStreamAlias("max_month")
 	private Timestamp maxMonth;
 

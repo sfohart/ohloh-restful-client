@@ -24,8 +24,7 @@ public class OhLohAnalysisLanguageDTO implements OhLohResultDTO {
 	private Long id;
 
 	@XStreamAsAttribute
-	@XStreamConverter(value=NullableLongXStreamConverter.class)
-	private Long percentage;
+	private String percentage;
 
 	@XStreamAsAttribute
 	private String color;
@@ -33,11 +32,11 @@ public class OhLohAnalysisLanguageDTO implements OhLohResultDTO {
 	
 	private String content;
 
-	public Long getPercentage() {
+	public String getPercentage() {
 		return percentage;
 	}
 
-	public void setPercentage(Long percentage) {
+	public void setPercentage(String percentage) {
 		this.percentage = percentage;
 	}
 
