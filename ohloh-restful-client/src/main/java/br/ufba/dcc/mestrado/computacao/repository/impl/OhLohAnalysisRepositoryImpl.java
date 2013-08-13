@@ -6,15 +6,16 @@ import br.ufba.dcc.mestrado.computacao.repository.OhLohAnalysisRepository;
 
 @OhLohAnalysisRepositoryQualifier
 public class OhLohAnalysisRepositoryImpl extends BaseRepositoryImpl<OhLohAnalysisEntity>
-			implements OhLohAnalysisRepository {
+		implements OhLohAnalysisRepository {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7186645542252274075L;
-	
+	private static final long serialVersionUID = 7801826722021443632L;
+
 	public OhLohAnalysisRepositoryImpl() {
 		super(OhLohAnalysisEntity.class);
-		// TODO Auto-generated constructor stub
 	}
 
+	
 }

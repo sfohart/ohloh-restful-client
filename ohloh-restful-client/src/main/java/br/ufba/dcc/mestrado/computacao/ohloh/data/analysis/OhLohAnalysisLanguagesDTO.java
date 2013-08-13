@@ -3,7 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.analysis;
 import java.util.List;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -19,7 +19,7 @@ public class OhLohAnalysisLanguagesDTO implements OhLohResultDTO {
 	private static final long serialVersionUID = 3047964132725598415L;
 	
 	@XStreamAsAttribute	
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long id;
 	
 

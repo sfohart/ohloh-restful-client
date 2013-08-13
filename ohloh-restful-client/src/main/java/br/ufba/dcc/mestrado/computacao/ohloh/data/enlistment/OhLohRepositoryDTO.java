@@ -3,7 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment;
 import java.sql.Timestamp;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -25,7 +25,7 @@ public class OhLohRepositoryDTO implements OhLohResultDTO {
 	public final static String NODE_NAME = "repository";
 	
 	@XStreamAsAttribute	
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long id;
 
 	private OhLohRepositoryTypeEnum type;
@@ -43,7 +43,7 @@ public class OhLohRepositoryDTO implements OhLohResultDTO {
 	@XStreamAlias("logged_at")
 	private Timestamp loggedAt;
 
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long commits;
 
 	@XStreamAlias("ohloh_job_status")

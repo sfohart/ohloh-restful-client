@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -22,7 +22,7 @@ public class OhLohStackDTO implements Serializable {
 	public final static String NODE_NAME = "stack";
 	
 	@XStreamAsAttribute	
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long id;
 
 	private String title;
@@ -34,14 +34,14 @@ public class OhLohStackDTO implements Serializable {
 	private Timestamp updatedAt;
 
 	@XStreamAlias("project_count")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long projectCount;
 
 	@XStreamAlias("stack_entries")
 	private List<OhLohStackEntryDTO> ohLohStackEntrys;
 
 	@XStreamAlias("account_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long acountId;
 
 	public String getTitle() {

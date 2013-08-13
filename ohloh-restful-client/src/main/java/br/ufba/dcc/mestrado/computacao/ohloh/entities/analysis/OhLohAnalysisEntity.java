@@ -3,6 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -56,7 +57,7 @@ public class OhLohAnalysisEntity extends OhLohBaseEntity {
 	@OneToMany(mappedBy = "ohLohAnalysis")
 	private List<OhLohFactoidEntity> ohLohFactoids;
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "languages_id", referencedColumnName = "id")
 	private OhLohAnalysisLanguagesEntity ohLohAnalysisLanguages;
 

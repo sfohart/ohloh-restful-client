@@ -5,7 +5,7 @@ import java.util.List;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.factoid.OhLohFactoidDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -25,11 +25,11 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 	private String url;
 
 	@XStreamAsAttribute
-	@XStreamConverter(value = NullableLongConverter.class)
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long id;
 
 	@XStreamAlias("project_id")
-	@XStreamConverter(value = NullableLongConverter.class)
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long projectId;
 
 	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
@@ -49,25 +49,33 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 	private Timestamp maxMonth;
 
 	@XStreamAlias("twelve_month_contributor_count")
-	@XStreamConverter(value = NullableLongConverter.class)
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long twelveMonthContributorCount;
 
 	@XStreamAlias("total_code_lines")
-	@XStreamConverter(value = NullableLongConverter.class)
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long totalCodeLines;
 
 	@XStreamAlias("factoids")
-	private List<OhLohFactoidDTO> ohLohFactoidEntities;
+	private List<OhLohFactoidDTO> ohLohFactoids;
 
 	@XStreamAlias("languages")
 	private OhLohAnalysisLanguagesDTO ohLohAnalysisLanguages;
 
 	@XStreamAlias("main_language_id")
-	@XStreamConverter(value = NullableLongConverter.class)
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long mainLanguageId;
 
 	@XStreamAlias("main_language_name")
 	private String mainLanguageName;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getUrl() {
 		return url;
@@ -135,11 +143,11 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 	}
 
 	public List<OhLohFactoidDTO> getOhLohFactoids() {
-		return ohLohFactoidEntities;
+		return ohLohFactoids;
 	}
 
 	public void setOhLohFactoids(List<OhLohFactoidDTO> ohLohFactoidEntities) {
-		this.ohLohFactoidEntities = ohLohFactoidEntities;
+		this.ohLohFactoids = ohLohFactoidEntities;
 	}
 
 	public OhLohAnalysisLanguagesDTO getOhLohAnalysisLanguages() {

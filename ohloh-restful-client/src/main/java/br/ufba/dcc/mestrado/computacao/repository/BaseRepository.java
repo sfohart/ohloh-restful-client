@@ -10,6 +10,7 @@ public interface BaseRepository<E extends OhLohBaseEntity> extends Serializable 
 	public Long countAll();
 	public List<E> findAll();	
 	public List<E> findAll(String orderBy);
+	public List<E> findAll(Integer startAt, Integer offset);
 	public List<E> findAll(Integer startAt, Integer offset, String orderBy);
 	
 	public E findById(Long id);

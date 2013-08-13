@@ -5,15 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = OhLohCrawlerConfigEntity.NODE_NAME)
-public class OhLohCrawlerConfigEntity  extends OhLohBaseEntity {
+@Table(name = OhLohCrawlerProjectEntity.NODE_NAME)
+public class OhLohCrawlerProjectEntity  extends OhLohBaseEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4564980589922044448L;
 	
-	public final static String NODE_NAME = "crawler_config";
+	public final static String NODE_NAME = "crawler_project";
 	
 	@Column(name="project_current_page")
 	private Integer projectCurrentPage;

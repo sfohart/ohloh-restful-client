@@ -2,8 +2,8 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.contributorfact;
 
 import java.io.Serializable;
 
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleXStreamConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -20,39 +20,39 @@ public class OhLohContributorLanguageFactDTO implements Serializable {
 	public final static String NODE_NAME = "contributor_language_fact";
 
 	@XStreamAsAttribute	
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long id;
 
 	@XStreamAlias("analysis_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long analysisId;
 
 	@XStreamAlias("contributor_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long contributorId;
 
 	@XStreamAlias("contributor_name")
 	private String contributorName;
 
 	@XStreamAlias("language_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long languageId;
 
 	@XStreamAlias("language_nice_name")
 	private String languageNiceName;
 
 	@XStreamAlias("comment_ratio")
-	@XStreamConverter(value = NullableDoubleConverter.class)
+	@XStreamConverter(value = NullableDoubleXStreamConverter.class)
 	private Double commentRatio;
 
 	@XStreamAlias("man_months")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long manMonths;
 
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long commits;
 
-	@XStreamConverter(value = NullableDoubleConverter.class)
+	@XStreamConverter(value = NullableDoubleXStreamConverter.class)
 	@XStreamAlias("median_commits")
 	private Double medianCommits;
 

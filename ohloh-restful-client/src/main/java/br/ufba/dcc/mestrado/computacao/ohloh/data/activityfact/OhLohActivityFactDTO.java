@@ -3,7 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.activityfact;
 import java.sql.Timestamp;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -21,39 +21,39 @@ public class OhLohActivityFactDTO implements OhLohResultDTO {
 	public final static String NODE_NAME = "activity_fact";
 
 	@XStreamAsAttribute
-	@XStreamConverter(value = NullableLongConverter.class)
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long id;
 
 	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
 	private Timestamp month;
 
 	@XStreamAlias("code_added")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long codeAdded;
 
 	@XStreamAlias("code_removed")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long codeRemoved;
 
 	@XStreamAlias("comments_added")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long commentsAdded;
 
 	@XStreamAlias("comments_removed")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long commentsRemoved;
 
 	@XStreamAlias("blanks_added")
 	private Long blanksAdded;
 
 	@XStreamAlias("blanks_removed")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long blanksRemoved;
 
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long commits;
 
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long contributors;
 
 	public Timestamp getMonth() {

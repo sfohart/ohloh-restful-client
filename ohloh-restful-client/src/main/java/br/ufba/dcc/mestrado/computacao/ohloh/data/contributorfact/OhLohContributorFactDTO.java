@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleXStreamConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -23,36 +23,36 @@ public class OhLohContributorFactDTO implements OhLohResultDTO {
 	public final static String NODE_NAME = "contributor_fact";
 	
 	@XStreamAsAttribute	
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long id;
 
 	@XStreamAlias("contributor_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long contributorId;
 
 	@XStreamAlias("account_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long accountId;
 
 	@XStreamAlias("account_name")
 	private String accountName;
 
 	@XStreamAlias("analysis_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long analysisId;
 
 	@XStreamAlias("contributor_name")
 	private String contributorName;
 
 	@XStreamAlias("primary_language_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long primaryLanguageId;
 
 	@XStreamAlias("primary_language_nice_name")
 	private String primaryLanguageNiceName;
 
 	@XStreamAlias("comment_ratio")
-	@XStreamConverter(value = NullableDoubleConverter.class)
+	@XStreamConverter(value = NullableDoubleXStreamConverter.class)
 	private Double commentRatio;
 
 	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
@@ -64,13 +64,13 @@ public class OhLohContributorFactDTO implements OhLohResultDTO {
 	private Timestamp lastCommitTime;
 
 	@XStreamAlias("man_months")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long manMonths;
 
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long commits;
 
-	@XStreamConverter(value = NullableDoubleConverter.class)
+	@XStreamConverter(value = NullableDoubleXStreamConverter.class)
 	@XStreamAlias("median_commits")
 	private Double medianCommits;
 
