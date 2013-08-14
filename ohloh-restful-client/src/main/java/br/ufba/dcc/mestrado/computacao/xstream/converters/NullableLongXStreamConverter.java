@@ -2,7 +2,7 @@ package br.ufba.dcc.mestrado.computacao.xstream.converters;
 
 import com.thoughtworks.xstream.converters.basic.LongConverter;
 
-public class NullableLongConverter extends LongConverter {
+public class NullableLongXStreamConverter extends LongConverter {
 	
 	@SuppressWarnings("rawtypes")
 	@Override

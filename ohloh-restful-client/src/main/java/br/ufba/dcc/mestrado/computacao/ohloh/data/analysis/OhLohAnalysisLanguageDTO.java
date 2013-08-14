@@ -1,7 +1,7 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.analysis;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -20,12 +20,11 @@ public class OhLohAnalysisLanguageDTO implements OhLohResultDTO {
 	public final static String NODE_NAME = "language";
 
 	@XStreamAsAttribute
-	@XStreamConverter(value = NullableLongConverter.class)
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long id;
 
 	@XStreamAsAttribute
-	@XStreamConverter(value=NullableLongConverter.class)
-	private Long percentage;
+	private String percentage;
 
 	@XStreamAsAttribute
 	private String color;
@@ -33,11 +32,11 @@ public class OhLohAnalysisLanguageDTO implements OhLohResultDTO {
 	
 	private String content;
 
-	public Long getPercentage() {
+	public String getPercentage() {
 		return percentage;
 	}
 
-	public void setPercentage(Long percentage) {
+	public void setPercentage(String percentage) {
 		this.percentage = percentage;
 	}
 

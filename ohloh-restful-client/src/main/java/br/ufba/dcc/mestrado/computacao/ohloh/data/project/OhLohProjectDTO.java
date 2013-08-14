@@ -5,8 +5,8 @@ import java.util.List;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleConverter;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableDoubleXStreamConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -25,7 +25,7 @@ public class OhLohProjectDTO implements OhLohResultDTO {
 	public final static String NODE_NAME = "project";
 
 	@XStreamAsAttribute
-	@XStreamConverter(value = NullableLongConverter.class)
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long id;
 
 	private String name;
@@ -61,23 +61,23 @@ public class OhLohProjectDTO implements OhLohResultDTO {
 	private String smallLogoURL;
 
 	@XStreamAlias("user_count")
-	@XStreamConverter(value = NullableLongConverter.class)
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long userCount;
 
 	@XStreamAlias("average_rating")
-	@XStreamConverter(value = NullableDoubleConverter.class)
+	@XStreamConverter(value = NullableDoubleXStreamConverter.class)
 	private Double averageRating;
 
 	@XStreamAlias("rating_count")
-	@XStreamConverter(value = NullableLongConverter.class)
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long ratingCount;
 
 	@XStreamAlias("review_count")
-	@XStreamConverter(value = NullableLongConverter.class)
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long reviewCount;
 
 	@XStreamAlias("analysis_id")
-	@XStreamConverter(value = NullableLongConverter.class)
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long analysisId;
 
 	@XStreamAlias("analysis")

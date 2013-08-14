@@ -20,7 +20,7 @@ public class OhLohAnalysisLanguageEntity extends OhLohBaseEntity {
 	public final static String NODE_NAME = "language";
 
 	@Column(name = "percentage")
-	private Long percentage;
+	private String percentage;
 
 	@Column(name = "color")
 	private String color;
@@ -32,11 +32,11 @@ public class OhLohAnalysisLanguageEntity extends OhLohBaseEntity {
 	@Column(name = "content")
 	private String content;
 
-	public Long getPercentage() {
+	public String getPercentage() {
 		return percentage;
 	}
 
-	public void setPercentage(Long percentage) {
+	public void setPercentage(String percentage) {
 		this.percentage = percentage;
 	}
 

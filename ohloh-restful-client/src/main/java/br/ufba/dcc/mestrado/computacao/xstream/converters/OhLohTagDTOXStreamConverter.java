@@ -4,7 +4,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohTagDTO;
 
 import com.thoughtworks.xstream.converters.basic.StringConverter;
 
-public class OhLohTagDTOConverter extends StringConverter {
+public class OhLohTagDTOXStreamConverter extends StringConverter {
 
 	@SuppressWarnings("rawtypes")
 	@Override

@@ -1,8 +1,8 @@
 package br.ufba.dcc.mestrado.computacao.xstream.converters;
 
-import com.thoughtworks.xstream.converters.basic.DoubleConverter;
+import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
-public class NullableDoubleConverter extends DoubleConverter {
+public class NullableISO8601SqlTimestampXStreamConverter extends ISO8601SqlTimestampConverter {
 
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -18,7 +18,5 @@ public class NullableDoubleConverter extends DoubleConverter {
 		
 		return super.fromString(str);
 	}
-
-	
 	
 }

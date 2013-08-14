@@ -1,7 +1,7 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.enlistment;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -18,15 +18,15 @@ public class OhLohEnlistmentDTO implements OhLohResultDTO {
 	public final static String NODE_NAME = "enlistment";
 
 	@XStreamAsAttribute	
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long id;
 	
 	@XStreamAlias("project_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long projectId;
 
 	@XStreamAlias("repository_id")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long repositoryId;
 
 	@XStreamAlias("repository")

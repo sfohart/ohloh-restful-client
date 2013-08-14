@@ -3,7 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.kudoskore;
 import java.sql.Timestamp;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongConverter;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -21,7 +21,7 @@ public class OhLohKudoScoreDTO implements OhLohResultDTO {
 	public final static String NODE_NAME = "kudo_score";
 
 	@XStreamAsAttribute
-	@XStreamConverter(value = NullableLongConverter.class)
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long id;
 
 	@XStreamConverter(value = ISO8601SqlTimestampConverter.class)
@@ -29,18 +29,18 @@ public class OhLohKudoScoreDTO implements OhLohResultDTO {
 	private Timestamp createdAt;
 
 	@XStreamAlias("kudo_rank")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long kudoRank;
 
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long position;
 
 	@XStreamAlias("max_position")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long maxPosition;
 
 	@XStreamAlias("position_delta")
-	@XStreamConverter(value=NullableLongConverter.class)
+	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long positionDelta;
 
 	public Timestamp getCreatedAt() {
