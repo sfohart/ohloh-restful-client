@@ -66,7 +66,7 @@ public class OhLohAccountDTO implements OhLohResultDTO {
 	private Double longitude;
 	
 	@XStreamAlias("kudo_score")
-	private OhLohKudoScoreDTO ohLohKudoScoreDTO;
+	private OhLohKudoScoreDTO ohLohKudoScore;
 	
 	private String url;
 	
@@ -183,11 +183,11 @@ public class OhLohAccountDTO implements OhLohResultDTO {
 	}
 
 	public OhLohKudoScoreDTO getOhLohKudoScore() {
-		return ohLohKudoScoreDTO;
+		return ohLohKudoScore;
 	}
 
 	public void setOhLohKudoScore(OhLohKudoScoreDTO ohLohKudoScoreDTO) {
-		this.ohLohKudoScoreDTO = ohLohKudoScoreDTO;
+		this.ohLohKudoScore = ohLohKudoScoreDTO;
 	}
 
 	public String getUrl() {

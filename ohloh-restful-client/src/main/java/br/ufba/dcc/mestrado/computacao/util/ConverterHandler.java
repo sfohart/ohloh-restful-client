@@ -15,8 +15,10 @@ import org.apache.commons.beanutils.converters.SqlTimestampConverter;
 import br.ufba.dcc.mestrado.computacao.beanutils.converters.OhLohDTO2EntityConverter;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisLanguagesDTO;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.kudoskore.OhLohKudoScoreDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis.OhLohAnalysisLanguagesEntity;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.kudoskore.OhLohKudoScoreEntity;
 
 public class ConverterHandler<DTO extends OhLohResultDTO, E extends OhLohBaseEntity> {
 	
@@ -25,6 +27,7 @@ public class ConverterHandler<DTO extends OhLohResultDTO, E extends OhLohBaseEnt
 
 	static {
 		ConvertUtils.register(new OhLohDTO2EntityConverter<>(OhLohAnalysisLanguagesDTO.class, OhLohAnalysisLanguagesEntity.class), OhLohAnalysisLanguagesEntity.class);
+		ConvertUtils.register(new OhLohDTO2EntityConverter<>(OhLohKudoScoreDTO.class, OhLohKudoScoreEntity.class), OhLohKudoScoreEntity.class);
 		ConvertUtils.register(new SqlTimestampConverter(null), Timestamp.class);
 	}
 	
