@@ -7,6 +7,7 @@
 	    
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity</class>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerAccountEntity</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerAnalysisEntity</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerProjectEntity</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.account.OhLohAccountEntity</class>

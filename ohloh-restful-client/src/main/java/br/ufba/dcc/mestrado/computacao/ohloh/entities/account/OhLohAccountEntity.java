@@ -2,6 +2,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities.account;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -61,9 +62,9 @@ public class OhLohAccountEntity extends OhLohBaseEntity {
 	@Column(name = "longitude")
 	private Double longitude;
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "kudo_score_id", referencedColumnName = "id")
-	private OhLohKudoScoreEntity ohLohKudoScoreEntity;
+	private OhLohKudoScoreEntity ohLohKudoScore;
 
 	@Column(name = "url")
 	private String url;
@@ -174,11 +175,11 @@ public class OhLohAccountEntity extends OhLohBaseEntity {
 	}
 
 	public OhLohKudoScoreEntity getOhLohKudoScore() {
-		return ohLohKudoScoreEntity;
+		return ohLohKudoScore;
 	}
 
 	public void setOhLohKudoScore(OhLohKudoScoreEntity ohLohKudoScoreEntity) {
-		this.ohLohKudoScoreEntity = ohLohKudoScoreEntity;
+		this.ohLohKudoScore = ohLohKudoScoreEntity;
 	}
 
 	public String getUrl() {
