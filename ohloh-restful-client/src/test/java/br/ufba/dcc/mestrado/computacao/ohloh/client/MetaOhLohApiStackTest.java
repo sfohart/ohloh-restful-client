@@ -1,18 +1,18 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.client;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStackDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
-import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohBaseResponse;
-import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohStackResponse;
 
 public class MetaOhLohApiStackTest extends AbstractOhLohApiTest {
 
 	@Test
 	public void testSuccessGetProjectStack() {
-		OhLohStackResponse response = getOhLohRestfulClient().getProjectStacks("maven2", new OhLohBaseRequest());
-		org.junit.Assert.assertEquals(OhLohBaseResponse.SUCCESS, response.getStatus());
+		List<OhLohStackDTO> response = getOhLohRestfulClient().getProjectStacks("maven2", new OhLohBaseRequest());
+		org.junit.Assert.assertNotNull(response);
 	}
 	
 	@Test

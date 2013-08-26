@@ -10,10 +10,13 @@ import java.util.Properties;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import org.apache.log4j.Logger;
+
 import br.com.caelum.restfulie.Response;
 import br.com.caelum.restfulie.RestClient;
 import br.com.caelum.restfulie.Restfulie;
 import br.com.caelum.restfulie.mediatype.XmlMediaType;
+import br.ufba.dcc.mestrado.computacao.ohloh.crawler.OhLohStackCrawler;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccountDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccountResult;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.activityfact.OhLohActivityFactDTO;
@@ -51,6 +54,8 @@ import br.ufba.dcc.mestrado.computacao.qualifier.ConfigurationValue;
 
 @Singleton
 public class OhLohRestfulClient {
+	
+	public static Logger logger = Logger.getLogger(OhLohRestfulClient.class);
 	
 	@Inject
 	@ConfigurationArrayValue(value = {
@@ -134,6 +139,7 @@ public class OhLohRestfulClient {
 		T resource = null;
 		
 		boolean retry = true;
+		String uri = "";
 		
 		while (retry) {
 			retry = false;
@@ -142,7 +148,6 @@ public class OhLohRestfulClient {
 				if (getCurrentApiKey() < getApiKey().length) {				
 					String apiKey = getApiKey()[getCurrentApiKey()];
 					
-					String uri = "";
 					
 					
 					if (params != null && params.length > 0) {
@@ -170,7 +175,7 @@ public class OhLohRestfulClient {
 		};
 			
 		
-		
+		logger.debug(uri);
 		return resource;
 	}
 	
@@ -339,7 +344,7 @@ public class OhLohRestfulClient {
 					OhLohStackResult.class,
 					OhLohStackDTO.class));
 			
-			OhLohStackResponse resource = this.<OhLohStackResponse>processResponse(url, request, restfulie);
+			OhLohStackResponse resource = this.<OhLohStackResponse>processResponse(url, request, restfulie, accountId);
 			if (OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
 				List<OhLohStackDTO> ohLohStackDTOs = resource.getResult().getOhLohStacks();
 				if (ohLohStackDTOs != null && ! ohLohStackDTOs.isEmpty()) {
@@ -358,8 +363,8 @@ public class OhLohRestfulClient {
 	 * @param projectId
 	 * @return
 	 */
-	public OhLohStackResponse getProjectStacks(String projectId, OhLohBaseRequest request) {
-		OhLohStackResponse resource = null;
+	public List<OhLohStackDTO> getProjectStacks(String projectId, OhLohBaseRequest request) {
+		List<OhLohStackDTO> stackList = null;
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.stack.project");
@@ -371,12 +376,20 @@ public class OhLohRestfulClient {
 					OhLohStackResult.class,
 					OhLohStackDTO.class));
 			
-			resource = this.<OhLohStackResponse>processResponse(url, request, restfulie);
+			OhLohStackResponse resource = this.<OhLohStackResponse>processResponse(url, request, restfulie, projectId);
+			
+			if (OhLohStackResponse.SUCCESS.equals(resource.getStatus())) {
+				OhLohStackResult result = resource.getResult();
+				if (result != null) {
+					return result.getOhLohStacks();
+				}
+			}
+			
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 		
-		return resource;
+		return stackList;
 	}
 	
 	/**
