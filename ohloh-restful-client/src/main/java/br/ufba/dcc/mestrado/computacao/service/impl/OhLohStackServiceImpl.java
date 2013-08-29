@@ -53,9 +53,12 @@ public class OhLohStackServiceImpl extends BaseOhLohServiceImpl<OhLohStackDTO, O
 			
 			if (account != null && account.getId() != null) {
 				account = accountRepository.findById(account.getId());
-				if (account != null) {
-					entity.setAccount(account);
+				
+				if (account == null) {					
+					accountRepository.save(account);
 				}
+				
+				entity.setAccount(account);
 			}
 			
 		}

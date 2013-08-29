@@ -47,7 +47,7 @@ public class OhLohStackEntity extends OhLohBaseEntity {
 	@Column(name = "account_id", insertable = false, updatable = false)
 	private Long acountId;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinColumn(name = "account_id", referencedColumnName = "id")
 	private OhLohAccountEntity account;
 
