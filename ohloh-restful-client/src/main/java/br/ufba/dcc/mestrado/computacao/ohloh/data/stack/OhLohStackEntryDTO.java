@@ -3,6 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.data.stack;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectDTO;
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
@@ -12,7 +13,7 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
 @XStreamAlias(OhLohStackEntryDTO.NODE_NAME)
-public class OhLohStackEntryDTO implements Serializable {
+public class OhLohStackEntryDTO implements OhLohResultDTO {
 
 	/**
 	 * 

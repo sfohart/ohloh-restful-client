@@ -1,9 +1,10 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.stack;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccountDTO;
 import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -12,7 +13,7 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
 @XStreamAlias(OhLohStackDTO.NODE_NAME)
-public class OhLohStackDTO implements Serializable {
+public class OhLohStackDTO implements OhLohResultDTO {
 
 	/**
 	 * 
@@ -38,11 +39,14 @@ public class OhLohStackDTO implements Serializable {
 	private Long projectCount;
 
 	@XStreamAlias("stack_entries")
-	private List<OhLohStackEntryDTO> ohLohStackEntrys;
+	private List<OhLohStackEntryDTO> ohLohStackEntries;
 
 	@XStreamAlias("account_id")
 	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long acountId;
+	
+	@XStreamAlias("account")
+	private OhLohAccountDTO account;
 
 	public String getTitle() {
 		return title;
@@ -77,11 +81,11 @@ public class OhLohStackDTO implements Serializable {
 	}
 
 	public List<OhLohStackEntryDTO> getOhLohStackEntries() {
-		return ohLohStackEntrys;
+		return ohLohStackEntries;
 	}
 
-	public void setOhLohStackEntries(List<OhLohStackEntryDTO> ohLohStackEntrys) {
-		this.ohLohStackEntrys = ohLohStackEntrys;
+	public void setOhLohStackEntries(List<OhLohStackEntryDTO> ohLohStackEntries) {
+		this.ohLohStackEntries = ohLohStackEntries;
 	}
 
 	public Long getAcountId() {
@@ -92,5 +96,14 @@ public class OhLohStackDTO implements Serializable {
 		this.acountId = acountId;
 	}
 
+	public OhLohAccountDTO getAccount() {
+		return account;
+	}
+
+	public void setAccount(OhLohAccountDTO account) {
+		this.account = account;
+	}
+
+	
 
 }

@@ -3,6 +3,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities.stack;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -43,11 +44,11 @@ public class OhLohStackEntity extends OhLohBaseEntity {
 	@OneToMany(mappedBy = "ohLohStack")
 	private List<OhLohStackEntryEntity> ohLohStackEntries;
 
-	@Column(name = "account_id")
+	@Column(name = "account_id", insertable = false, updatable = false)
 	private Long acountId;
 
-	@ManyToOne
-	@JoinColumn(name = "account_id", referencedColumnName = "id", insertable = false, updatable = false)
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@JoinColumn(name = "account_id", referencedColumnName = "id")
 	private OhLohAccountEntity account;
 
 	public String getTitle() {

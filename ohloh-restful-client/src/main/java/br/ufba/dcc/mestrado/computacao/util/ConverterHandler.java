@@ -14,11 +14,15 @@ import org.apache.commons.beanutils.converters.SqlTimestampConverter;
 
 import br.ufba.dcc.mestrado.computacao.beanutils.converters.OhLohDTO2EntityConverter;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccountDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisLanguagesDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.kudoskore.OhLohKudoScoreDTO;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStackDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.account.OhLohAccountEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis.OhLohAnalysisLanguagesEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.kudoskore.OhLohKudoScoreEntity;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.stack.OhLohStackEntity;
 
 public class ConverterHandler<DTO extends OhLohResultDTO, E extends OhLohBaseEntity> {
 	
@@ -28,6 +32,8 @@ public class ConverterHandler<DTO extends OhLohResultDTO, E extends OhLohBaseEnt
 	static {
 		ConvertUtils.register(new OhLohDTO2EntityConverter<>(OhLohAnalysisLanguagesDTO.class, OhLohAnalysisLanguagesEntity.class), OhLohAnalysisLanguagesEntity.class);
 		ConvertUtils.register(new OhLohDTO2EntityConverter<>(OhLohKudoScoreDTO.class, OhLohKudoScoreEntity.class), OhLohKudoScoreEntity.class);
+		ConvertUtils.register(new OhLohDTO2EntityConverter<>(OhLohStackDTO.class, OhLohStackEntity.class), OhLohStackEntity.class);
+		ConvertUtils.register(new OhLohDTO2EntityConverter<>(OhLohAccountDTO.class, OhLohAccountEntity.class), OhLohAccountEntity.class);
 		ConvertUtils.register(new SqlTimestampConverter(null), Timestamp.class);
 	}
 	
@@ -41,48 +47,64 @@ public class ConverterHandler<DTO extends OhLohResultDTO, E extends OhLohBaseEnt
 			return null;
 		}
 		
-		Object destValue = destClass.newInstance();		
-		BeanUtils.copyProperties(destValue, origValue);
-		
-		for (Field field : originClass.getDeclaredFields()) {
-			String getMethodName = "get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
-			String setMethodName = "set" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+		try {
+			Object destValue = destClass.newInstance();		
+			BeanUtils.copyProperties(destValue, origValue);
 			
-			if (Collection.class.isAssignableFrom(field.getType())) {
-				Method getOrigMethod = originClass.getDeclaredMethod(getMethodName);
+			for (Field field : originClass.getDeclaredFields()) {
+				String getMethodName = "get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+				String setMethodName = "set" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
 				
-				if (getOrigMethod.invoke(origValue) != null) {
-					Collection destCollection = deepCopyCollectionValue(
-							origValue, 
-							field,
-							destValue,
-							destClass.getDeclaredField(field.getName()),
-							getOrigMethod);
-				
+				if (Collection.class.isAssignableFrom(field.getType())) {
+					Method getOrigMethod = originClass.getDeclaredMethod(getMethodName);
 					
-					ParameterizedType itemDestParameterizedType = (ParameterizedType) destClass.getDeclaredField(field.getName()).getGenericType();
+					if (getOrigMethod.invoke(origValue) != null) {
+						Collection destCollection = deepCopyCollectionValue(
+								origValue, 
+								field,
+								destValue,
+								destClass.getDeclaredField(field.getName()),
+								getOrigMethod);
 					
-					Method setDestMethod = destClass.getDeclaredMethod(
-							setMethodName,
-							(Class<?>) itemDestParameterizedType.getRawType());
-					setDestMethod.invoke(destValue, field.getType().cast(destCollection));
+						
+						ParameterizedType itemDestParameterizedType = (ParameterizedType) destClass.getDeclaredField(field.getName()).getGenericType();
+						
+						Method setDestMethod = destClass.getDeclaredMethod(
+								setMethodName,
+								(Class<?>) itemDestParameterizedType.getRawType());
+						setDestMethod.invoke(destValue, field.getType().cast(destCollection));
+					}
+				} else if (OhLohResultDTO.class.isAssignableFrom(field.getType())) {			
+					Method getMethod = originClass.getDeclaredMethod(getMethodName);
+						
+					if (getMethod.invoke(origValue) != null) {
+						
+						Class<?> destFieldClass = null;
+						if (Field.class.equals(destClass.getDeclaredField(field.getName()).getClass())) {
+							destFieldClass = destClass.getDeclaredField(field.getName()).getType();
+						} else {
+							destFieldClass = destClass.getDeclaredField(field.getName()).getClass();
+						}
+						
+						Object destFieldObject = deepCopySingleValue(
+								getMethod.invoke(origValue),  
+								field.getType(), 
+								destFieldClass);
+						
+						Method setDestMethod = destClass.getDeclaredMethod(
+								setMethodName,
+								destFieldClass);
+						
+						setDestMethod.invoke(destValue, destFieldObject);
+					}
+					
 				}
-			} else if (OhLohResultDTO.class.isAssignableFrom(field.getType())) {			
-				Method getMethod = originClass.getDeclaredMethod(getMethodName);
-					
-				if (getMethod.invoke(origValue) != null) {
-					Object destFieldObject = deepCopySingleValue(
-							getMethod.invoke(origValue),  
-							field.getType(), 
-							destClass.getDeclaredField(field.getName()).getClass());
-					
-					destClass.getDeclaredField(field.getName()).set(destValue, destFieldObject);					
-				}
-				
 			}
+			return destValue;
+		} catch (InstantiationException ex) {
+			throw new IllegalArgumentException("Não foi possível instanciar objeto do tipo " + destClass.getName() + " como cópia do objeto de tipo " + originClass.getName(), ex);
 		}
 		
-		return destValue;
 	}
 	
 	/**
@@ -143,10 +165,18 @@ public class ConverterHandler<DTO extends OhLohResultDTO, E extends OhLohBaseEnt
 			} else if (OhLohResultDTO.class.isAssignableFrom(field.getType())) {
 				Method getMethod = dtoClass.getDeclaredMethod(getMethodName);
 				if (getMethod.invoke(dto) != null) {
+					
+					Class<?> destFieldClass = null;
+					if (Field.class.equals(entityClass.getDeclaredField(field.getName()).getClass())) {
+						destFieldClass = entityClass.getDeclaredField(field.getName()).getType();
+					} else {
+						destFieldClass = entityClass.getDeclaredField(field.getName()).getClass();
+					}
+					
 					Object destFieldObject = deepCopySingleValue(
 							getMethod.invoke(dto), 
 							field.getType(), 
-							entityClass.getDeclaredField(field.getName()).getType());
+							destFieldClass);
 					
 					Method setMethod = entityClass.getDeclaredMethod(setMethodName, entityClass.getDeclaredField(field.getName()).getType());
 					setMethod.invoke(entity, entityClass.getDeclaredField(field.getName()).getType().cast(destFieldObject));
