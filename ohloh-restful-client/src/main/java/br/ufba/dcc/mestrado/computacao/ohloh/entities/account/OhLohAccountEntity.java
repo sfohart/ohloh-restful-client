@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -14,7 +15,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.kudoskore.OhLohKudoScoreEn
 
 @Entity
 @Table(name = OhLohAccountEntity.NODE_NAME)
-public class OhLohAccountEntity extends OhLohBaseEntity {
+public class OhLohAccountEntity implements OhLohBaseEntity<Long> {
 
 	/**
 	 * 
@@ -26,6 +27,10 @@ public class OhLohAccountEntity extends OhLohBaseEntity {
 	/**
 	 * The public name for this Account.
 	 */
+	
+	@Id
+	private Long id;
+	
 	@Column(name = "name")
 	private String name;
 
@@ -77,6 +82,14 @@ public class OhLohAccountEntity extends OhLohBaseEntity {
 
 	@Column(name = "twitter_account")
 	private String twitterAccount;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;

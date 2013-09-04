@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -11,7 +12,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 
 @Entity
 @Table(name=OhLohAnalysisLanguagesEntity.NODE_NAME)
-public class OhLohAnalysisLanguagesEntity extends OhLohBaseEntity {
+public class OhLohAnalysisLanguagesEntity implements OhLohBaseEntity<Long> {
 
 	/**
 	 * 
@@ -20,11 +21,22 @@ public class OhLohAnalysisLanguagesEntity extends OhLohBaseEntity {
 	
 	public final static String NODE_NAME = "languages";
 
+	@Id
+	private Long id;
+	
 	@Column(name="graph_url")
 	private String graphURL;
 	
 	@OneToMany(mappedBy="ohLohAnalysisLanguages")
 	private List<OhLohAnalysisLanguageEntity> content;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getGraphURL() {
 		return graphURL;

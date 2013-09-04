@@ -2,6 +2,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities.contributorfact;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -10,7 +11,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 
 @Entity
 @Table(name=OhLohContributorLanguageFactEntity.NODE_NAME)
-public class OhLohContributorLanguageFactEntity extends OhLohBaseEntity {
+public class OhLohContributorLanguageFactEntity implements OhLohBaseEntity<Long> {
 	
 	/**
 	 * 
@@ -19,6 +20,8 @@ public class OhLohContributorLanguageFactEntity extends OhLohBaseEntity {
 
 	public final static String NODE_NAME = "contributor_language_fact";
 
+	@Id
+	private Long id;
 	
 	@ManyToOne
 	@JoinColumn(name="contributor_fact_id", referencedColumnName="id")
@@ -50,6 +53,14 @@ public class OhLohContributorLanguageFactEntity extends OhLohBaseEntity {
 
 	@Column(name="median_commits")
 	private Double medianCommits;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Long getAnalysisId() {
 		return analysisId;

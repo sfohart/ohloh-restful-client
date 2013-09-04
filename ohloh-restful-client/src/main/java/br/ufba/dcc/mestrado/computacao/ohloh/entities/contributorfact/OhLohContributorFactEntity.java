@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -13,7 +14,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 
 @Entity
 @Table(name=OhLohContributorFactEntity.NODE_NAME)
-public class OhLohContributorFactEntity extends OhLohBaseEntity {
+public class OhLohContributorFactEntity implements OhLohBaseEntity<Long> {
 	
 	/**
 	 * 
@@ -22,6 +23,8 @@ public class OhLohContributorFactEntity extends OhLohBaseEntity {
 
 	public final static String NODE_NAME = "contributor_fact";
 
+	@Id
+	private Long id;
 	
 	@Column(name="contributor_id")
 	private Long contributorId;
@@ -64,6 +67,22 @@ public class OhLohContributorFactEntity extends OhLohBaseEntity {
 	
 	@OneToMany(mappedBy="ohLohContributorFact")
 	private List<OhLohContributorLanguageFactEntity> ohLohContributorLanguageFacts;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getContributorId() {
+		return contributorId;
+	}
+
+	public void setContributorId(Long contributorId) {
+		this.contributorId = contributorId;
+	}
 
 	public Long getAccountId() {
 		return accountId;

@@ -16,7 +16,6 @@ import br.com.caelum.restfulie.Response;
 import br.com.caelum.restfulie.RestClient;
 import br.com.caelum.restfulie.Restfulie;
 import br.com.caelum.restfulie.mediatype.XmlMediaType;
-import br.ufba.dcc.mestrado.computacao.ohloh.crawler.OhLohStackCrawler;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccountDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccountResult;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.activityfact.OhLohActivityFactDTO;

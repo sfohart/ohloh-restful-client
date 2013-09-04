@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -17,7 +18,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity
 
 @Entity
 @Table(name = OhLohAnalysisEntity.NODE_NAME)
-public class OhLohAnalysisEntity extends OhLohBaseEntity {
+public class OhLohAnalysisEntity implements OhLohBaseEntity<Long> {
 
 	/**
 	 * 
@@ -26,6 +27,9 @@ public class OhLohAnalysisEntity extends OhLohBaseEntity {
 
 	public final static String NODE_NAME = "analysis";
 
+	@Id
+	private Long id;
+	
 	@Column(name = "url")
 	private String url;
 
@@ -66,6 +70,14 @@ public class OhLohAnalysisEntity extends OhLohBaseEntity {
 
 	@Column(name = "main_language_name")
 	private String mainLanguageName;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getUrl() {
 		return url;

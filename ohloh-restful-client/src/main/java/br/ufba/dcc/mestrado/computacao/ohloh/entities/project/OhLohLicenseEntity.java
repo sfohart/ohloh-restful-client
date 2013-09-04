@@ -2,14 +2,14 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities.project;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 
 @Entity
 @Table(name = OhLohLicenseEntity.NODE_NAME)
-public class OhLohLicenseEntity extends OhLohBaseEntity {
+public class OhLohLicenseEntity implements OhLohBaseEntity<Long> {
 
 	/**
 	 * 
@@ -17,6 +17,9 @@ public class OhLohLicenseEntity extends OhLohBaseEntity {
 	private static final long serialVersionUID = 1612821573723959553L;
 
 	public final static String NODE_NAME = "license";
+	
+	@Id
+	private Long id;
 
 	@Column(unique = true)
 	private String name;
@@ -24,6 +27,14 @@ public class OhLohLicenseEntity extends OhLohBaseEntity {
 	@Column(name = "nice_name")
 	private String niceName;
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -14,13 +15,9 @@ import javax.persistence.Table;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.account.OhLohAccountEntity;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamConverter;
-import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
-
 @Entity
 @Table(name = OhLohStackEntity.NODE_NAME)
-public class OhLohStackEntity extends OhLohBaseEntity {
+public class OhLohStackEntity implements OhLohBaseEntity<Long> {
 
 	/**
 	 * 
@@ -29,6 +26,9 @@ public class OhLohStackEntity extends OhLohBaseEntity {
 
 	public final static String NODE_NAME = "stack";
 
+	@Id
+	private Long id;
+	
 	@Column(name = "title")
 	private String title;
 
@@ -50,6 +50,14 @@ public class OhLohStackEntity extends OhLohBaseEntity {
 	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	@JoinColumn(name = "account_id", referencedColumnName = "id")
 	private OhLohAccountEntity account;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;

@@ -4,13 +4,14 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 
 @Entity
 @Table(name = OhLohRepositoryEntity.NODE_NAME)
-public class OhLohRepositoryEntity extends OhLohBaseEntity {
+public class OhLohRepositoryEntity implements OhLohBaseEntity<Long> {
 
 	/**
 	 * 
@@ -23,6 +24,9 @@ public class OhLohRepositoryEntity extends OhLohBaseEntity {
 
 	public final static String NODE_NAME = "repository";
 
+	@Id
+	private Long id;
+	
 	@Column(name = "type")
 	private OhLohRepositoryTypeEnum type;
 
@@ -46,6 +50,14 @@ public class OhLohRepositoryEntity extends OhLohBaseEntity {
 
 	@Column(name = "ohloh_job_status")
 	private String ohlohJobStatus;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public OhLohRepositoryTypeEnum getType() {
 		return type;

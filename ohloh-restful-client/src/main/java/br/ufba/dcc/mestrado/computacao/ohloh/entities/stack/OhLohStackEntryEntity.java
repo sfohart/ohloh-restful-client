@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -13,7 +14,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity
 
 @Entity
 @Table(name = OhLohStackEntryEntity.NODE_NAME)
-public class OhLohStackEntryEntity extends OhLohBaseEntity {
+public class OhLohStackEntryEntity implements OhLohBaseEntity<Long> {
 
 	/**
 	 * 
@@ -22,6 +23,9 @@ public class OhLohStackEntryEntity extends OhLohBaseEntity {
 
 	public final static String NODE_NAME = "stack_entry";
 
+	@Id
+	private Long id;
+	
 	@Column(name = "stack_id")
 	private Long stackId;
 
@@ -38,6 +42,22 @@ public class OhLohStackEntryEntity extends OhLohBaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "project_id", referencedColumnName = "id", updatable = false, insertable = false)
 	private OhLohProjectEntity project;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public OhLohStackEntity getOhLohStack() {
+		return ohLohStack;
+	}
+
+	public void setOhLohStack(OhLohStackEntity ohLohStack) {
+		this.ohLohStack = ohLohStack;
+	}
 
 	public Long getStackId() {
 		return stackId;

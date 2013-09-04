@@ -2,6 +2,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities.enlistment;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -11,7 +12,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity
 
 @Entity
 @Table(name = OhLohEnlistmentEntity.NODE_NAME)
-public class OhLohEnlistmentEntity extends OhLohBaseEntity {
+public class OhLohEnlistmentEntity implements OhLohBaseEntity<Long> {
 
 	/**
 	 * 
@@ -20,12 +21,15 @@ public class OhLohEnlistmentEntity extends OhLohBaseEntity {
 
 	public final static String NODE_NAME = "enlistment";
 
+	@Id
+	private Long id;
+	
 	@Column(name = "project_id")
 	private Long projectId;
 
 	@ManyToOne
 	@JoinColumn(name = "project_id", referencedColumnName = "id", insertable = false, updatable = false)
-	private OhLohProjectEntity ohLohProjectEntity;
+	private OhLohProjectEntity ohLohProject;
 
 	@Column(name = "repository_id", insertable = false, updatable = false)
 	private Long repositoryId;
@@ -34,12 +38,20 @@ public class OhLohEnlistmentEntity extends OhLohBaseEntity {
 	@JoinColumn(name = "repository_id", referencedColumnName = "id")
 	private OhLohRepositoryEntity ohLohRepository;
 
-	public OhLohProjectEntity getOhLohProject() {
-		return ohLohProjectEntity;
+	public Long getId() {
+		return id;
 	}
 
-	public void setOhLohProject(OhLohProjectEntity ohLohProjectEntity) {
-		this.ohLohProjectEntity = ohLohProjectEntity;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public OhLohProjectEntity getOhLohProject() {
+		return ohLohProject;
+	}
+
+	public void setOhLohProject(OhLohProjectEntity ohLohProject) {
+		this.ohLohProject = ohLohProject;
 	}
 
 	public Long getProjectId() {

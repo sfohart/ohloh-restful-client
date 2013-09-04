@@ -2,6 +2,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -10,7 +11,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 
 @Entity
 @Table(name = OhLohAnalysisLanguageEntity.NODE_NAME)
-public class OhLohAnalysisLanguageEntity extends OhLohBaseEntity {
+public class OhLohAnalysisLanguageEntity implements OhLohBaseEntity<Long> {
 
 	/**
 	 * 
@@ -19,6 +20,9 @@ public class OhLohAnalysisLanguageEntity extends OhLohBaseEntity {
 
 	public final static String NODE_NAME = "language";
 
+	@Id
+	private Long id;
+	
 	@Column(name = "percentage")
 	private String percentage;
 
@@ -31,6 +35,14 @@ public class OhLohAnalysisLanguageEntity extends OhLohBaseEntity {
 
 	@Column(name = "content")
 	private String content;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getPercentage() {
 		return percentage;

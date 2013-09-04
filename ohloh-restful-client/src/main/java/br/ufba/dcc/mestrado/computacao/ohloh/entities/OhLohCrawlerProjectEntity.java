@@ -2,11 +2,13 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = OhLohCrawlerProjectEntity.NODE_NAME)
-public class OhLohCrawlerProjectEntity  extends OhLohBaseEntity {
+public class OhLohCrawlerProjectEntity  implements OhLohBaseEntity<Long> {
 
 	/**
 	 * 
@@ -15,12 +17,24 @@ public class OhLohCrawlerProjectEntity  extends OhLohBaseEntity {
 	
 	public final static String NODE_NAME = "crawler_project";
 	
+	@Id
+	@GeneratedValue
+	private Long id;
+	
 	@Column(name="project_current_page")
 	private Integer projectCurrentPage;
 	
 	@Column(name="project_total_page")
 	private Integer projectTotalPage;
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Integer getProjectCurrentPage() {
 		return projectCurrentPage;
 	}

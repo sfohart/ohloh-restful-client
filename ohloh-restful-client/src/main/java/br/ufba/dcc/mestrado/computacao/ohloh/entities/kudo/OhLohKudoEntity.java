@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -13,7 +14,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity
 
 @Entity
 @Table(name = OhLohKudoEntity.NODE_NAME)
-public class OhLohKudoEntity extends OhLohBaseEntity {
+public class OhLohKudoEntity implements OhLohBaseEntity<Long> {
 
 	/**
 	 * 
@@ -22,6 +23,9 @@ public class OhLohKudoEntity extends OhLohBaseEntity {
 
 	public final static String NODE_NAME = "kudo";
 
+	@Id
+	private Long id;
+	
 	@Column(name = "created_at")
 	private Timestamp createdAt;
 
@@ -52,6 +56,14 @@ public class OhLohKudoEntity extends OhLohBaseEntity {
 
 	@Column(name = "contributor_name")
 	private String contributorName;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Timestamp getCreatedAt() {
 		return createdAt;

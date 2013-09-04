@@ -4,13 +4,14 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 
 @Entity
 @Table(name=OhLohActivityFactEntity.NODE_NAME)
-public class OhLohActivityFactEntity extends OhLohBaseEntity {
+public class OhLohActivityFactEntity implements OhLohBaseEntity<Long> {
 	
 	/**
 	 * 
@@ -18,6 +19,9 @@ public class OhLohActivityFactEntity extends OhLohBaseEntity {
 	private static final long serialVersionUID = -1220433997459663718L;
 
 	public final static String NODE_NAME = "activity_fact";
+	
+	@Id
+	private Long id;
 
 	@Column(name="month")
 	private Timestamp month;
@@ -45,6 +49,14 @@ public class OhLohActivityFactEntity extends OhLohBaseEntity {
 	
 	@Column(name="contributors")
 	private Long contributors;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Timestamp getMonth() {
 		return month;

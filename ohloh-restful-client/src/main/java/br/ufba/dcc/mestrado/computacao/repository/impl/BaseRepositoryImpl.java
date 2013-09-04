@@ -15,7 +15,7 @@ import br.ufba.dcc.mestrado.computacao.repository.BaseRepository;
 import br.ufba.dcc.mestrado.computacao.transactions.Transactional;
 
 @Stateless
-public class BaseRepositoryImpl<E extends OhLohBaseEntity>
+public class BaseRepositoryImpl<E extends OhLohBaseEntity<Long>>
 	implements BaseRepository<E> {
 
 	/**

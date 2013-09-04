@@ -4,13 +4,14 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 
 @Entity
 @Table(name=OhLohKudoScoreEntity.NODE_NAME)
-public class OhLohKudoScoreEntity extends OhLohBaseEntity{
+public class OhLohKudoScoreEntity implements OhLohBaseEntity<Long> {
 	
 	/**
 	 * 
@@ -19,6 +20,8 @@ public class OhLohKudoScoreEntity extends OhLohBaseEntity{
 
 	public final static String NODE_NAME = "kudo_score";
 	
+	@Id
+	private Long id;
 
 	@Column(name="created_at")
 	private Timestamp createdAt;
@@ -34,6 +37,14 @@ public class OhLohKudoScoreEntity extends OhLohBaseEntity{
 	
 	@Column(name="position_delta")
 	private Long positionDelta;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Timestamp getCreatedAt() {
 		return createdAt;

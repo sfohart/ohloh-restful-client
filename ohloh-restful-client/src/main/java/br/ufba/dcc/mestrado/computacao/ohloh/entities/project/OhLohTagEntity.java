@@ -2,13 +2,14 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities.project;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 
 @Entity
 @Table(name = OhLohTagEntity.NODE_NAME)
-public class OhLohTagEntity extends OhLohBaseEntity {
+public class OhLohTagEntity implements OhLohBaseEntity<Long> {
 	/**
 	 * 
 	 */
@@ -16,8 +17,19 @@ public class OhLohTagEntity extends OhLohBaseEntity {
 
 	public final static String NODE_NAME = "tag";
 
+	@Id
+	private Long id;
+	
 	@Column(name = "name", unique = true, nullable = false)
 	private String name;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;

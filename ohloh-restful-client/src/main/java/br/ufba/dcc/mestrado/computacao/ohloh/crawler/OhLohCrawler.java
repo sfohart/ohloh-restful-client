@@ -135,10 +135,10 @@ public class OhLohCrawler {
 		
 		try {
 			do {
-				//configurando requisição
+				//configurando requisiï¿½ï¿½o
 				request.setPage(page);
 				
-				//efetuando requisição
+				//efetuando requisiï¿½ï¿½o
 				OhLohProjectResponse response = getRestfulClient().getAllProjects(request);
 				logger.info(String.format("Total Pages: %d | Total Projects: %d", totalPages, getProjectService().countAll()));
 				
@@ -161,13 +161,13 @@ public class OhLohCrawler {
 							if (projectEntity == null) {
 								projectEntity = getProjectService().store(project);
 							} else {
-								logger.info(String.format("Projeto \"%s\" com id %d já se encontra na base", project.getName(), project.getId()));
+								logger.info(String.format("Projeto \"%s\" com id %d jï¿½ se encontra na base", project.getName(), project.getId()));
 							}
 							
 							//baixando os stacks do projeto
 							downloadStack(projectEntity);
 							
-							//baixando as análises do projeto
+							//baixando as anï¿½lises do projeto
 							downloadAnalysis(projectEntity);
 						}
 					}
@@ -191,7 +191,7 @@ public class OhLohCrawler {
 	
 	public static void main(String[] args) throws Exception {
 		WeldContainer container = new Weld().initialize();
-		OhLohProjectCrawler crawler = container.instance().select(OhLohProjectCrawler.class).get();
+		OhLohCrawler crawler = container.instance().select(OhLohCrawler.class).get();
 		
 		if (crawler != null) {
 			crawler.run();
