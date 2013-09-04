@@ -4,18 +4,22 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStackDTO;
-import br.ufba.dcc.mestrado.computacao.ohloh.entities.account.OhLohAccountEntity;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.stack.OhLohStackEntity;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohAccountRepositoryQualifier;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohStackRepositoryQualifier;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohStackServiceQualifier;
-import br.ufba.dcc.mestrado.computacao.repository.OhLohAccountRepository;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.stack.OhLohStackEntryEntity;
+import br.ufba.dcc.mestrado.computacao.ohloh.restful.client.OhLohRestfulClient;
+import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
+import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohStackRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohProjectServiceQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohStackServiceQualifier;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohStackRepository;
+import br.ufba.dcc.mestrado.computacao.service.OhLohProjectService;
 import br.ufba.dcc.mestrado.computacao.service.OhLohStackService;
 
 @OhLohStackServiceQualifier
-public class OhLohStackServiceImpl extends BaseOhLohServiceImpl<OhLohStackDTO, OhLohStackEntity>
+public class OhLohStackServiceImpl extends BaseOhLohServiceImpl<OhLohStackDTO, Long, OhLohStackEntity>
 		implements OhLohStackService {
 
 	public OhLohStackServiceImpl() {
@@ -27,10 +31,11 @@ public class OhLohStackServiceImpl extends BaseOhLohServiceImpl<OhLohStackDTO, O
 	private OhLohStackRepository stackRepository;
 	
 	@Inject
-	@OhLohAccountRepositoryQualifier 
-	private OhLohAccountRepository accountRepository;
+	@OhLohProjectServiceQualifier
+	private OhLohProjectService projectService;
 	
-
+	@Inject
+	private OhLohRestfulClient restfulClient;
 	
 	public Long countAll() {
 		return stackRepository.countAll();
@@ -45,23 +50,27 @@ public class OhLohStackServiceImpl extends BaseOhLohServiceImpl<OhLohStackDTO, O
 	}
 	
 	@Override
-	protected void validateEntity(OhLohStackEntity entity) throws Exception {		
+	public void validateEntity(OhLohStackEntity entity) throws Exception {
 		super.validateEntity(entity);
 		
-		if (entity != null) {
-			OhLohAccountEntity account = entity.getAccount();
-			
-			if (account != null && account.getId() != null) {
-				account = accountRepository.findById(account.getId());
-				
-				if (account == null) {					
-					accountRepository.save(account);
+		OhLohBaseRequest request  = new OhLohBaseRequest();
+		
+		if (entity.getOhLohStackEntries() != null) {
+			for (OhLohStackEntryEntity stackEntry : entity.getOhLohStackEntries()) {
+				if (stackEntry.getProjectId() != null) {
+					OhLohProjectEntity project = projectService.findById(stackEntry.getProjectId());
+					
+					if (project == null) {
+						OhLohProjectDTO projectDTO = restfulClient.getProject(stackEntry.getProjectId().toString(), request);
+						project = projectService.buildEntity(projectDTO);
+						projectService.validateEntity(project);
+						
+						stackEntry.setProject(project);
+					}
 				}
-				
-				entity.setAccount(account);
 			}
-			
 		}
+		
 	}
 	
 	@Override

@@ -3,11 +3,11 @@ package br.ufba.dcc.mestrado.computacao.repository.impl;
 import javax.persistence.TypedQuery;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerProjectEntity;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohCrawlerProjectRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohCrawlerProjectRepositoryQualifier;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohCrawlerProjectRepository;
 
 @OhLohCrawlerProjectRepositoryQualifier
-public class OhLohCrawlerProjectRepositoryImpl extends BaseRepositoryImpl<OhLohCrawlerProjectEntity>
+public class OhLohCrawlerProjectRepositoryImpl extends BaseRepositoryImpl<Long, OhLohCrawlerProjectEntity>
 	implements OhLohCrawlerProjectRepository {
 
 	/**

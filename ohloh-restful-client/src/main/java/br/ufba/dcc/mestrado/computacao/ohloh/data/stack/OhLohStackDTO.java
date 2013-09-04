@@ -104,6 +104,14 @@ public class OhLohStackDTO implements OhLohResultDTO {
 		this.account = account;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	
 
 }

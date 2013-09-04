@@ -1,5 +1,6 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.language.OhLohLanguageEntity;
 
 @Entity
 @Table(name = OhLohAnalysisLanguageEntity.NODE_NAME)
@@ -22,7 +24,13 @@ public class OhLohAnalysisLanguageEntity implements OhLohBaseEntity<Long> {
 
 	@Id
 	private Long id;
-	
+
+	@Column(name = "language_id", insertable = false, updatable = false)
+	private Long languageId;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	private OhLohLanguageEntity ohLohLanguage;
+
 	@Column(name = "percentage")
 	private String percentage;
 
@@ -75,6 +83,22 @@ public class OhLohAnalysisLanguageEntity implements OhLohBaseEntity<Long> {
 	public void setOhLohAnalysisLanguages(
 			OhLohAnalysisLanguagesEntity ohLohAnalysisLanguagesEntity) {
 		this.ohLohAnalysisLanguages = ohLohAnalysisLanguagesEntity;
+	}
+
+	public Long getLanguageId() {
+		return languageId;
+	}
+
+	public void setLanguageId(Long languageId) {
+		this.languageId = languageId;
+	}
+
+	public OhLohLanguageEntity getOhLohLanguage() {
+		return ohLohLanguage;
+	}
+
+	public void setOhLohLanguage(OhLohLanguageEntity ohLohLanguage) {
+		this.ohLohLanguage = ohLohLanguage;
 	}
 
 }

@@ -9,11 +9,11 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohLicenseEntity;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohLicenseRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohLicenseRepositoryQualifier;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohLicenseRepository;
 
 @OhLohLicenseRepositoryQualifier
-public class OhLohLicenseRepositoryImpl extends BaseRepositoryImpl<OhLohLicenseEntity>
+public class OhLohLicenseRepositoryImpl extends BaseRepositoryImpl<Long, OhLohLicenseEntity>
 		implements OhLohLicenseRepository {
 
 	/**

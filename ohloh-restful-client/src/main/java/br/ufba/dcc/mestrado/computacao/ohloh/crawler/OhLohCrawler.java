@@ -16,10 +16,10 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.client.OhLohRestfulClient;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohProjectResponse;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohAnalysisServiceQualifier;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohCrawlerProjectRepositoryQualifier;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohProjectServiceQualifier;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohStackServiceQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohCrawlerProjectRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohAnalysisServiceQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohProjectServiceQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohStackServiceQualifier;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohCrawlerProjectRepository;
 import br.ufba.dcc.mestrado.computacao.service.OhLohAnalysisService;
 import br.ufba.dcc.mestrado.computacao.service.OhLohProjectService;

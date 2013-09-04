@@ -2,6 +2,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities.project;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,6 +20,7 @@ public class OhLohLicenseEntity implements OhLohBaseEntity<Long> {
 	public final static String NODE_NAME = "license";
 	
 	@Id
+	@GeneratedValue
 	private Long id;
 
 	@Column(unique = true)

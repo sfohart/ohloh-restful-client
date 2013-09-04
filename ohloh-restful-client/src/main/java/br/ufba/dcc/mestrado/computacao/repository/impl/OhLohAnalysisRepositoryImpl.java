@@ -1,11 +1,11 @@
 package br.ufba.dcc.mestrado.computacao.repository.impl;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis.OhLohAnalysisEntity;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohAnalysisRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohAnalysisRepositoryQualifier;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohAnalysisRepository;
 
 @OhLohAnalysisRepositoryQualifier
-public class OhLohAnalysisRepositoryImpl extends BaseRepositoryImpl<OhLohAnalysisEntity>
+public class OhLohAnalysisRepositoryImpl extends BaseRepositoryImpl<Long, OhLohAnalysisEntity>
 		implements OhLohAnalysisRepository {
 
 	/**

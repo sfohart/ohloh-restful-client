@@ -6,13 +6,13 @@ import javax.inject.Inject;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccountDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.account.OhLohAccountEntity;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohAccountRepositoryQualifier;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohAccountServiceQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohAccountRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohAccountServiceQualifier;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohAccountRepository;
 import br.ufba.dcc.mestrado.computacao.service.OhLohAccountService;
 
 @OhLohAccountServiceQualifier
-public class OhLohAccountServiceImpl extends BaseOhLohServiceImpl<OhLohAccountDTO, OhLohAccountEntity>
+public class OhLohAccountServiceImpl extends BaseOhLohServiceImpl<OhLohAccountDTO, Long, OhLohAccountEntity>
 		implements OhLohAccountService {
 
 	public OhLohAccountServiceImpl() {

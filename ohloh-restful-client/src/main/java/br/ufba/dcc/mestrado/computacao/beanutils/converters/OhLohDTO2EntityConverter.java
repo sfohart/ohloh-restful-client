@@ -10,7 +10,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.util.ConverterHandler;
 
-public class OhLohDTO2EntityConverter<DTO extends OhLohResultDTO, E extends OhLohBaseEntity> implements Converter {
+public class OhLohDTO2EntityConverter<DTO extends OhLohResultDTO, ID extends Number, E extends OhLohBaseEntity<ID>> implements Converter {
 	
 	private Object defaultValue = null;
     private boolean useDefault = true;
@@ -18,12 +18,12 @@ public class OhLohDTO2EntityConverter<DTO extends OhLohResultDTO, E extends OhLo
     private Class<DTO> dtoClass;
 	private Class<E> entityClass;
     
-    private ConverterHandler<DTO, E> converterUtil;
+    private ConverterHandler<DTO, ID, E> converterUtil;
     
     public OhLohDTO2EntityConverter(Class<DTO> dtoClass, Class<E> entityClass) {
     	this.dtoClass = dtoClass;
 		this.entityClass = entityClass;
-    	this.converterUtil = new ConverterHandler<DTO, E>(dtoClass,entityClass);
+    	this.converterUtil = new ConverterHandler<DTO, ID, E>(dtoClass,entityClass);
     }
 
 	@SuppressWarnings("rawtypes")

@@ -33,11 +33,11 @@ public class OhLohAnalysisEntity implements OhLohBaseEntity<Long> {
 	@Column(name = "url")
 	private String url;
 
-	@Column(name = "project_id")
+	@Column(name = "project_id", updatable = false, insertable = false)
 	private Long projectId;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "project_id", referencedColumnName = "id", updatable = false, insertable = false)
+	@JoinColumn(name = "project_id", referencedColumnName = "id")
 	private OhLohProjectEntity ohlohProject;
 
 	@Column(name = "updated_at")

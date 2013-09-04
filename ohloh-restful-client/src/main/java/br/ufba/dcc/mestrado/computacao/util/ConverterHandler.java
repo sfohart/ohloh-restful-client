@@ -15,22 +15,25 @@ import org.apache.commons.beanutils.converters.SqlTimestampConverter;
 import br.ufba.dcc.mestrado.computacao.beanutils.converters.OhLohDTO2EntityConverter;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.account.OhLohAccountDTO;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisLanguagesDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.kudoskore.OhLohKudoScoreDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStackDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.account.OhLohAccountEntity;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis.OhLohAnalysisEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis.OhLohAnalysisLanguagesEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.kudoskore.OhLohKudoScoreEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.stack.OhLohStackEntity;
 
-public class ConverterHandler<DTO extends OhLohResultDTO, E extends OhLohBaseEntity> {
+public class ConverterHandler<DTO extends OhLohResultDTO, ID extends Number, E extends OhLohBaseEntity<ID>> {
 	
 	private Class<DTO> dtoClass;
 	private Class<E> entityClass;
 
 	static {
 		ConvertUtils.register(new OhLohDTO2EntityConverter<>(OhLohAnalysisLanguagesDTO.class, OhLohAnalysisLanguagesEntity.class), OhLohAnalysisLanguagesEntity.class);
+		ConvertUtils.register(new OhLohDTO2EntityConverter<>(OhLohAnalysisDTO.class, OhLohAnalysisEntity.class), OhLohAnalysisEntity.class);
 		ConvertUtils.register(new OhLohDTO2EntityConverter<>(OhLohKudoScoreDTO.class, OhLohKudoScoreEntity.class), OhLohKudoScoreEntity.class);
 		ConvertUtils.register(new OhLohDTO2EntityConverter<>(OhLohStackDTO.class, OhLohStackEntity.class), OhLohStackEntity.class);
 		ConvertUtils.register(new OhLohDTO2EntityConverter<>(OhLohAccountDTO.class, OhLohAccountEntity.class), OhLohAccountEntity.class);
@@ -137,6 +140,11 @@ public class ConverterHandler<DTO extends OhLohResultDTO, E extends OhLohBaseEnt
 	}
 	
 	public E buildEntity(DTO dto) throws Exception {
+		
+		if (dto == null) {
+			return null;
+		}
+		
 		E entity = entityClass.newInstance();
 
 		BeanUtils.copyProperties(entity, dto);

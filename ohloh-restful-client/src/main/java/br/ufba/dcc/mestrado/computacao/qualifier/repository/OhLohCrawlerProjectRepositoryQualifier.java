@@ -1,4 +1,4 @@
-package br.ufba.dcc.mestrado.computacao.qualifier;
+package br.ufba.dcc.mestrado.computacao.qualifier.repository;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,6 +10,6 @@ import javax.inject.Qualifier;
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.TYPE })
-public @interface OhLohLicenseRepositoryQualifier {
+public @interface OhLohCrawlerProjectRepositoryQualifier {
 
 }

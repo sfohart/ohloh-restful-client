@@ -2,6 +2,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities.project;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -18,6 +19,7 @@ public class OhLohTagEntity implements OhLohBaseEntity<Long> {
 	public final static String NODE_NAME = "tag";
 
 	@Id
+	@GeneratedValue
 	private Long id;
 	
 	@Column(name = "name", unique = true, nullable = false)

@@ -19,9 +19,10 @@ public class OhLohAnalysisLanguageDTO implements OhLohResultDTO {
 
 	public final static String NODE_NAME = "language";
 
+	@XStreamAlias("id")
 	@XStreamAsAttribute
 	@XStreamConverter(value = NullableLongXStreamConverter.class)
-	private Long id;
+	private Long languageId;
 
 	@XStreamAsAttribute
 	private String percentage;
@@ -29,7 +30,6 @@ public class OhLohAnalysisLanguageDTO implements OhLohResultDTO {
 	@XStreamAsAttribute
 	private String color;
 
-	
 	private String content;
 
 	public String getPercentage() {
@@ -54,6 +54,14 @@ public class OhLohAnalysisLanguageDTO implements OhLohResultDTO {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Long getLanguageId() {
+		return languageId;
+	}
+
+	public void setLanguageId(Long languageId) {
+		this.languageId = languageId;
 	}
 
 }

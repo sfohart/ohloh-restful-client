@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,6 +23,7 @@ public class OhLohAnalysisLanguagesEntity implements OhLohBaseEntity<Long> {
 	public final static String NODE_NAME = "languages";
 
 	@Id
+	@GeneratedValue
 	private Long id;
 	
 	@Column(name="graph_url")

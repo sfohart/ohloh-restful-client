@@ -1,6 +1,5 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.data.stack;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.data.OhLohResultDTO;
@@ -72,6 +71,14 @@ public class OhLohStackEntryDTO implements OhLohResultDTO {
 
 	public void setProject(OhLohProjectDTO project) {
 		this.project = project;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

@@ -15,8 +15,8 @@ import br.ufba.dcc.mestrado.computacao.repository.BaseRepository;
 import br.ufba.dcc.mestrado.computacao.transactions.Transactional;
 
 @Stateless
-public class BaseRepositoryImpl<E extends OhLohBaseEntity<Long>>
-	implements BaseRepository<E> {
+public class BaseRepositoryImpl<ID extends Number, E extends OhLohBaseEntity<ID>>
+	implements BaseRepository<ID, E> {
 
 	/**
 	 * 
@@ -114,29 +114,33 @@ public class BaseRepositoryImpl<E extends OhLohBaseEntity<Long>>
 	}
 	
 	@Transactional
-	public void save(E entity) {
+	public E save(E entity) {
 		if (entity != null) {
 			if (entity.getId() != null) {
-				update(entity);
+				return update(entity);
 			} else {
-				add(entity);
+				return add(entity);
 			}
 		}		
+		
+		return entity;
 	}
 	
 	@Transactional
-	public void add(E entity) {
+	public E add(E entity) {
 		entityManager.persist(entity);
+		return entity;
 	}
 	
 	@Transactional
-	public void update(E entity) {
-		entityManager.merge(entity);
+	public E update(E entity) {
+		return entityManager.merge(entity);
 	}
 	
 	@Transactional
-	public void delete(E entity) {
+	public E delete(E entity) {
 		entityManager.remove(entity);
+		return entity;
 	}
 
 	@Override

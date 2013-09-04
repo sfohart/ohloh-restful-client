@@ -9,11 +9,11 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohTagEntity;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohTagRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohTagRepositoryQualifier;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohTagRepository;
 
 @OhLohTagRepositoryQualifier
-public class OhLohTagRepositoryImpl extends BaseRepositoryImpl<OhLohTagEntity>
+public class OhLohTagRepositoryImpl extends BaseRepositoryImpl<Long, OhLohTagEntity>
 		implements OhLohTagRepository {
 
 	/**

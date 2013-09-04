@@ -2,6 +2,7 @@ package br.ufba.dcc.mestrado.computacao.ohloh.entities.stack;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,21 +27,21 @@ public class OhLohStackEntryEntity implements OhLohBaseEntity<Long> {
 	@Id
 	private Long id;
 	
-	@Column(name = "stack_id")
+	@Column(name = "stack_id", updatable = false, insertable = false)
 	private Long stackId;
 
 	@ManyToOne
-	@JoinColumn(name = "stack_id", referencedColumnName = "id", updatable = false, insertable = false)
+	@JoinColumn(name = "stack_id", referencedColumnName = "id")
 	private OhLohStackEntity ohLohStack;
-
-	@Column(name = "project_id")
-	private Long projectId;
 
 	@Column(name = "created_at")
 	private Timestamp createdAt;
+	
+	@Column(name = "project_id", updatable = false, insertable = false)
+	private Long projectId;
 
-	@ManyToOne
-	@JoinColumn(name = "project_id", referencedColumnName = "id", updatable = false, insertable = false)
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "project_id", referencedColumnName = "id")
 	private OhLohProjectEntity project;
 
 	public Long getId() {

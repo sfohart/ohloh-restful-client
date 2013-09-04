@@ -16,6 +16,7 @@
         <class>br.ufba.dcc.mestrado.computacao.ohloh.entities.factoid.OhLohFactoidEntity</class>
         <class>br.ufba.dcc.mestrado.computacao.ohloh.entities.kudo.OhLohKudoEntity</class>
         <class>br.ufba.dcc.mestrado.computacao.ohloh.entities.kudoskore.OhLohKudoScoreEntity</class>
+        <class>br.ufba.dcc.mestrado.computacao.ohloh.entities.language.OhLohLanguageEntity</class>
         <class>br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohLicenseEntity</class>
         <class>br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity</class>
         <class>br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohTagEntity</class>
@@ -36,8 +37,8 @@
 			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider"/>
 			<property name="hibernate.jdbc.batch_size" value="0"/>
 			
-			<property name="hibernate.show_sql" value="false"/>
-			<property name="hibernate.format_sql" value="false"/>
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.format_sql" value="true"/>
 			<property name="hibernate.use_sql_comments" value="false"/>
 			
 		</properties>

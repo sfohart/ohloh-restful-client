@@ -6,21 +6,27 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectDTO;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis.OhLohAnalysisEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohLicenseEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohTagEntity;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohLicenseRepositoryQualifier;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohProjectRepositoryQualifier;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohProjectServiceQualifier;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohTagRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.ohloh.restful.client.OhLohRestfulClient;
+import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
+import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohLicenseRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohProjectRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohTagRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohAnalysisServiceQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohProjectServiceQualifier;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohLicenseRepository;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohProjectRepository;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohTagRepository;
+import br.ufba.dcc.mestrado.computacao.service.OhLohAnalysisService;
 import br.ufba.dcc.mestrado.computacao.service.OhLohProjectService;
 
 @OhLohProjectServiceQualifier
-public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDTO, OhLohProjectEntity>
+public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDTO, Long, OhLohProjectEntity>
 		implements OhLohProjectService {
 
 	public OhLohProjectServiceImpl() {
@@ -39,6 +45,13 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 	@OhLohLicenseRepositoryQualifier
 	private OhLohLicenseRepository licenseRepository;
 	
+	@Inject
+	@OhLohAnalysisServiceQualifier
+	private OhLohAnalysisService analysisService;
+	
+	@Inject
+	private OhLohRestfulClient restfulClient;
+	
 	public Long countAll() {
 		return projectRepository.countAll();
 	}
@@ -52,7 +65,7 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 	}
 	
 	@Override
-	protected void validateEntity(OhLohProjectEntity entity) throws Exception {
+	public void validateEntity(OhLohProjectEntity entity) throws Exception {
 		super.validateEntity(entity);
 		
 		
@@ -87,6 +100,20 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 			}
 			
 			entity.getOhLohLicenses().addAll(licenseList);
+		}
+		
+		if (entity.getAnalysisId() != null) {
+			OhLohAnalysisEntity analysis = analysisService.findById(entity.getAnalysisId());
+			
+			OhLohBaseRequest request = new OhLohBaseRequest();
+			
+			if (analysis == null) {
+				OhLohAnalysisDTO analysisDTO = restfulClient.getAnalysisById(entity.getId().toString(), entity.getAnalysisId().toString(), request);
+				analysis = analysisService.buildEntity(analysisDTO);
+				analysisService.validateEntity(analysis);
+				
+				entity.setOhLohAnalysis(analysis);
+			}
 		}
 		
 	}

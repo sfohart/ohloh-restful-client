@@ -21,7 +21,6 @@ public class OhLohAnalysisLanguagesDTO implements OhLohResultDTO {
 	@XStreamAsAttribute	
 	@XStreamConverter(value=NullableLongXStreamConverter.class)
 	private Long id;
-	
 
 	@XStreamAlias("graph_url")
 	@XStreamAsAttribute
@@ -45,5 +44,15 @@ public class OhLohAnalysisLanguagesDTO implements OhLohResultDTO {
 	public void setContent(List<OhLohAnalysisLanguageDTO> content) {
 		this.content = content;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 
 }

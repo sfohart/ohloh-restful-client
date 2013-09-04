@@ -30,6 +30,8 @@ import br.ufba.dcc.mestrado.computacao.ohloh.data.factoid.OhLohFactoidDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.factoid.OhLohFactoidResult;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.kudo.OhLohKudoDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.kudo.OhLohKudoResult;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.language.OhLohLanguageDTO;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.language.OhLohLanguageResult;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectResult;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.sizefact.OhLohSizeFactDTO;
@@ -45,6 +47,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohContributorF
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohEnlistmentResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohFactoidResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohKudoResponse;
+import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohLanguageResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohProjectResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohSizeFactResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohStackResponse;
@@ -108,6 +111,60 @@ public class OhLohRestfulClient {
 	
 	/**
 	 * 
+	 * @param languageId Id da conta do usu�rio do OhLoh
+	 * @return
+	 */
+	public OhLohLanguageDTO getLanguageById(String languageId, OhLohBaseRequest request) {
+		
+		OhLohLanguageDTO language = null;
+		
+		try {
+			String url = getProperties().getProperty("meta.ohloh.api.language");
+						
+			RestClient restfulie = Restfulie.custom();
+			
+			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
+					OhLohLanguageResponse.class,
+					OhLohLanguageResult.class,
+					OhLohLanguageDTO.class));
+			
+			OhLohLanguageResponse resource = this.<OhLohLanguageResponse>processResponse(url, request, restfulie, languageId);
+			if (OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
+				List<OhLohLanguageDTO> ohLohLanguageDTOs = resource.getResult().getOhLohLanguages();
+				if (ohLohLanguageDTOs != null && ! ohLohLanguageDTOs.isEmpty())
+					language =  ohLohLanguageDTOs.get(0);
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		
+		return language;
+	}
+	
+	public OhLohLanguageResponse getAllLanguages(OhLohBaseRequest request) {
+		OhLohLanguageResponse resource = null;
+		
+		try {
+			String url = getProperties().getProperty("meta.ohloh.api.language.all");
+			
+			RestClient restfulie = Restfulie.custom();
+			
+			restfulie.getMediaTypes().register(new XmlMediaType().withTypes(
+					OhLohLanguageResponse.class,
+					OhLohLanguageResult.class,
+					OhLohLanguageDTO.class));
+			
+			resource = this.<OhLohLanguageResponse>processResponse(url, request, restfulie);
+			
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		
+		return resource;
+	}
+	
+	/**
+	 * 
 	 * @return
 	 */
 	public OhLohAccountResponse getAllAccounts(OhLohBaseRequest request) {
@@ -147,8 +204,6 @@ public class OhLohRestfulClient {
 				if (getCurrentApiKey() < getApiKey().length) {				
 					String apiKey = getApiKey()[getCurrentApiKey()];
 					
-					
-					
 					if (params != null && params.length > 0) {
 						String[] args = Arrays.copyOf(params, params.length + 1);
 						args[args.length -1] = apiKey;
@@ -174,7 +229,7 @@ public class OhLohRestfulClient {
 		};
 			
 		
-		logger.debug(uri);
+		logger.info(uri);
 		return resource;
 	}
 	
@@ -217,7 +272,7 @@ public class OhLohRestfulClient {
 					OhLohAccountResult.class,
 					OhLohAccountDTO.class));
 			
-			OhLohAccountResponse resource = this.<OhLohAccountResponse>processResponse(url, request, restfulie);
+			OhLohAccountResponse resource = this.<OhLohAccountResponse>processResponse(url, request, restfulie, accountId);
 			if (OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
 				List<OhLohAccountDTO> ohLohAccountDTOs = resource.getResult().getOhLohAccounts();
 				if (ohLohAccountDTOs != null && ! ohLohAccountDTOs.isEmpty())
@@ -555,7 +610,7 @@ public class OhLohRestfulClient {
 					OhLohContributorFactResult.class,
 					OhLohContributorFactDTO.class));
 
-			OhLohContributorFactResponse resource = this.<OhLohContributorFactResponse>processResponse(url, request, restfulie);
+			OhLohContributorFactResponse resource = this.<OhLohContributorFactResponse>processResponse(url, request, restfulie, projectId, contributorId);
 			
 			if (resource != null && OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
 				List<OhLohContributorFactDTO> ohLohContributorFactDTOs = resource.getResult().getOhLohContributorFacts();
@@ -679,7 +734,7 @@ public class OhLohRestfulClient {
 		
 		try {	
 			
-			String url = getProperties().getProperty("meta.ohloh.api.enlistment.all");
+			String url = getProperties().getProperty("meta.ohloh.api.enlistment");
 			
 			RestClient restfulie = Restfulie.custom();
 			
@@ -688,7 +743,7 @@ public class OhLohRestfulClient {
 					OhLohEnlistmentResult.class,
 					OhLohEnlistmentDTO.class));
 
-			OhLohEnlistmentResponse resource = this.<OhLohEnlistmentResponse>processResponse(url, null, restfulie);
+			OhLohEnlistmentResponse resource = this.<OhLohEnlistmentResponse>processResponse(url, null, restfulie, projectId, enlistmentId);
 			
 			if (resource != null && OhLohBaseResponse.SUCCESS.equals(resource.getStatus())) {
 				List<OhLohEnlistmentDTO> ohLohEnlistmentDTOs = resource.getResult().getOhLohEnlistments();

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,6 +28,7 @@ public class OhLohStackEntity implements OhLohBaseEntity<Long> {
 	public final static String NODE_NAME = "stack";
 
 	@Id
+	
 	private Long id;
 	
 	@Column(name = "title")
@@ -41,13 +43,13 @@ public class OhLohStackEntity implements OhLohBaseEntity<Long> {
 	@Column(name = "project_count")
 	private Long projectCount;
 
-	@OneToMany(mappedBy = "ohLohStack")
+	@OneToMany(mappedBy = "ohLohStack", cascade=CascadeType.ALL)
 	private List<OhLohStackEntryEntity> ohLohStackEntries;
 
 	@Column(name = "account_id", insertable = false, updatable = false)
 	private Long acountId;
 
-	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "account_id", referencedColumnName = "id")
 	private OhLohAccountEntity account;
 

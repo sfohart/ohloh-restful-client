@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
@@ -77,7 +77,7 @@ public class OhLohProjectEntity implements OhLohBaseEntity<Long> {
 	@Column(name = "analysis_id", insertable = false, updatable = false)
 	private Long analysisId;
 
-	@OneToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "analysis_id", referencedColumnName = "id")
 	private OhLohAnalysisEntity ohLohAnalysis;
 

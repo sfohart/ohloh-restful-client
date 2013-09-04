@@ -5,13 +5,13 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.service.BaseOhLohService;
 import br.ufba.dcc.mestrado.computacao.util.ConverterHandler;
 
-public abstract class BaseOhLohServiceImpl<DTO extends OhLohResultDTO, E extends OhLohBaseEntity>
-		implements BaseOhLohService<DTO, E> {
+public abstract class BaseOhLohServiceImpl<DTO extends OhLohResultDTO, ID extends Number, E extends OhLohBaseEntity<ID>>
+		implements BaseOhLohService<DTO, ID, E> {
 
 	private Class<DTO> dtoClass;
 	private Class<E> entityClass;
 	
-	private ConverterHandler<DTO, E> converterUtil;
+	private ConverterHandler<DTO, ID, E> converterUtil;
 
 	@Override
 	public E store(DTO dto) throws Exception {
@@ -25,14 +25,14 @@ public abstract class BaseOhLohServiceImpl<DTO extends OhLohResultDTO, E extends
 	public BaseOhLohServiceImpl(Class<DTO> dtoClass, Class<E> entityClass) {
 		this.dtoClass = dtoClass;
 		this.entityClass = entityClass;
-		this.converterUtil = new ConverterHandler<DTO, E>(dtoClass,entityClass);
+		this.converterUtil = new ConverterHandler<DTO, ID, E>(dtoClass,entityClass);
 	}
 	
-	protected void validateEntity(E entity) throws Exception {
+	public void validateEntity(E entity) throws Exception {
 		
 	}
 	
-	protected E buildEntity(DTO dto) throws Exception {
+	public E buildEntity(DTO dto) throws Exception {
 		E entity = (E) converterUtil.buildEntity(dto);
 		return entity;
 	}

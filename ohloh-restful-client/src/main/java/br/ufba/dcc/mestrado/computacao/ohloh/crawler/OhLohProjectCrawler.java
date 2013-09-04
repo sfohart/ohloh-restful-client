@@ -15,8 +15,8 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerProjectEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.client.OhLohRestfulClient;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohProjectResponse;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohCrawlerProjectRepositoryQualifier;
-import br.ufba.dcc.mestrado.computacao.qualifier.OhLohProjectServiceQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohCrawlerProjectRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohProjectServiceQualifier;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohCrawlerProjectRepository;
 import br.ufba.dcc.mestrado.computacao.service.OhLohProjectService;
 
@@ -126,9 +126,6 @@ public class OhLohProjectCrawler {
 		if (crawler != null) {
 			crawler.run();
 		}
-		
-		/*OhLohProjectCrawler crawler = new OhLohProjectCrawler();
-		crawler.run();*/
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 
-public interface BaseRepository<E extends OhLohBaseEntity> extends Serializable {
+public interface BaseRepository<ID extends Number, E extends OhLohBaseEntity<ID>> extends Serializable {
 
 	public Long countAll();
 	public List<E> findAll();	
@@ -14,9 +14,9 @@ public interface BaseRepository<E extends OhLohBaseEntity> extends Serializable 
 	public List<E> findAll(Integer startAt, Integer offset, String orderBy);
 	
 	public E findById(Long id);
-	public void save(E entity) throws Exception;
-	public void add(E entity) throws Exception;
-	public void update(E entity) throws Exception;
-	public void delete(E entity)  throws Exception;
+	public E save(E entity) throws Exception;
+	public E add(E entity) throws Exception;
+	public E update(E entity) throws Exception;
+	public E delete(E entity)  throws Exception;
 	
 }

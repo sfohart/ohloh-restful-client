@@ -5,7 +5,7 @@ import java.util.List;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis.OhLohAnalysisEntity;
 
-public interface OhLohAnalysisService extends BaseOhLohService<OhLohAnalysisDTO, OhLohAnalysisEntity>{
+public interface OhLohAnalysisService extends BaseOhLohService<OhLohAnalysisDTO, Long, OhLohAnalysisEntity>{
 
 	public Long countAll();
 	

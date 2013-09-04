@@ -5,7 +5,7 @@ import java.util.List;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStackDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.stack.OhLohStackEntity;
 
-public interface OhLohStackService extends BaseOhLohService<OhLohStackDTO, OhLohStackEntity>{
+public interface OhLohStackService extends BaseOhLohService<OhLohStackDTO, Long, OhLohStackEntity>{
 
 	public Long countAll();
 	
