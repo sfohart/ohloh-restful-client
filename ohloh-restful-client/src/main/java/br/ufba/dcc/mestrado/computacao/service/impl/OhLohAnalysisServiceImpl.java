@@ -26,8 +26,9 @@ import br.ufba.dcc.mestrado.computacao.service.OhLohLanguageService;
 public class OhLohAnalysisServiceImpl extends BaseOhLohServiceImpl<OhLohAnalysisDTO, Long, OhLohAnalysisEntity>
 		implements OhLohAnalysisService {
 
-	public OhLohAnalysisServiceImpl() {
-		super(OhLohAnalysisDTO.class, OhLohAnalysisEntity.class);
+	@Inject
+	public OhLohAnalysisServiceImpl(@OhLohAnalysisRepositoryQualifier OhLohAnalysisRepository repository) {
+		super(repository, OhLohAnalysisDTO.class, OhLohAnalysisEntity.class);
 	}
 
 	@Inject
@@ -66,25 +67,23 @@ public class OhLohAnalysisServiceImpl extends BaseOhLohServiceImpl<OhLohAnalysis
 	public void validateEntity(OhLohAnalysisEntity entity) throws Exception {
 		super.validateEntity(entity);
 		
-		if (entity == null) {
-			throw new IllegalArgumentException("Analysis null");
-		}
-		
-		if (entity.getOhLohAnalysisLanguages() != null && entity.getOhLohAnalysisLanguages().getContent() != null) {
-			
-			OhLohBaseRequest request = new OhLohBaseRequest();
-			
-			for (OhLohAnalysisLanguageEntity analysisLanguage : entity.getOhLohAnalysisLanguages().getContent()) {
+		if (entity != null) {
+			if (entity.getOhLohAnalysisLanguages() != null && entity.getOhLohAnalysisLanguages().getContent() != null) {
 				
-				if (analysisLanguage.getLanguageId() != null && analysisLanguage.getLanguageId() > 0) {
-					OhLohLanguageEntity language = languageService.findById(analysisLanguage.getLanguageId());
+				OhLohBaseRequest request = new OhLohBaseRequest();
+				
+				for (OhLohAnalysisLanguageEntity analysisLanguage : entity.getOhLohAnalysisLanguages().getContent()) {
 					
-					if (language == null) {
-						OhLohLanguageDTO languageDTO = restfulClient.getLanguageById(analysisLanguage.getLanguageId().toString(), request);
-						language = languageService.buildEntity(languageDTO);
-						languageService.validateEntity(language);
+					if (analysisLanguage.getLanguageId() != null && analysisLanguage.getLanguageId() > 0) {
+						OhLohLanguageEntity language = languageService.findById(analysisLanguage.getLanguageId());
 						
-						analysisLanguage.setOhLohLanguage(language);
+						if (language == null) {
+							OhLohLanguageDTO languageDTO = restfulClient.getLanguageById(analysisLanguage.getLanguageId().toString(), request);
+							language = languageService.buildEntity(languageDTO);
+							languageService.validateEntity(language);
+							
+							analysisLanguage.setOhLohLanguage(language);
+						}
 					}
 				}
 			}
@@ -92,8 +91,8 @@ public class OhLohAnalysisServiceImpl extends BaseOhLohServiceImpl<OhLohAnalysis
 	}
 	
 	@Override
-	public OhLohAnalysisEntity store(OhLohAnalysisDTO dto) throws Exception{
-		OhLohAnalysisEntity entity = super.store(dto);
+	public OhLohAnalysisEntity process(OhLohAnalysisDTO dto) throws Exception{
+		OhLohAnalysisEntity entity = super.process(dto);
 		analysisRepository.save(entity);
 		return entity;
 	}

@@ -11,16 +11,21 @@ import org.jboss.weld.environment.se.WeldContainer;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.analysis.OhLohAnalysisDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.project.OhLohProjectDTO;
 import br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStackDTO;
+import br.ufba.dcc.mestrado.computacao.ohloh.data.stack.OhLohStackResult;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerProjectEntity;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerStackEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.client.OhLohRestfulClient;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohProjectResponse;
+import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohStackResponse;
 import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohCrawlerProjectRepositoryQualifier;
+import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohCrawlerStackRepositoryQualifier;
 import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohAnalysisServiceQualifier;
 import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohProjectServiceQualifier;
 import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohStackServiceQualifier;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohCrawlerProjectRepository;
+import br.ufba.dcc.mestrado.computacao.repository.OhLohCrawlerStackRepository;
 import br.ufba.dcc.mestrado.computacao.service.OhLohAnalysisService;
 import br.ufba.dcc.mestrado.computacao.service.OhLohProjectService;
 import br.ufba.dcc.mestrado.computacao.service.OhLohStackService;
@@ -48,7 +53,11 @@ public class OhLohCrawler {
 	
 	@Inject
 	@OhLohCrawlerProjectRepositoryQualifier
-	private OhLohCrawlerProjectRepository crawlerConfigRepository;
+	private OhLohCrawlerProjectRepository projectCrawlerConfigRepository;
+	
+	@Inject
+	@OhLohCrawlerStackRepositoryQualifier
+	private OhLohCrawlerStackRepository stackCrawlerConfigRepository;
 	
 	public OhLohRestfulClient getRestfulClient() {
 		return restfulClient;
@@ -83,19 +92,19 @@ public class OhLohCrawler {
 	}
 
 	public OhLohCrawlerProjectRepository getCrawlerConfigRepository() {
-		return crawlerConfigRepository;
+		return projectCrawlerConfigRepository;
 	}
 
 	public void setCrawlerConfigRepository(
 			OhLohCrawlerProjectRepository crawlerConfigRepository) {
-		this.crawlerConfigRepository = crawlerConfigRepository;
+		this.projectCrawlerConfigRepository = crawlerConfigRepository;
 	}
 
 	protected void downloadAnalysis(OhLohProjectEntity project) throws Exception {
 		OhLohAnalysisDTO analysisDTO = getRestfulClient().getLatestAnalysis(String.valueOf(project.getId()), null);
 		if ( (analysisDTO != null) && (getAnalysisService().findById(analysisDTO.getId()) == null)) {
 			logger.info(String.format("Analysis com id %d para o projeto \"%s\" sendo gravado", analysisDTO.getId(), project.getName()));
-			getAnalysisService().store(analysisDTO);
+			getAnalysisService().process(analysisDTO);
 		}
 	}
 	
@@ -103,16 +112,68 @@ public class OhLohCrawler {
 		
 		OhLohBaseRequest request = new OhLohBaseRequest();
 		
-		if (project != null && project.getId() != null) {
-			List<OhLohStackDTO> stackDTOList = getRestfulClient().getProjectStacks(project.getId().toString(), request);
-			
-			if (stackDTOList != null && ! stackDTOList.isEmpty()) {
-				
-				//armazenando cada stack obtido para esta conta na base de dados
-				for (OhLohStackDTO stackDTO :  stackDTOList) {
-					getStackService().store(stackDTO);
-				}
+		Integer totalPages = 0;
+		Integer page = 1;
+		
+		OhLohCrawlerStackEntity config = stackCrawlerConfigRepository.findCrawlerConfig();
+		if (config == null) {
+			config = new OhLohCrawlerStackEntity();
+		} else {
+			if (config.getCurrentPage() != null) {
+				page = config.getCurrentPage();
 			}
+		}
+		
+		if (config.getOhLohProject() == null || ! config.getOhLohProject().equals(project)) {
+			config.setOhLohProject(project);
+			config.setTotalPage(null);
+			config.setItemsAvailable(null);
+			config.setItemsPerPage(null);
+			config.setCurrentPage(null);
+		}
+		
+		if (project != null && project.getId() != null) {
+			try {
+				do {
+					request.setPage(page);
+					
+					OhLohStackResponse response = getRestfulClient().getProjectStacks(project.getId().toString(), request);
+					
+					if (totalPages <= 0 && response.getItemsAvailable() != null && response.getItemsReturned() != null) {
+						totalPages = response.getItemsAvailable() / response.getItemsReturned();
+						config.setTotalPage(totalPages);
+					}
+					
+					if (OhLohStackResponse.SUCCESS.equals(response.getStatus())) {
+						OhLohStackResult result = response.getResult();
+						if (result != null) {
+							List<OhLohStackDTO> stackDTOList = result.getOhLohStacks();
+							
+							if (stackDTOList != null && ! stackDTOList.isEmpty()) {
+								
+								//armazenando cada stack obtido para esta conta na base de dados
+								for (OhLohStackDTO stackDTO :  stackDTOList) {
+									getStackService().process(stackDTO);
+								}
+							}
+						}
+					}
+					
+					page++;
+					
+					config.setCurrentPage(page);
+					config.setItemsAvailable(response.getItemsAvailable());
+					config.setItemsPerPage(response.getItemsReturned());
+					
+					stackCrawlerConfigRepository.save(config);
+					
+				} while (page < totalPages);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				stackCrawlerConfigRepository.save(config);
+			}
+			
 		}
 	}
 	
@@ -126,7 +187,7 @@ public class OhLohCrawler {
 		OhLohCrawlerProjectEntity config = new OhLohCrawlerProjectEntity();
 		
 		List<OhLohCrawlerProjectEntity> configList = 
-				crawlerConfigRepository.findAll();
+				projectCrawlerConfigRepository.findAll();
 		
 		if (configList != null && ! configList.isEmpty()) {
 			config = configList.get(0);
@@ -159,9 +220,9 @@ public class OhLohCrawler {
 							
 							//armazenando os projetos na base de dados
 							if (projectEntity == null) {
-								projectEntity = getProjectService().store(project);
+								projectEntity = getProjectService().process(project);
 							} else {
-								logger.info(String.format("Projeto \"%s\" com id %d j� se encontra na base", project.getName(), project.getId()));
+								logger.info(String.format("Projeto \"%s\" com id %d ja se encontra na base", project.getName(), project.getId()));
 							}
 							
 							//baixando os stacks do projeto
@@ -179,13 +240,13 @@ public class OhLohCrawler {
 				page++;
 			
 				config.setProjectCurrentPage(page);
-				crawlerConfigRepository.save(config);
+				projectCrawlerConfigRepository.save(config);
 				
 			} while (page < totalPages);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			crawlerConfigRepository.save(config);
+			projectCrawlerConfigRepository.save(config);
 		}
 	}
 	

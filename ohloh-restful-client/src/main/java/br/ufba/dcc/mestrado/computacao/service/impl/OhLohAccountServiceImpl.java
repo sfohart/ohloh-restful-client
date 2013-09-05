@@ -15,8 +15,9 @@ import br.ufba.dcc.mestrado.computacao.service.OhLohAccountService;
 public class OhLohAccountServiceImpl extends BaseOhLohServiceImpl<OhLohAccountDTO, Long, OhLohAccountEntity>
 		implements OhLohAccountService {
 
-	public OhLohAccountServiceImpl() {
-		super(OhLohAccountDTO.class, OhLohAccountEntity.class);
+	@Inject
+	public OhLohAccountServiceImpl(@OhLohAccountRepositoryQualifier OhLohAccountRepository repository) {
+		super(repository, OhLohAccountDTO.class, OhLohAccountEntity.class);
 	}
 
 	@Inject
@@ -39,8 +40,8 @@ public class OhLohAccountServiceImpl extends BaseOhLohServiceImpl<OhLohAccountDT
 	
 	
 	@Override
-	public OhLohAccountEntity store(OhLohAccountDTO dto) throws Exception{
-		OhLohAccountEntity entity = super.store(dto);
+	public OhLohAccountEntity process(OhLohAccountDTO dto) throws Exception{
+		OhLohAccountEntity entity = super.process(dto);
 		accountRepository.save(entity);
 		return entity;
 	}

@@ -30,7 +30,7 @@ public class OhLohStackEntryEntity implements OhLohBaseEntity<Long> {
 	@Column(name = "stack_id", updatable = false, insertable = false)
 	private Long stackId;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
 	@JoinColumn(name = "stack_id", referencedColumnName = "id")
 	private OhLohStackEntity ohLohStack;
 
@@ -40,7 +40,7 @@ public class OhLohStackEntryEntity implements OhLohBaseEntity<Long> {
 	@Column(name = "project_id", updatable = false, insertable = false)
 	private Long projectId;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "project_id", referencedColumnName = "id")
 	private OhLohProjectEntity project;
 

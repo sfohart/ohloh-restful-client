@@ -17,4 +17,16 @@ public class OhLohProjectRepositoryImpl extends BaseRepositoryImpl<Long, OhLohPr
 		super(OhLohProjectEntity.class);
 	}
 
+	@Override
+	public OhLohProjectEntity findById(Long id) {		
+		OhLohProjectEntity result = super.findById(id);
+		
+		if (result != null) {
+			result.getOhLohLicenses();
+			result.getOhLohTags();
+		}
+		
+		return result;
+	}
+	
 }

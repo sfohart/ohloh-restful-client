@@ -10,6 +10,6 @@ import javax.inject.Qualifier;
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.TYPE, ElementType.METHOD, ElementType.PARAMETER })
-public @interface OhLohAnalysisRepositoryQualifier {
+public @interface OhLohCrawlerStackRepositoryQualifier {
 
 }

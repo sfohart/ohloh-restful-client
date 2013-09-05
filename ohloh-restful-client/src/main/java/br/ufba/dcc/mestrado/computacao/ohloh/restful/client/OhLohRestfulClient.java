@@ -417,8 +417,9 @@ public class OhLohRestfulClient {
 	 * @param projectId
 	 * @return
 	 */
-	public List<OhLohStackDTO> getProjectStacks(String projectId, OhLohBaseRequest request) {
-		List<OhLohStackDTO> stackList = null;
+	public OhLohStackResponse getProjectStacks(String projectId, OhLohBaseRequest request) {
+		
+		OhLohStackResponse resource = null;
 		
 		try {
 			String url = getProperties().getProperty("meta.ohloh.api.stack.project");
@@ -430,20 +431,13 @@ public class OhLohRestfulClient {
 					OhLohStackResult.class,
 					OhLohStackDTO.class));
 			
-			OhLohStackResponse resource = this.<OhLohStackResponse>processResponse(url, request, restfulie, projectId);
-			
-			if (OhLohStackResponse.SUCCESS.equals(resource.getStatus())) {
-				OhLohStackResult result = resource.getResult();
-				if (result != null) {
-					return result.getOhLohStacks();
-				}
-			}
-			
+			resource = this.<OhLohStackResponse>processResponse(url, request, restfulie, projectId);
+						
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 		
-		return stackList;
+		return resource;
 	}
 	
 	/**

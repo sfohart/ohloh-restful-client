@@ -29,8 +29,9 @@ import br.ufba.dcc.mestrado.computacao.service.OhLohProjectService;
 public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDTO, Long, OhLohProjectEntity>
 		implements OhLohProjectService {
 
-	public OhLohProjectServiceImpl() {
-		super(OhLohProjectDTO.class, OhLohProjectEntity.class);
+	@Inject
+	public OhLohProjectServiceImpl(@OhLohProjectRepositoryQualifier OhLohProjectRepository repository) {
+		super(repository, OhLohProjectDTO.class, OhLohProjectEntity.class);
 	}
 
 	@Inject
@@ -69,38 +70,9 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 		super.validateEntity(entity);
 		
 		
-		if (entity.getOhLohTags() != null) {
-			List<OhLohTagEntity> tagList = new ArrayList<OhLohTagEntity>();
-			Iterator<OhLohTagEntity> tagIterator = entity.getOhLohTags().iterator();
-			while (tagIterator.hasNext()) {
-				OhLohTagEntity tag = tagIterator.next();				
-				OhLohTagEntity already = tagRepository.findByName(tag.getName());
-				
-				if (already != null) {
-					tagList.add(already);
-					tagIterator.remove();
-				}
-			}
-			
-			entity.getOhLohTags().addAll(tagList);
-		}
+		reloadTagsFromDatabase(entity);
 		
-		if (entity.getOhLohLicenses() != null) {
-			List<OhLohLicenseEntity> licenseList = new ArrayList<OhLohLicenseEntity>();
-			Iterator<OhLohLicenseEntity> licenseIterator = entity.getOhLohLicenses().iterator();
-			
-			while (licenseIterator.hasNext()) {
-				OhLohLicenseEntity license = licenseIterator.next();
-				OhLohLicenseEntity already = licenseRepository.findByName(license.getName());
-				
-				if (already != null) {
-					licenseList.add(already);
-					licenseIterator.remove();
-				}
-			}
-			
-			entity.getOhLohLicenses().addAll(licenseList);
-		}
+		reloadLicensesFromDatabase(entity);
 		
 		if (entity.getAnalysisId() != null) {
 			OhLohAnalysisEntity analysis = analysisService.findById(entity.getAnalysisId());
@@ -117,10 +89,49 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 		}
 		
 	}
+
+	@Override
+	public void reloadLicensesFromDatabase(OhLohProjectEntity entity) {
+		if (entity != null && entity.getOhLohLicenses() != null) {
+			List<OhLohLicenseEntity> licenseList = new ArrayList<OhLohLicenseEntity>();
+			Iterator<OhLohLicenseEntity> licenseIterator = entity.getOhLohLicenses().iterator();
+			
+			while (licenseIterator.hasNext()) {
+				OhLohLicenseEntity license = licenseIterator.next();
+				OhLohLicenseEntity already = licenseRepository.findByName(license.getName());
+				
+				if (already != null) {
+					licenseList.add(already);
+					licenseIterator.remove();
+				}
+			}
+			
+			entity.getOhLohLicenses().addAll(licenseList);
+		}
+	}
+
+	@Override
+	public void reloadTagsFromDatabase(OhLohProjectEntity entity) {
+		if (entity != null && entity.getOhLohTags() != null) {
+			List<OhLohTagEntity> tagList = new ArrayList<OhLohTagEntity>();
+			Iterator<OhLohTagEntity> tagIterator = entity.getOhLohTags().iterator();
+			while (tagIterator.hasNext()) {
+				OhLohTagEntity tag = tagIterator.next();				
+				OhLohTagEntity already = tagRepository.findByName(tag.getName());
+				
+				if (already != null) {
+					tagList.add(already);
+					tagIterator.remove();
+				}
+			}
+			
+			entity.getOhLohTags().addAll(tagList);
+		}
+	}
 	
 	@Override
-	public OhLohProjectEntity store(OhLohProjectDTO dto) throws Exception{
-		OhLohProjectEntity entity = super.store(dto);
+	public OhLohProjectEntity process(OhLohProjectDTO dto) throws Exception{
+		OhLohProjectEntity entity = super.process(dto);
 		projectRepository.save(entity);
 		return entity;
 	}

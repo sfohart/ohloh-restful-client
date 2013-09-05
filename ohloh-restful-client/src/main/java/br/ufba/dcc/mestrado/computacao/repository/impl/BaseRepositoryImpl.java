@@ -10,6 +10,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.apache.log4j.Logger;
+
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.repository.BaseRepository;
 import br.ufba.dcc.mestrado.computacao.transactions.Transactional;
@@ -17,6 +19,8 @@ import br.ufba.dcc.mestrado.computacao.transactions.Transactional;
 @Stateless
 public class BaseRepositoryImpl<ID extends Number, E extends OhLohBaseEntity<ID>>
 	implements BaseRepository<ID, E> {
+	
+	private Logger logger = Logger.getLogger(this.getClass().getName());
 
 	/**
 	 * 
@@ -115,6 +119,7 @@ public class BaseRepositoryImpl<ID extends Number, E extends OhLohBaseEntity<ID>
 	
 	@Transactional
 	public E save(E entity) {
+		logger.info(String.format("Salvando entidade do tipo %s", entityClass.getName()));
 		if (entity != null) {
 			if (entity.getId() != null) {
 				return update(entity);

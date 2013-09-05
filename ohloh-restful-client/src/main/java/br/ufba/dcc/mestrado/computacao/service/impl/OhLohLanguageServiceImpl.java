@@ -15,8 +15,9 @@ import br.ufba.dcc.mestrado.computacao.service.OhLohLanguageService;
 public class OhLohLanguageServiceImpl extends BaseOhLohServiceImpl<OhLohLanguageDTO, Long, OhLohLanguageEntity>
 		implements OhLohLanguageService {
 
-	public OhLohLanguageServiceImpl() {
-		super(OhLohLanguageDTO.class, OhLohLanguageEntity.class);
+	@Inject
+	public OhLohLanguageServiceImpl(@OhLohLanguageRepositoryQualifier OhLohLanguageRepository repository) {
+		super(repository, OhLohLanguageDTO.class, OhLohLanguageEntity.class);
 	}
 
 	@Inject
@@ -37,8 +38,8 @@ public class OhLohLanguageServiceImpl extends BaseOhLohServiceImpl<OhLohLanguage
 	}
 	
 	@Override
-	public OhLohLanguageEntity store(OhLohLanguageDTO dto) throws Exception{
-		OhLohLanguageEntity entity = super.store(dto);
+	public OhLohLanguageEntity process(OhLohLanguageDTO dto) throws Exception{
+		OhLohLanguageEntity entity = super.process(dto);
 		languageRepository.save(entity);
 		return entity;
 	}

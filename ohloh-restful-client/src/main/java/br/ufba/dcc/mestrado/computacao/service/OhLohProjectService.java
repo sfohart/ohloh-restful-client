@@ -12,5 +12,9 @@ public interface OhLohProjectService extends BaseOhLohService<OhLohProjectDTO, L
 	public OhLohProjectEntity findById(Long id);
 	
 	public List<OhLohProjectEntity> findAll(Integer startAt, Integer offset);
+
+	public abstract void reloadTagsFromDatabase(OhLohProjectEntity entity);
+
+	public abstract void reloadLicensesFromDatabase(OhLohProjectEntity entity);
 	
 }
