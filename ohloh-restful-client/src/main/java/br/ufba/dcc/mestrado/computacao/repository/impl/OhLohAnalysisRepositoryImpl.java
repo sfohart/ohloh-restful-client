@@ -18,4 +18,17 @@ public class OhLohAnalysisRepositoryImpl extends BaseRepositoryImpl<Long, OhLohA
 	}
 
 	
+	@Override
+	public OhLohAnalysisEntity findById(Long id) {
+		// TODO Auto-generated method stub
+		OhLohAnalysisEntity result = super.findById(id);
+		if (result != null) {
+			if (result.getOhLohAnalysisLanguages() != null) {
+				result.getOhLohAnalysisLanguages().getContent();
+			}
+		}
+		
+		return result;
+	}
+	
 }

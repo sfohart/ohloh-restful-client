@@ -15,12 +15,14 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.analysis.OhLohAnalysisLang
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.language.OhLohLanguageEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.client.OhLohRestfulClient;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
+import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohAnalysisLanguageRepositoryQualifier;
 import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohAnalysisLanguagesRepositoryQualifier;
 import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohAnalysisRepositoryQualifier;
 import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohLicenseRepositoryQualifier;
 import br.ufba.dcc.mestrado.computacao.qualifier.repository.OhLohTagRepositoryQualifier;
 import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohAnalysisServiceQualifier;
 import br.ufba.dcc.mestrado.computacao.qualifier.service.OhLohLanguageServiceQualifier;
+import br.ufba.dcc.mestrado.computacao.repository.OhLohAnalysisLanguageRepository;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohAnalysisLanguagesRepository;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohAnalysisRepository;
 import br.ufba.dcc.mestrado.computacao.repository.OhLohLicenseRepository;
@@ -46,6 +48,10 @@ public class OhLohAnalysisServiceImpl extends BaseOhLohServiceImpl<OhLohAnalysis
 	@Inject
 	@OhLohAnalysisLanguagesRepositoryQualifier
 	private OhLohAnalysisLanguagesRepository analysisLanguagesRepository;
+	
+	@Inject
+	@OhLohAnalysisLanguageRepositoryQualifier
+	private OhLohAnalysisLanguageRepository analysisLanguageRepository;
 	
 	@Inject
 	private OhLohRestfulClient restfulClient;
