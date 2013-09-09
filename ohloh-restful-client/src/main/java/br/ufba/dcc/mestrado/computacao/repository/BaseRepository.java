@@ -13,7 +13,7 @@ public interface BaseRepository<ID extends Number, E extends OhLohBaseEntity<ID>
 	public List<E> findAll(Integer startAt, Integer offset);
 	public List<E> findAll(Integer startAt, Integer offset, String orderBy);
 	
-	public E findById(Long id);
+	public E findById(ID id);
 	public E save(E entity) throws Exception;
 	public E add(E entity) throws Exception;
 	public E update(E entity) throws Exception;

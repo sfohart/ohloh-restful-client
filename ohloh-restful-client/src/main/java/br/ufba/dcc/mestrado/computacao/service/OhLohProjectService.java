@@ -16,5 +16,7 @@ public interface OhLohProjectService extends BaseOhLohService<OhLohProjectDTO, L
 	public abstract void reloadTagsFromDatabase(OhLohProjectEntity entity);
 
 	public abstract void reloadLicensesFromDatabase(OhLohProjectEntity entity);
+
+	public abstract void reloadAnalysisFromDatabase(OhLohProjectEntity entity);
 	
 }

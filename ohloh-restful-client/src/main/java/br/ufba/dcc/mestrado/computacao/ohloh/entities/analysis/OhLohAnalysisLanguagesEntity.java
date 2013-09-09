@@ -20,7 +20,7 @@ public class OhLohAnalysisLanguagesEntity implements OhLohBaseEntity<Long> {
 	 */
 	private static final long serialVersionUID = 3047964132725598415L;
 	
-	public final static String NODE_NAME = "languages";
+	public final static String NODE_NAME = "analysis_languages";
 
 	@Id
 	@GeneratedValue

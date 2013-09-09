@@ -113,7 +113,7 @@ public class BaseRepositoryImpl<ID extends Number, E extends OhLohBaseEntity<ID>
 	}
 	
 	@Transactional
-	public E findById(Long id) {
+	public E findById(ID id) {
 		return entityManager.find(entityClass, id);
 	}
 	
@@ -122,7 +122,11 @@ public class BaseRepositoryImpl<ID extends Number, E extends OhLohBaseEntity<ID>
 		logger.info(String.format("Salvando entidade do tipo %s", entityClass.getName()));
 		if (entity != null) {
 			if (entity.getId() != null) {
-				return update(entity);
+				if (this.findById(entity.getId()) != null) {
+					return update(entity);					
+				} else {
+					return add(entity);
+				}
 			} else {
 				return add(entity);
 			}

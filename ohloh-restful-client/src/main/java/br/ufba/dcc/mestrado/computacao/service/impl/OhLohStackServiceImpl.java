@@ -2,6 +2,7 @@ package br.ufba.dcc.mestrado.computacao.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -132,14 +133,30 @@ public class OhLohStackServiceImpl extends BaseOhLohServiceImpl<OhLohStackDTO, L
 		OhLohStackEntity entity = super.process(dto);
 		
 		if (entity != null && entity.getOhLohStackEntries() != null) {
-			for (OhLohStackEntryEntity stackEntry : entity.getOhLohStackEntries()) {
+			Iterator<OhLohStackEntryEntity> iterator = entity.getOhLohStackEntries().iterator();
+			while(iterator.hasNext()) {
+				OhLohStackEntryEntity stackEntry  = iterator.next();
+				
 				if (stackEntry.getProject() != null) {
 					projectService.reloadTagsFromDatabase(stackEntry.getProject());
 					projectService.reloadLicensesFromDatabase(stackEntry.getProject());
+					projectService.reloadAnalysisFromDatabase(stackEntry.getProject());
+					
 					OhLohProjectEntity project = projectService.saveEntity(stackEntry.getProject());
 					
-					stackEntry.setProject(project);
-					stackEntry.setOhLohStack(entity);
+					if (project != null) {
+						stackEntry.setProject(project);
+						stackEntry.setProjectId(project.getId());
+						
+						stackEntry.setOhLohStack(entity);
+						stackEntry.setStackId(entity.getId());
+					} else {
+						iterator.remove();
+						logger.error(String.format("stack entry %d project %d nao persistiu corretamente", stackEntry.getId(), stackEntry.getProjectId()));
+					}
+				} else if (stackEntry.getProject() == null || stackEntry.getOhLohStack() == null) {
+					iterator.remove();
+					logger.error(String.format("stack entry %d project %d nao persistiu corretamente", stackEntry.getId(), stackEntry.getProjectId()));
 				}
 			}
 		}

@@ -3,6 +3,7 @@
 	<persistence-unit name="ohloh" transaction-type="RESOURCE_LOCAL">
 	    
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerLanguageEntity</class>
 		<class>br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerProjectEntity</class>
         <class>br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerStackEntity</class>
         <class>br.ufba.dcc.mestrado.computacao.ohloh.entities.account.OhLohAccountEntity</class>
@@ -39,7 +40,7 @@
 			<property name="hibernate.jdbc.batch_size" value="0"/>
 			
 			<property name="hibernate.show_sql" value="true"/>
-			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.format_sql" value="false"/>
 			<property name="hibernate.use_sql_comments" value="false"/>
 			
 		</properties>

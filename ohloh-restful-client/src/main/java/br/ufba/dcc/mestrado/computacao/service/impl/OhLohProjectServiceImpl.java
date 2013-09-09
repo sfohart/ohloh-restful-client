@@ -91,6 +91,16 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 	}
 
 	@Override
+	public void reloadAnalysisFromDatabase(OhLohProjectEntity entity) {
+		if (entity != null && entity.getOhLohAnalysis() != null) {
+			OhLohAnalysisEntity analysis = analysisService.findById(entity.getOhLohAnalysis().getId());
+			if (analysis != null) {
+				entity.setOhLohAnalysis(analysis);
+			}
+		}
+	}
+	
+	@Override
 	public void reloadLicensesFromDatabase(OhLohProjectEntity entity) {
 		if (entity != null && entity.getOhLohLicenses() != null) {
 			List<OhLohLicenseEntity> licenseList = new ArrayList<OhLohLicenseEntity>();

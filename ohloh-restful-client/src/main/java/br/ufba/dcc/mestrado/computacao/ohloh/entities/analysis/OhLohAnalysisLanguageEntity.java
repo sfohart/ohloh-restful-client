@@ -20,7 +20,7 @@ public class OhLohAnalysisLanguageEntity implements OhLohBaseEntity<Long> {
 	 */
 	private static final long serialVersionUID = 1672599783346624942L;
 
-	public final static String NODE_NAME = "language";
+	public final static String NODE_NAME = "analysis_language";
 
 	@Id
 	private Long id;
@@ -29,6 +29,7 @@ public class OhLohAnalysisLanguageEntity implements OhLohBaseEntity<Long> {
 	private Long languageId;
 
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "language_id", referencedColumnName = "id", insertable = false, updatable = false)
 	private OhLohLanguageEntity ohLohLanguage;
 
 	@Column(name = "percentage")
@@ -38,7 +39,7 @@ public class OhLohAnalysisLanguageEntity implements OhLohBaseEntity<Long> {
 	private String color;
 
 	@ManyToOne
-	@JoinColumn(name = "languages_id", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "analysis_language_id", referencedColumnName = "id", insertable = false, updatable = false)
 	private OhLohAnalysisLanguagesEntity ohLohAnalysisLanguages;
 
 	@Column(name = "content")
