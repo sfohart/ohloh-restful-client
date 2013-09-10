@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
@@ -67,7 +67,7 @@ public class OhLohAccountEntity implements OhLohBaseEntity<Long> {
 	@Column(name = "longitude")
 	private Double longitude;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "kudo_score_id", referencedColumnName = "id")
 	private OhLohKudoScoreEntity ohLohKudoScore;
 

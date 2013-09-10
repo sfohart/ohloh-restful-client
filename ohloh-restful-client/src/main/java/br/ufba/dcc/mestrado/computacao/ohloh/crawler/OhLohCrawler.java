@@ -258,6 +258,7 @@ public class OhLohCrawler {
 				do {
 					request.setPage(page);
 					
+					logger.info(String.format("Baixando stack para o projeto %d - página %d", project.getId(), request.getPage()));
 					OhLohStackResponse response = getRestfulClient().getProjectStacks(project.getId().toString(), request);
 					
 					if (totalPages <= 0 && response.getItemsAvailable() != null && response.getItemsReturned() != null) {
@@ -304,7 +305,6 @@ public class OhLohCrawler {
 		
 		//baixando as linguagens de programação
 		downloadLanguages();
-		
 		
 		OhLohBaseRequest request = new OhLohBaseRequest();
 		Integer totalPages = 0;

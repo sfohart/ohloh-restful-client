@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -77,7 +78,7 @@ public class OhLohProjectEntity implements OhLohBaseEntity<Long> {
 	@Column(name = "analysis_id", insertable = false, updatable = false)
 	private Long analysisId;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER, targetEntity=OhLohAnalysisEntity.class)
 	@JoinColumn(name = "analysis_id", referencedColumnName = "id")
 	private OhLohAnalysisEntity ohLohAnalysis;
 

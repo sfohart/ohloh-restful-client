@@ -13,10 +13,10 @@ public interface OhLohProjectService extends BaseOhLohService<OhLohProjectDTO, L
 	
 	public List<OhLohProjectEntity> findAll(Integer startAt, Integer offset);
 
-	public abstract void reloadTagsFromDatabase(OhLohProjectEntity entity);
+	public abstract void reloadTagsFromDatabase(OhLohProjectEntity entity) throws Exception;
 
-	public abstract void reloadLicensesFromDatabase(OhLohProjectEntity entity);
+	public abstract void reloadLicensesFromDatabase(OhLohProjectEntity entity) throws Exception;
 
-	public abstract void reloadAnalysisFromDatabase(OhLohProjectEntity entity);
+	public abstract void reloadAnalysisFromDatabase(OhLohProjectEntity entity) throws Exception;
 	
 }

@@ -121,14 +121,8 @@ public class BaseRepositoryImpl<ID extends Number, E extends OhLohBaseEntity<ID>
 	public E save(E entity) {
 		if (entity != null) {
 			if (entity.getId() != null) {
-				
 				logger.info(String.format("Salvando entidade do tipo %s com id %d", entityClass.getName(), entity.getId()));
-				
-				if (this.findById(entity.getId()) != null) {
-					return update(entity);					
-				} else {
-					return add(entity);
-				}
+				return update(entity);
 			} else {
 				return add(entity);
 			}

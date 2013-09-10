@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
@@ -25,6 +27,10 @@ public class OhLohAnalysisLanguagesEntity implements OhLohBaseEntity<Long> {
 	@Id
 	@GeneratedValue
 	private Long id;
+	
+	@OneToOne(mappedBy="ohLohAnalysisLanguages")
+	@PrimaryKeyJoinColumn
+	private OhLohAnalysisEntity ohLohAnalysis;
 	
 	@Column(name="graph_url")
 	private String graphURL;
@@ -54,6 +60,14 @@ public class OhLohAnalysisLanguagesEntity implements OhLohBaseEntity<Long> {
 
 	public void setContent(List<OhLohAnalysisLanguageEntity> content) {
 		this.content = content;
+	}
+
+	public OhLohAnalysisEntity getOhLohAnalysis() {
+		return ohLohAnalysis;
+	}
+
+	public void setOhLohAnalysis(OhLohAnalysisEntity ohLohAnalysis) {
+		this.ohLohAnalysis = ohLohAnalysis;
 	}
 	
 	

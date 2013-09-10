@@ -91,7 +91,7 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 	}
 
 	@Override
-	public void reloadAnalysisFromDatabase(OhLohProjectEntity entity) {
+	public void reloadAnalysisFromDatabase(OhLohProjectEntity entity) throws Exception{
 		if (entity != null && entity.getOhLohAnalysis() != null) {
 			OhLohAnalysisEntity analysis = analysisService.findById(entity.getOhLohAnalysis().getId());
 			if (analysis != null) {
@@ -101,7 +101,7 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 	}
 	
 	@Override
-	public void reloadLicensesFromDatabase(OhLohProjectEntity entity) {
+	public void reloadLicensesFromDatabase(OhLohProjectEntity entity) throws Exception{
 		if (entity != null && entity.getOhLohLicenses() != null) {
 			List<OhLohLicenseEntity> licenseList = new ArrayList<OhLohLicenseEntity>();
 			Iterator<OhLohLicenseEntity> licenseIterator = entity.getOhLohLicenses().iterator();
@@ -111,9 +111,13 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 				OhLohLicenseEntity already = licenseRepository.findByName(license.getName());
 				
 				if (already != null) {
-					licenseList.add(already);
 					licenseIterator.remove();
+				} else {
+					license.setId(null);
+					already = licenseRepository.save(license);
 				}
+				
+				licenseList.add(already);
 			}
 			
 			entity.getOhLohLicenses().addAll(licenseList);
@@ -121,7 +125,7 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 	}
 
 	@Override
-	public void reloadTagsFromDatabase(OhLohProjectEntity entity) {
+	public void reloadTagsFromDatabase(OhLohProjectEntity entity) throws Exception{
 		if (entity != null && entity.getOhLohTags() != null) {
 			List<OhLohTagEntity> tagList = new ArrayList<OhLohTagEntity>();
 			Iterator<OhLohTagEntity> tagIterator = entity.getOhLohTags().iterator();
@@ -130,9 +134,13 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 				OhLohTagEntity already = tagRepository.findByName(tag.getName());
 				
 				if (already != null) {
-					tagList.add(already);
 					tagIterator.remove();
+				} else {
+					tag.setId(null);
+					already = tagRepository.save(tag);
 				}
+					
+				tagList.add(already);
 			}
 			
 			entity.getOhLohTags().addAll(tagList);
@@ -142,6 +150,7 @@ public class OhLohProjectServiceImpl extends BaseOhLohServiceImpl<OhLohProjectDT
 	@Override
 	public OhLohProjectEntity process(OhLohProjectDTO dto) throws Exception{
 		OhLohProjectEntity entity = super.process(dto);
+		
 		projectRepository.save(entity);
 		return entity;
 	}

@@ -6,19 +6,18 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.factoid.OhLohFactoidEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity;
-import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 @Entity
 @Table(name = OhLohAnalysisEntity.NODE_NAME)
@@ -71,8 +70,8 @@ public class OhLohAnalysisEntity implements OhLohBaseEntity<Long> {
 	@OneToMany(mappedBy = "ohLohAnalysis")
 	private List<OhLohFactoidEntity> ohLohFactoids;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "languages_id", referencedColumnName = "id")
+	@OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@PrimaryKeyJoinColumn
 	private OhLohAnalysisLanguagesEntity ohLohAnalysisLanguages;
 
 	@Column(name = "main_language_id")

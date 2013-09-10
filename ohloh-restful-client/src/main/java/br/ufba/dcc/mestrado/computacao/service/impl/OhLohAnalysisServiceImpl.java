@@ -73,7 +73,9 @@ public class OhLohAnalysisServiceImpl extends BaseOhLohServiceImpl<OhLohAnalysis
 	}
 	
 	public OhLohAnalysisEntity findById(Long id) {
-		return analysisRepository.findById(id);
+		OhLohAnalysisEntity result = analysisRepository.findById(id);
+		
+		return result;
 	}
 	
 	public List<OhLohAnalysisEntity> findAll(Integer startAt, Integer offset) {
@@ -87,6 +89,10 @@ public class OhLohAnalysisServiceImpl extends BaseOhLohServiceImpl<OhLohAnalysis
 		
 		if (entity != null) {
 			if (entity.getOhLohAnalysisLanguages() != null && entity.getOhLohAnalysisLanguages().getContent() != null) {
+				
+				if (entity.getOhLohAnalysisLanguages().getId() == null || entity.getOhLohAnalysisLanguages().getId() == 0) {
+					entity.getOhLohAnalysisLanguages().setId(entity.getId());
+				}
 				
 				
 				OhLohAnalysisLanguagesEntity analysisLanguagesEntity = analysisLanguagesRepository.findById(entity.getOhLohAnalysisLanguages().getId());
