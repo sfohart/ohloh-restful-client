@@ -11,7 +11,6 @@ import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamCon
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
-import com.thoughtworks.xstream.converters.extended.ISO8601SqlTimestampConverter;
 
 @XStreamAlias(OhLohAnalysisDTO.NODE_NAME)
 public class OhLohAnalysisDTO implements OhLohResultDTO {
@@ -53,9 +52,21 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long twelveMonthContributorCount;
 
+	@XStreamAlias("total_contributor_count")
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
+	private Long totalContributorCount;
+
 	@XStreamAlias("total_code_lines")
 	@XStreamConverter(value = NullableLongXStreamConverter.class)
 	private Long totalCodeLines;
+
+	@XStreamAlias("total_commit_count")
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
+	private Long totalCommitCount;
+	
+	@XStreamAlias("twelve_month_commit_count")
+	@XStreamConverter(value = NullableLongXStreamConverter.class)
+	private Long twelveMonthCommitCount;
 
 	@XStreamAlias("factoids")
 	private List<OhLohFactoidDTO> ohLohFactoids;
@@ -130,9 +141,16 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 		return twelveMonthContributorCount;
 	}
 
-	public void setTwelveMonthContributorCount(
-			Long twelveMonthContributorCount) {
+	public void setTwelveMonthContributorCount(Long twelveMonthContributorCount) {
 		this.twelveMonthContributorCount = twelveMonthContributorCount;
+	}
+
+	public Long getTotalContributorCount() {
+		return totalContributorCount;
+	}
+
+	public void setTotalContributorCount(Long totalContributorCount) {
+		this.totalContributorCount = totalContributorCount;
 	}
 
 	public Long getTotalCodeLines() {
@@ -174,6 +192,22 @@ public class OhLohAnalysisDTO implements OhLohResultDTO {
 
 	public void setMainLanguageName(String mainLanguageName) {
 		this.mainLanguageName = mainLanguageName;
+	}
+
+	public Long getTotalCommitCount() {
+		return totalCommitCount;
+	}
+
+	public void setTotalCommitCount(Long totalCommitCount) {
+		this.totalCommitCount = totalCommitCount;
+	}
+
+	public Long getTwelveMonthCommitCount() {
+		return twelveMonthCommitCount;
+	}
+
+	public void setTwelveMonthCommitCount(Long twelveMonthCommitCount) {
+		this.twelveMonthCommitCount = twelveMonthCommitCount;
 	}
 
 }

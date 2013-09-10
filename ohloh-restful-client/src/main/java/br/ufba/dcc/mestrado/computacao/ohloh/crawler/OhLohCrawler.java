@@ -202,12 +202,14 @@ public class OhLohCrawler {
 							}
 						}
 					}
+				} else {
+					break;
 				}
 				
 				page++;
 				config.setCurrentPage(page);
 				
-			} while (page < totalPages);
+			} while (page <= totalPages);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {

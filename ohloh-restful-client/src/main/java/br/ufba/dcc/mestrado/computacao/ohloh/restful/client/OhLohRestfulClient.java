@@ -197,6 +197,8 @@ public class OhLohRestfulClient {
 		boolean retry = true;
 		String uri = "";
 		
+		try {
+		
 		while (retry) {
 			retry = false;
 			
@@ -227,6 +229,11 @@ public class OhLohRestfulClient {
 				}
 			}
 		};
+		
+		} catch (Exception ex) {
+			logger.info(uri);
+			throw ex;
+		}
 			
 		
 		logger.info(uri);

@@ -12,9 +12,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
+
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.factoid.OhLohFactoidEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity;
+import br.ufba.dcc.mestrado.computacao.xstream.converters.NullableLongXStreamConverter;
 
 @Entity
 @Table(name = OhLohAnalysisEntity.NODE_NAME)
@@ -29,7 +33,7 @@ public class OhLohAnalysisEntity implements OhLohBaseEntity<Long> {
 
 	@Id
 	private Long id;
-	
+
 	@Column(name = "url")
 	private String url;
 
@@ -55,13 +59,19 @@ public class OhLohAnalysisEntity implements OhLohBaseEntity<Long> {
 	@Column(name = "twelve_month_contributor_count")
 	private Long twelveMonthContributorCount;
 
+	@Column(name = "total_contributor_count")
+	private Long totalContributorCount;
+
+	@Column(name = "total_commit_count")
+	private Long totalCommitCount;
+
 	@Column(name = "total_code_lines")
 	private Long totalCodeLines;
 
 	@OneToMany(mappedBy = "ohLohAnalysis")
 	private List<OhLohFactoidEntity> ohLohFactoids;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "languages_id", referencedColumnName = "id")
 	private OhLohAnalysisLanguagesEntity ohLohAnalysisLanguages;
 
@@ -70,6 +80,10 @@ public class OhLohAnalysisEntity implements OhLohBaseEntity<Long> {
 
 	@Column(name = "main_language_name")
 	private String mainLanguageName;
+	
+	
+	@Column(name = "twelve_month_commit_count")	
+	private Long twelveMonthCommitCount;
 
 	public Long getId() {
 		return id;
@@ -139,8 +153,7 @@ public class OhLohAnalysisEntity implements OhLohBaseEntity<Long> {
 		return twelveMonthContributorCount;
 	}
 
-	public void setTwelveMonthContributorCount(
-			Long twelveMonthContributorCount) {
+	public void setTwelveMonthContributorCount(Long twelveMonthContributorCount) {
 		this.twelveMonthContributorCount = twelveMonthContributorCount;
 	}
 
@@ -183,6 +196,30 @@ public class OhLohAnalysisEntity implements OhLohBaseEntity<Long> {
 
 	public void setMainLanguageName(String mainLanguageName) {
 		this.mainLanguageName = mainLanguageName;
+	}
+
+	public Long getTotalContributorCount() {
+		return totalContributorCount;
+	}
+
+	public void setTotalContributorCount(Long totalContributorCount) {
+		this.totalContributorCount = totalContributorCount;
+	}
+
+	public Long getTotalCommitCount() {
+		return totalCommitCount;
+	}
+
+	public void setTotalCommitCount(Long totalCommitCount) {
+		this.totalCommitCount = totalCommitCount;
+	}
+
+	public Long getTwelveMonthCommitCount() {
+		return twelveMonthCommitCount;
+	}
+
+	public void setTwelveMonthCommitCount(Long twelveMonthCommitCount) {
+		this.twelveMonthCommitCount = twelveMonthCommitCount;
 	}
 
 }
