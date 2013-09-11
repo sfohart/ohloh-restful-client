@@ -20,6 +20,7 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerStackEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.client.OhLohRestfulClient;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
+import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohBaseResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohLanguageResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohProjectResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohStackResponse;
@@ -261,7 +262,10 @@ public class OhLohCrawler {
 					logger.info(String.format("Baixando stack para o projeto %d - página %d", project.getId(), request.getPage()));
 					OhLohStackResponse response = getRestfulClient().getProjectStacks(project.getId().toString(), request);
 					
-					if (totalPages <= 0 && response.getItemsAvailable() != null && response.getItemsReturned() != null) {
+					if (totalPages <= 0 
+							&& response != null 
+							&& response.getItemsAvailable() != null 
+							&& response.getItemsReturned() != null) {
 						totalPages = response.getItemsAvailable() / response.getItemsReturned();
 						config.setTotalPage(totalPages);
 					}
@@ -326,16 +330,20 @@ public class OhLohCrawler {
 			do {
 				//configurando requisiï¿½ï¿½o
 				request.setPage(page);
+				config.setProjectCurrentPage(page);
 				
 				//efetuando requisiï¿½ï¿½o
 				OhLohProjectResponse response = getRestfulClient().getAllProjects(request);
 				logger.info(String.format("Total Pages: %d | Total Projects: %d", totalPages, getProjectService().countAll()));
 				
 				//atualizando 
-				if (totalPages <= 0 && response.getItemsAvailable() != null && response.getItemsReturned() != null) {
+				if (totalPages <= 0 
+						&& response != null 
+						&& response.getItemsAvailable() != null 
+						&& response.getItemsReturned() != null) {
 					totalPages = response.getItemsAvailable() / response.getItemsReturned();
 					config.setProjectTotalPage(totalPages);
-				}
+				} 
 				
 				//projetos baixados com sucesso
 				if (OhLohProjectResponse.SUCCESS.equals(response.getStatus())) {
@@ -358,6 +366,8 @@ public class OhLohCrawler {
 							
 							//baixando as anï¿½lises do projeto
 							downloadAnalysis(projectEntity);
+							
+							projectCrawlerConfigRepository.save(config);
 						}
 					}
 					
@@ -371,6 +381,7 @@ public class OhLohCrawler {
 				projectCrawlerConfigRepository.save(config);
 				
 			} while (page < totalPages);
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {

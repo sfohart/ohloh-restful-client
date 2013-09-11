@@ -22,6 +22,7 @@ public class OhLohKudoScoreEntity implements OhLohBaseEntity<Long> {
 	public final static String NODE_NAME = "kudo_score";
 	
 	@Id
+	@GeneratedValue
 	private Long id;
 
 	@Column(name="created_at")

@@ -8,11 +8,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.log4j.Logger;
 
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohBaseEntity;
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohTagEntity;
 import br.ufba.dcc.mestrado.computacao.repository.BaseRepository;
 import br.ufba.dcc.mestrado.computacao.transactions.Transactional;
 
@@ -156,5 +158,6 @@ public class BaseRepositoryImpl<ID extends Number, E extends OhLohBaseEntity<ID>
 		criteriaQuery.select(criteriaBuilder.count(criteriaQuery.from(entityClass)));
 		return entityManager.createQuery(criteriaQuery).getSingleResult();
 	}
-	
+
+
 }

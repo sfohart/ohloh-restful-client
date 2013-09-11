@@ -236,6 +236,10 @@ public class OhLohRestfulClient {
 		}
 			
 		
+		if (resource == null) {
+			throw new IllegalStateException(OhLohBaseResponse.ERROR_API_KEY_EXCEDED);
+		}
+		
 		logger.info(uri);
 		return resource;
 	}
