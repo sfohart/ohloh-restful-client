@@ -244,6 +244,10 @@ public class OhLohCrawler {
 			if (config.getCurrentPage() != null) {
 				page = config.getCurrentPage();
 			}
+			
+			if (config.getTotalPage() != null) {
+				totalPages = config.getTotalPage(); 
+			}
 		}
 		
 		if (config.getOhLohProject() == null || ! config.getOhLohProject().equals(project)) {
@@ -384,9 +388,7 @@ public class OhLohCrawler {
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		} finally {
-			projectCrawlerConfigRepository.save(config);
-		}
+		} 
 	}
 	
 	public static void main(String[] args) throws Exception {
