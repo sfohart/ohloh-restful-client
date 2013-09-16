@@ -72,7 +72,7 @@ public class OhLohProjectCrawler {
 		
 		if (configList != null && ! configList.isEmpty()) {
 			config = configList.get(0);
-			page = config.getProjectCurrentPage();
+			page = config.getCurrentPage();
 		}
 		
 		
@@ -84,7 +84,7 @@ public class OhLohProjectCrawler {
 				
 				if (totalPages <= 0 && response.getItemsAvailable() != null && response.getItemsReturned() != null) {
 					totalPages = response.getItemsAvailable() / response.getItemsReturned();
-					config.setProjectTotalPage(totalPages);
+					config.setTotalPage(totalPages);
 				}
 				
 				if (OhLohProjectResponse.SUCCESS.equals(response.getStatus())) {
@@ -108,7 +108,7 @@ public class OhLohProjectCrawler {
 				
 				page++;
 			
-				config.setProjectCurrentPage(page);
+				config.setCurrentPage(page);
 				crawlerConfigRepository.save(config);
 				
 			} while (page < totalPages);

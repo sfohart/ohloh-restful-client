@@ -1,5 +1,6 @@
 package br.ufba.dcc.mestrado.computacao.ohloh.crawler;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,7 +21,6 @@ import br.ufba.dcc.mestrado.computacao.ohloh.entities.OhLohCrawlerStackEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.client.OhLohRestfulClient;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.request.OhLohBaseRequest;
-import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohBaseResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohLanguageResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohProjectResponse;
 import br.ufba.dcc.mestrado.computacao.ohloh.restful.responses.OhLohStackResponse;
@@ -316,27 +316,36 @@ public class OhLohCrawler {
 		
 		OhLohBaseRequest request = new OhLohBaseRequest();
 		Integer totalPages = 0;
-		Integer page = 1;
+		Integer currentPage = 1;
 		
 		request.setSort(OHLOH_PROJECT_SORT_BY_ID);
 		
-		OhLohCrawlerProjectEntity config = new OhLohCrawlerProjectEntity();
+		OhLohCrawlerProjectEntity config = projectCrawlerConfigRepository.findCrawlerConfig();
 		
-		List<OhLohCrawlerProjectEntity> configList = 
-				projectCrawlerConfigRepository.findAll();
-		
-		if (configList != null && ! configList.isEmpty()) {
-			config = configList.get(0);
-			page = config.getProjectCurrentPage();
+		if (config != null) {
+			if (config.getCurrentPage() != null) {
+				currentPage = config.getCurrentPage();
+			}
+			
+			if (config.getTotalPage() != null) {
+				totalPages = config.getTotalPage();
+			}
+		} else {
+			config = new OhLohCrawlerProjectEntity();
 		}
+		
+		OhLohProjectEntity startProject = config.getOhLohProject();
+		
+		boolean projectStarted = false;
 		
 		try {
 			do {
-				//configurando requisi��o
-				request.setPage(page);
-				config.setProjectCurrentPage(page);
 				
-				//efetuando requisi��o
+				//configurando requisicao
+				request.setPage(currentPage);
+				config.setCurrentPage(currentPage);
+				
+				//efetuando requisicao
 				OhLohProjectResponse response = getRestfulClient().getAllProjects(request);
 				logger.info(String.format("Total Pages: %d | Total Projects: %d", totalPages, getProjectService().countAll()));
 				
@@ -346,7 +355,7 @@ public class OhLohCrawler {
 						&& response.getItemsAvailable() != null 
 						&& response.getItemsReturned() != null) {
 					totalPages = response.getItemsAvailable() / response.getItemsReturned();
-					config.setProjectTotalPage(totalPages);
+					config.setTotalPage(totalPages);
 				} 
 				
 				//projetos baixados com sucesso
@@ -354,8 +363,23 @@ public class OhLohCrawler {
 					List<OhLohProjectDTO> ohLohProjectDTOs = response.getResult().getOhLohProjects();
 					
 					if (ohLohProjectDTOs != null && ! ohLohProjectDTOs.isEmpty()) {
-						logger.info(String.format("Page: %d | Projects: %d", page, ohLohProjectDTOs.size()));
+						logger.info(String.format("Page: %d | Projects: %d", currentPage, ohLohProjectDTOs.size()));
+						
+						
 						for (OhLohProjectDTO project : ohLohProjectDTOs) {
+							
+							if (! projectStarted) {
+								if (startProject != null && startProject.getId() != null) {
+									if (startProject.getId().equals(project.getId())) {
+										projectStarted = true;
+									} else {
+										continue;
+									}
+								} else {
+									projectStarted = true;
+								}
+							}
+							
 							OhLohProjectEntity projectEntity = getProjectService().findById(project.getId());
 							
 							//armazenando os projetos na base de dados
@@ -365,6 +389,8 @@ public class OhLohCrawler {
 								logger.info(String.format("Projeto \"%s\" com id %d ja se encontra na base", project.getName(), project.getId()));
 							}
 							
+							config.setOhLohProject(projectEntity);
+							
 							//baixando os stacks do projeto
 							downloadStack(projectEntity);
 							
@@ -373,18 +399,19 @@ public class OhLohCrawler {
 							
 							projectCrawlerConfigRepository.save(config);
 						}
+						
 					}
 					
 				} else {
 					throw new IllegalStateException("OhLoh response status: " + response.getStatus() + ". " + response.getError());
 				}
 				
-				page++;
+				currentPage++;
 			
-				config.setProjectCurrentPage(page);
+				config.setCurrentPage(currentPage);
 				projectCrawlerConfigRepository.save(config);
 				
-			} while (page < totalPages);
+			} while (currentPage < totalPages);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();

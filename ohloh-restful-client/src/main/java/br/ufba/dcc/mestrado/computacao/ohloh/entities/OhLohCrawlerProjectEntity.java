@@ -4,7 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.ufba.dcc.mestrado.computacao.ohloh.entities.project.OhLohProjectEntity;
 
 @Entity
 @Table(name = OhLohCrawlerProjectEntity.NODE_NAME)
@@ -21,11 +25,15 @@ public class OhLohCrawlerProjectEntity  implements OhLohBaseEntity<Long> {
 	@GeneratedValue
 	private Long id;
 	
-	@Column(name="project_current_page")
-	private Integer projectCurrentPage;
+	@Column(name="current_page")
+	private Integer currentPage;
 	
-	@Column(name="project_total_page")
-	private Integer projectTotalPage;
+	@Column(name="total_page")
+	private Integer totalPage;
+	
+	@ManyToOne
+	@JoinColumn(name = "project_id")
+	private OhLohProjectEntity ohLohProject;
 	
 	public Long getId() {
 		return id;
@@ -35,20 +43,30 @@ public class OhLohCrawlerProjectEntity  implements OhLohBaseEntity<Long> {
 		this.id = id;
 	}
 
-	public Integer getProjectCurrentPage() {
-		return projectCurrentPage;
+	public Integer getCurrentPage() {
+		return currentPage;
 	}
 	
-	public void setProjectCurrentPage(Integer projectCurrentPage) {
-		this.projectCurrentPage = projectCurrentPage;
+	public void setCurrentPage(Integer projectCurrentPage) {
+		this.currentPage = projectCurrentPage;
 	}
 	
-	public Integer getProjectTotalPage() {
-		return projectTotalPage;
+	public Integer getTotalPage() {
+		return totalPage;
 	}
 	
-	public void setProjectTotalPage(Integer projectTotalPage) {
-		this.projectTotalPage = projectTotalPage;
+	public void setTotalPage(Integer projectTotalPage) {
+		this.totalPage = projectTotalPage;
 	}
+
+	public OhLohProjectEntity getOhLohProject() {
+		return ohLohProject;
+	}
+
+	public void setOhLohProject(OhLohProjectEntity ohLohProject) {
+		this.ohLohProject = ohLohProject;
+	}
+	
+	
 
 }
