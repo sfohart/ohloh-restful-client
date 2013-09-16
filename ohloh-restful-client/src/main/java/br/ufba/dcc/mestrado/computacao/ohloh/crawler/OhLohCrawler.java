@@ -190,7 +190,7 @@ public class OhLohCrawler {
 					config.setTotalPage(totalPages);
 				}
 				
-				if (OhLohLanguageResponse.SUCCESS.equals(response.getStatus())) {
+				if (response != null && OhLohLanguageResponse.SUCCESS.equals(response.getStatus())) {
 					OhLohLanguageResult result = response.getResult();
 					
 					if  (result != null) {
@@ -268,8 +268,8 @@ public class OhLohCrawler {
 					
 					if (totalPages <= 0 
 							&& response != null 
-							&& response.getItemsAvailable() != null 
-							&& response.getItemsReturned() != null) {
+							&& response.getItemsAvailable() != null && response.getItemsAvailable() != 0 
+							&& response.getItemsReturned() != null && response.getItemsReturned() != 0) {
 						totalPages = response.getItemsAvailable() / response.getItemsReturned();
 						config.setTotalPage(totalPages);
 					}

@@ -131,8 +131,12 @@ public class OhLohAnalysisServiceImpl extends BaseOhLohServiceImpl<OhLohAnalysis
 	@Override
 	public OhLohAnalysisEntity process(OhLohAnalysisDTO dto) throws Exception{
 		OhLohAnalysisEntity entity = super.process(dto);
-		logger.info(String.format("Salvando entidade %s com id %d para o projeto %d", entity.getClass().getName(), entity.getId(), entity.getOhlohProject().getId()));
-		analysisRepository.save(entity);
+		
+		if (entity != null) {
+			logger.info(String.format("Salvando entidade %s com id %d", entity.getClass().getName(), entity.getId()));
+			analysisRepository.save(entity);
+		}
+		
 		return entity;
 	}
 
