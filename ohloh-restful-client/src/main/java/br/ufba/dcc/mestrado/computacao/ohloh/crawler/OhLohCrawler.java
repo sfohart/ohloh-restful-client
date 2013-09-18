@@ -175,7 +175,7 @@ public class OhLohCrawler {
 		}
 		
 		try {
-			do {
+			while (page <= totalPages || totalPages == 0) {
 				
 				//configurando requisi��o
 				request.setPage(page);
@@ -210,7 +210,7 @@ public class OhLohCrawler {
 				page++;
 				config.setCurrentPage(page);
 				
-			} while (page <= totalPages);
+			} 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -256,6 +256,8 @@ public class OhLohCrawler {
 			config.setItemsAvailable(null);
 			config.setItemsPerPage(null);
 			config.setCurrentPage(null);
+			page = 1;
+			totalPages = 0;
 		}
 		
 		if (project != null && project.getId() != null) {
